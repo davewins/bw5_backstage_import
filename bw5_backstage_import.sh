@@ -1,27 +1,18 @@
 #!/bin/bash
 
-# --- 1. Settings & Toggles ---
-PUSH_TO_GITHUB=false             # Set to true for production push
+# --- 1. Settings ---
+PUSH_TO_GITHUB=false
 EAR_DIR="./ears"
 REPO_DIR="./bw5-inventory"
 APPS_DIR="$REPO_DIR/apps"
 RES_DIR="$REPO_DIR/resources"
 IMPORT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-# --- 2. Pre-flight Checks ---
-if [[ -z "$TRA_HOME" ]]; then echo "❌ ERROR: TRA_HOME not set."; exit 1; fi
+# --- 2. Checks ---
+[[ -z "$TRA_HOME" ]] && { echo "❌ TRA_HOME not set."; exit 1; }
 APPMANAGE_BIN="$TRA_HOME/bin/AppManage"
 APPMANAGE_TRA="${APPMANAGE_BIN}.tra"
 
-# Check GitHub Credentials (if pushing)
-if [ "$PUSH_TO_GITHUB" = true ]; then
-    if [[ -z "$GITHUB_USER" || -z "$GITHUB_TOKEN" || -z "$GITHUB_REPO" ]]; then
-        echo "❌ ERROR: GITHUB_USER, GITHUB_TOKEN, and GITHUB_REPO must be set for push."
-        exit 1
-    fi
-fi
-
-# Prepare Workspace
 shopt -s nullglob
 mkdir -p "$APPS_DIR" "$RES_DIR"
 rm -f "$APPS_DIR"/*.yaml
@@ -40,43 +31,37 @@ spec:
     - ./resources/discovered-infrastructure.yaml" > "$REPO_DIR/catalog-info.yaml"
 
 # --- 3. The Extraction Loop ---
-echo "🚀 Starting Batch Import (Timestamp: $IMPORT_TIME)..."
-
 for ear in "${EAR_DIR}"/*.ear; do
     filename=$(basename -- "$ear")
     app_name="${filename%.*}"
     clean_name=$(echo "$app_name" | tr '[:upper:]' '[:lower:]' | tr '_ ' '-' | sed 's/[^a-z0-9-]//g' | sed 's/^-//;s/-$//')
 
-    echo "▶️ Processing: $filename"
+    echo "▶️ Deep Scanning: $filename"
     XML_FILE="/tmp/${clean_name}_config.xml"
     $APPMANAGE_BIN --propFile "$APPMANAGE_TRA" -export -ear "$ear" -out "$XML_FILE" > /dev/null 2>&1
 
-    if [[ ! -f "$XML_FILE" ]]; then
-        echo "   ❌ ERROR: Export failed for $filename"
-        continue
-    fi
+    if [[ ! -f "$XML_FILE" ]]; then continue; fi
 
-    # --- ARCHITECTURAL GLEANING ---
+    # --- NEW: Process Anatomy Extraction ---
+    # Extract Fault Tolerance status
+    IS_FT=$(grep -oP '(?<=<isFt>).*?(?=</isFt>)' "$XML_FILE" || echo "false")
     
-    # 1. Detect Tech Stack (Tags)
-    TAGS="[\"bw5-imported\""
-    grep -qi "JDBCpalette" "$XML_FILE" && TAGS+=", \"jdbc\""
-    grep -qi "SOAPpalette" "$XML_FILE" && TAGS+=", \"soap\""
-    grep -qi "JMSpalette" "$XML_FILE" && TAGS+=", \"jms\""
-    grep -qi "RESTpalette" "$XML_FILE" && TAGS+=", \"rest\""
-    
-    # 2. Check for "Broken Links" (Empty Global Variables)
-    if grep -qP '<value>\s*</value>|<value/>' "$XML_FILE"; then
-        TAGS+=", \"needs-review\""
-        STATUS_MSG="⚠️ Flagged: Empty Global Variables found."
-    else
-        STATUS_MSG="✅ Clean: All variables populated."
-    fi
-    TAGS+="]"
-
-    # 3. Extract Metadata (Designer Ver & Max Jobs)
-    TIB_VER=$(grep -A 1 "ae.designerapp.version" "$XML_FILE" | grep "value" | sed 's/<[^>]*>//g' | xargs | head -n 1 || echo "Unknown")
-    MAX_JOBS=$(grep -A 1 "maxJobs" "$XML_FILE" | grep "value" | sed 's/<[^>]*>//g' | xargs | head -n 1 || echo "Default")
+    # Parse the list of processes and their starters/limits
+    # This block uses a small loop to find every process entry in the XML
+    PROCESS_SUMMARY=""
+    while read -r line; do
+        # Extract name, remove path (e.g. Processes/), and remove .process extension
+        P_NAME=$(echo "$line" | grep -oP '(?<=name=").*?(?=")' | sed 's|.*/||; s/\.process//')
+        
+        # Look ahead for the starter type and limits for this specific process
+        # This finds the block following the process name match
+        P_BLOCK=$(sed -n "/name=\".*${P_NAME}.process\"/,/<\/bwprocess>/p" "$XML_FILE")
+        P_STARTER=$(echo "$P_BLOCK" | grep -oP '(?<=<starter>).*?(?=</starter>)' | head -1)
+        P_MAX=$(echo "$P_BLOCK" | grep -oP '(?<=<maxJob>).*?(?=</maxJob>)' | head -1)
+        P_FLOW=$(echo "$P_BLOCK" | grep -oP '(?<=<flowLimit>).*?(?=</flowLimit>)' | head -1)
+        
+        PROCESS_SUMMARY+="- ${P_NAME} (Starter: ${P_STARTER}, Max: ${P_MAX}, Flow: ${P_FLOW})\n"
+    done < <(grep "<bwprocess " "$XML_FILE")
 
     # --- Generate YAML ---
     cat <<EOF > "$APPS_DIR/$clean_name.yaml"
@@ -84,12 +69,15 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: $clean_name
-  description: "BW5 App: $app_name | Designer: $TIB_VER"
-  tags: $TAGS
+  description: |
+    BW5 Service: $app_name
+    Fault Tolerant: $IS_FT
+    Processes:
+    $(echo -e "$PROCESS_SUMMARY")
   annotations:
-    tibco.com/max-jobs: "$MAX_JOBS"
-    tibco.com/config-status: "$STATUS_MSG"
+    tibco.com/is-fault-tolerant: "$IS_FT"
     backstage.io/imported-at: "$IMPORT_TIME"
+  tags: ["bw5-imported"]
 spec:
   type: service
   lifecycle: production
@@ -97,7 +85,7 @@ spec:
   dependsOn:
 EOF
 
-    # Map Infrastructure (JDBC/JMS)
+    # Infrastructure discovery (JDBC/JMS)
     dbs=$(grep -oP 'jdbc:[^<]+' "$XML_FILE" | sort -u)
     for d in $dbs; do
         res_id="db-$(echo "$d" | sed 's/[^a-z0-9]/-/g' | cut -c1-40 | tr '[:upper:]' '[:lower:]' | sed 's/-$//')"
@@ -130,23 +118,33 @@ echo "🏗️  Finalizing Infrastructure Map..."
   fi
 } > "$RES_DIR/discovered-infrastructure.yaml"
 
-# --- 5. GitHub Integration ---
+# --- 5. GitHub Registry Push ---
 if [ "$PUSH_TO_GITHUB" = true ]; then
-    echo "🚀 Syncing to GitHub..."
-    cd "$REPO_DIR"
-    AUTH_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git"
+    echo "🚀 Checking if GitHub Registry exists..."
 
-    if [ ! -d ".git" ]; then
-        git init
-        git remote add origin "$AUTH_URL"
-        git branch -M main
+    # 1. Use GitHub API to check if repo exists; if not, create it
+    REPO_STATUS=$(curl -o /dev/null -s -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" \
+                  "https://api.github.com/repos/$GITHUB_USER/$GITHUB_REPO")
+
+    if [ "$REPO_STATUS" -ne 200 ]; then
+        echo "📂 Repository not found. Creating $GITHUB_REPO on GitHub..."
+        curl -H "Authorization: token $GITHUB_TOKEN" \
+             -d "{\"name\":\"$GITHUB_REPO\", \"private\":true, \"description\":\"BW5 Registry for TIBCO Developer Hub\"}" \
+             "https://api.github.com/user/repos"
     fi
 
+    echo "🚀 Syncing Registry to GitHub..."
+    pushd "$REPO_DIR" > /dev/null
+
+
+    # Ensure a local registry .gitignore exists
+    echo -e "*\n!*/\n!*.yaml\n!catalog-info.yaml\n!.gitignore" > .gitignore
+    AUTH_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git"
+    [ ! -d ".git" ] && git init && git remote add origin "$AUTH_URL" && git branch -M main
     git add .
-    git commit -m "BW5 Architectural Sync - $IMPORT_TIME"
+    git commit -m "Registry Sync: $IMPORT_TIME"
     git push -u origin main
-    echo "✨ All apps are now live in GitHub."
-else
-    echo "💾 Local mode: Process finished. Check ./bw5-inventory"
+    popd > /dev/null
 fi
 
+echo "💾 Process finished. Check $REPO_DIR"

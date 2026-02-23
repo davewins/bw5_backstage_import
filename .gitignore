@@ -1,1 +1,17 @@
 /ears
+
+# Ignore everything by default
+*
+
+# Allow the specific Backstage YAML files
+!*/
+!*.yaml
+!*.yml
+!catalog-info.yaml
+
+# Allow the .gitignore itself
+!.gitignore
+
+# Ignore temporary TIBCO XML exports if they land here
+*.xml
+*.log
