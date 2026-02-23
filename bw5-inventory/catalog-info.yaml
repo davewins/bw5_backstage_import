@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bw5-global-inventory
+spec:
+  targets:
+    - ./resources/discovered-infrastructure.yaml
+    - ./apps/greeting.yaml
