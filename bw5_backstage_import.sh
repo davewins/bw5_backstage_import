@@ -19,13 +19,14 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-# --- 3. Pre-flight Checks ---
+# --- 3. Pre-flight Checks (TRA & BW6) ---
 [[ -z "$TRA_HOME" ]] && { echo "❌ ERROR: TRA_HOME not set."; exit 1; }
 [[ -z "$BW6_HOME" ]] && { echo "❌ ERROR: BW6_HOME (for bwdesign) not set."; exit 1; }
 
 APPMANAGE_BIN="$TRA_HOME/bin/AppManage"
 APPMANAGE_TRA="${APPMANAGE_BIN}.tra"
 BWDESIGN_BIN="$BW6_HOME/bin/bwdesign"
+BWDESIGN_TRA="${BWDESIGN_BIN}.tra"
 
 [[ ! -x "$BWDESIGN_BIN" ]] && { echo "❌ ERROR: bwdesign not found at $BWDESIGN_BIN"; exit 1; }
 
@@ -33,7 +34,7 @@ if [ "$PUSH_TO_GITHUB" = true ]; then
     [[ -z "$GITHUB_USER" || -z "$GITHUB_TOKEN" || -z "$GITHUB_REPO" ]] && { echo "❌ ERROR: GitHub ENV missing."; exit 1; }
 fi
 
-# Workspace Setup
+# Prepare Workspace
 shopt -s nullglob
 mkdir -p "$APPS_DIR" "$RES_DIR"
 TMP_DB_LIST="/tmp/db_unique.txt"
@@ -60,7 +61,7 @@ for ear in "${EAR_DIR}"/*.ear; do
 
     [[ "$VERBOSE" == "true" ]] && echo "▶️  Processing: $filename"
 
-    # Setup TechDocs folder structure
+    # Setup TechDocs structure
     APP_BASE_DIR="$APPS_DIR/$clean_name"
     APP_DOCS_DIR="$APP_BASE_DIR/docs"
     IMG_DIR="$APP_DOCS_DIR/images"
@@ -71,7 +72,7 @@ for ear in "${EAR_DIR}"/*.ear; do
     "$APPMANAGE_BIN" --propFile "$APPMANAGE_TRA" -export -ear "$ear" -out "$XML_FILE" > /dev/null 2>&1
     [[ ! -f "$XML_FILE" ]] && { echo "   ❌ AppManage failed"; continue; }
 
-    # 4b. Extract Anatomy & Scale Info
+    # 4b. Extract Anatomy & FT Status
     IS_FT=$(grep -oP '(?<=<isFt>).*?(?=</isFt>)' "$XML_FILE" | head -1 || echo "false")
     PROCESS_SUMMARY_FILE="/tmp/${clean_name}_procs.txt"
     > "$PROCESS_SUMMARY_FILE"
@@ -93,12 +94,14 @@ for ear in "${EAR_DIR}"/*.ear; do
     sed 'N;s/<name>\(.*\)<\/name>.*\n.*<value>\(.*\)<\/value>/\1: "\2"/' | \
     grep -vE "Password|#!|Modulus|PrivateExponent" | sed 's/^/- /' > "$GV_FILE"
 
-    # 4d. Diagram Export (bwdesign)
+    # 4d. Diagram Export (bwdesign with propFile)
     EXTRACT_PATH="/tmp/extract_$clean_name"
     mkdir -p "$EXTRACT_PATH"
     unzip -q "$ear" -d "$EXTRACT_PATH"
-    # Note: Using Xvfb-run if server is headless is recommended here
-    "$BWDESIGN_BIN" -data "/tmp/bw_ws" export-diagram -p "$EXTRACT_PATH" -o "$IMG_DIR" > /dev/null 2>&1
+    
+    # Using bwdesign with the required --propFile
+    # Run via xvfb-run if you are in a headless environment
+    "$BWDESIGN_BIN" --propFile "$BWDESIGN_TRA" -data "/tmp/bw_ws" export-diagram -p "$EXTRACT_PATH" -o "$IMG_DIR" > /dev/null 2>&1
 
     # 4e. Generate TechDocs Content
     echo "site_name: $app_name Docs" > "$APP_BASE_DIR/mkdocs.yml"
@@ -136,7 +139,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: group:default/tibco-admins
+  owner: group:default/tibco-imported
   dependsOn:
 EOF
 
