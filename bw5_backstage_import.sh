@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# --- 1. Configuration ---
+# --- 1. Configuration & Toggles ---
 EAR_DIR="./ears"
 REPO_DIR="./bw5-inventory"
 APPS_DIR="$REPO_DIR/apps"
@@ -21,23 +21,27 @@ done
 
 # --- 3. Pre-flight Checks ---
 [[ -z "$TRA_HOME" ]] && { echo "❌ ERROR: TRA_HOME not set."; exit 1; }
+[[ -z "$BW6_HOME" ]] && { echo "❌ ERROR: BW6_HOME (for bwdesign) not set."; exit 1; }
+
 APPMANAGE_BIN="$TRA_HOME/bin/AppManage"
 APPMANAGE_TRA="${APPMANAGE_BIN}.tra"
+BWDESIGN_BIN="$BW6_HOME/bin/bwdesign"
+
+[[ ! -x "$BWDESIGN_BIN" ]] && { echo "❌ ERROR: bwdesign not found at $BWDESIGN_BIN"; exit 1; }
 
 if [ "$PUSH_TO_GITHUB" = true ]; then
-    [[ -z "$GITHUB_USER" || -z "$GITHUB_TOKEN" || -z "$GITHUB_REPO" ]] && { echo "❌ ERROR: GitHub credentials missing."; exit 1; }
+    [[ -z "$GITHUB_USER" || -z "$GITHUB_TOKEN" || -z "$GITHUB_REPO" ]] && { echo "❌ ERROR: GitHub ENV missing."; exit 1; }
 fi
 
 # Workspace Setup
 shopt -s nullglob
 mkdir -p "$APPS_DIR" "$RES_DIR"
-rm -f "$APPS_DIR"/*.yaml
 TMP_DB_LIST="/tmp/db_unique.txt"
 TMP_JMS_LIST="/tmp/jms_unique.txt"
 > "$TMP_DB_LIST"
 > "$TMP_JMS_LIST"
 
-# Initialize Index
+# Initialize Root Index
 echo "apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
@@ -46,8 +50,8 @@ spec:
   targets:
     - ./resources/discovered-infrastructure.yaml" > "$REPO_DIR/catalog-info.yaml"
 
-# --- 4. Loop ---
-echo "🚀 Starting Secure Deep Inventory Scan..."
+# --- 4. Processing Loop ---
+echo "🚀 Starting Full Architectural Extraction & Rendering..."
 
 for ear in "${EAR_DIR}"/*.ear; do
     filename=$(basename -- "$ear")
@@ -55,61 +59,77 @@ for ear in "${EAR_DIR}"/*.ear; do
     clean_name=$(echo "$app_name" | tr '[:upper:]' '[:lower:]' | tr '_ ' '-' | sed 's/[^a-z0-9-]//g' | sed 's/^-//;s/-$//')
 
     [[ "$VERBOSE" == "true" ]] && echo "▶️  Processing: $filename"
-    
+
+    # Setup TechDocs folder structure
+    APP_BASE_DIR="$APPS_DIR/$clean_name"
+    APP_DOCS_DIR="$APP_BASE_DIR/docs"
+    IMG_DIR="$APP_DOCS_DIR/images"
+    mkdir -p "$IMG_DIR"
+
+    # 4a. Export XML Metadata (AppManage)
     XML_FILE="/tmp/${clean_name}_config.xml"
     "$APPMANAGE_BIN" --propFile "$APPMANAGE_TRA" -export -ear "$ear" -out "$XML_FILE" > /dev/null 2>&1
-    [[ ! -f "$XML_FILE" ]] && { echo "   ❌ AppManage failed for $filename"; continue; }
+    [[ ! -f "$XML_FILE" ]] && { echo "   ❌ AppManage failed"; continue; }
 
-    # --- A. FT & Scale Detection ---
+    # 4b. Extract Anatomy & Scale Info
     IS_FT=$(grep -oP '(?<=<isFt>).*?(?=</isFt>)' "$XML_FILE" | head -1 || echo "false")
-    
-    # --- B. Process Extraction (Preserving Paths) ---
     PROCESS_SUMMARY_FILE="/tmp/${clean_name}_procs.txt"
     > "$PROCESS_SUMMARY_FILE"
+    
     grep -n "<bwprocess " "$XML_FILE" | while IFS=: read -r line_num line_content; do
         P_PATH=$(echo "$line_content" | grep -oP '(?<=name=").*?(?=")')
         P_BLOCK=$(tail -n +$line_num "$XML_FILE" | head -n 12)
-        P_STARTER=$(echo "$P_BLOCK" | grep -oP '(?<=<starter>).*?(?=</starter>)' | head -1)
         P_MAX=$(echo "$P_BLOCK" | grep -oP '(?<=<maxJob>).*?(?=</maxJob>)' | head -1)
         P_FLOW=$(echo "$P_BLOCK" | grep -oP '(?<=<flowLimit>).*?(?=</flowLimit>)' | head -1)
+        P_STARTER=$(echo "$P_BLOCK" | grep -oP '(?<=<starter>).*?(?=</starter>)' | head -1)
         
-        [[ "$P_MAX" -gt 0 || "$P_FLOW" -gt 0 ]] && touch "/tmp/${clean_name}_scale_flag"
+        [[ "$P_MAX" -gt 0 || "$P_FLOW" -gt 0 ]] && touch "/tmp/${clean_name}_scale"
         echo "- ${P_PATH} [Starter: ${P_STARTER} | Max: ${P_MAX} | Flow: ${P_FLOW}]" >> "$PROCESS_SUMMARY_FILE"
     done
 
-    # --- C. Secure Global Variable Extraction ---
-    GV_SUMMARY_FILE="/tmp/${clean_name}_gv.txt"
-    > "$GV_SUMMARY_FILE"
-    # Isolate Global Variables block, pair name/value, then filter out passwords
-    sed -n '/name="Global Variables"/,/<\/NVPairs>/p' "$XML_FILE" | \
-    grep -E "<name>|<value>" | \
+    # 4c. Secure Global Variable Extraction
+    GV_FILE="/tmp/${clean_name}_gv.txt"
+    sed -n '/name="Global Variables"/,/<\/NVPairs>/p' "$XML_FILE" | grep -E "<name>|<value>" | \
     sed 'N;s/<name>\(.*\)<\/name>.*\n.*<value>\(.*\)<\/value>/\1: "\2"/' | \
-    grep -vE "Password|#!|Modulus|PrivateExponent" | \
-    sed 's/^/- /' >> "$GV_SUMMARY_FILE"
+    grep -vE "Password|#!|Modulus|PrivateExponent" | sed 's/^/- /' > "$GV_FILE"
 
-    # --- D. YAML Generation ---
+    # 4d. Diagram Export (bwdesign)
+    EXTRACT_PATH="/tmp/extract_$clean_name"
+    mkdir -p "$EXTRACT_PATH"
+    unzip -q "$ear" -d "$EXTRACT_PATH"
+    # Note: Using Xvfb-run if server is headless is recommended here
+    "$BWDESIGN_BIN" -data "/tmp/bw_ws" export-diagram -p "$EXTRACT_PATH" -o "$IMG_DIR" > /dev/null 2>&1
+
+    # 4e. Generate TechDocs Content
+    echo "site_name: $app_name Docs" > "$APP_BASE_DIR/mkdocs.yml"
+    {
+      echo "# $app_name Architecture"
+      echo "### Process Anatomy"
+      cat "$PROCESS_SUMMARY_FILE"
+      echo -e "\n### Process Diagrams"
+      for img in "$IMG_DIR"/*.png; do
+          img_fn=$(basename "$img")
+          echo "#### ${img_fn%.*}"
+          echo "![$img_fn](images/$img_fn)"
+      done
+      echo -e "\n### Configuration (Non-Sensitive)"
+      cat "$GV_FILE"
+    } > "$APP_DOCS_DIR/index.md"
+
+    # 4f. Final Component YAML
     TAGS="[\"bw5-imported\""
-    [[ -f "/tmp/${clean_name}_scale_flag" ]] && { TAGS+=", \"high-concurrency\""; rm "/tmp/${clean_name}_scale_flag"; }
+    [[ -f "/tmp/${clean_name}_scale" ]] && { TAGS+=", \"high-concurrency\""; rm "/tmp/${clean_name}_scale"; }
     [[ "$IS_FT" == "true" ]] && TAGS+=", \"fault-tolerant\""
     TAGS+="]"
 
-    F_PROCS=$(sed 's/^/    /' "$PROCESS_SUMMARY_FILE")
-    F_GVS=$(sed 's/^/    /' "$GV_SUMMARY_FILE")
-
-    cat <<EOF > "$APPS_DIR/$clean_name.yaml"
+    cat <<EOF > "$APP_BASE_DIR/catalog-info.yaml"
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: $clean_name
-  description: |
-    TIBCO BW5 Service: $app_name
-    
-    Processes:
-$F_PROCS
-    
-    Global Variables (Non-Sensitive):
-$F_GVS
+  description: "TIBCO BW5 Service: $app_name"
   annotations:
+    backstage.io/techdocs-ref: dir:.
     tibco.com/is-fault-tolerant: "$IS_FT"
     backstage.io/imported-at: "$IMPORT_TIME"
   tags: $TAGS
@@ -125,17 +145,17 @@ EOF
         prefix="endpoint"
         [[ "$url" == jdbc* ]] && prefix="db"
         res_id="${prefix}-$(echo "$url" | sed 's/[^a-z0-9]/-/g' | cut -c1-40 | tr '[:upper:]' '[:lower:]' | sed 's/-$//')"
-        echo "    - resource:default/$res_id" >> "$APPS_DIR/$clean_name.yaml"
+        echo "    - resource:default/$res_id" >> "$APP_BASE_DIR/catalog-info.yaml"
         [[ "$prefix" == "db" ]] && echo "$res_id|$url" >> "$TMP_DB_LIST" || echo "$res_id|$url" >> "$TMP_JMS_LIST"
     done
 
-    echo "    - ./apps/$clean_name.yaml" >> "$REPO_DIR/catalog-info.yaml"
-    rm -f "$XML_FILE" "$PROCESS_SUMMARY_FILE" "$GV_SUMMARY_FILE"
+    echo "    - ./apps/$clean_name/catalog-info.yaml" >> "$REPO_DIR/catalog-info.yaml"
+    rm -rf "$EXTRACT_PATH" "$XML_FILE" "$PROCESS_SUMMARY_FILE" "$GV_FILE"
 done
 
-# --- 5. Infrastructure Resource Generation ---
+# --- 5. Generate Global Infrastructure YAML ---
 {
-  echo "# Discovered Infrastructure via EAR Batch Scan"
+  echo "# Discovered Infrastructure"
   [[ -s "$TMP_DB_LIST" ]] && sort -u "$TMP_DB_LIST" | while IFS='|' read -r id url; do
     echo -e "---\napiVersion: backstage.io/v1alpha1\nkind: Resource\nmetadata:\n  name: $id\n  description: \"JDBC: $url\"\nspec:\n  type: database\n  owner: group:default/infrastructure-team"
   done
@@ -151,12 +171,13 @@ if [ "$PUSH_TO_GITHUB" = true ]; then
     [[ "$REPO_CHECK" -ne 200 ]] && curl -s -H "Authorization: token $GITHUB_TOKEN" -d "{\"name\":\"$GITHUB_REPO\", \"private\":true}" "https://api.github.com/user/repos"
 
     pushd "$REPO_DIR" > /dev/null
-    echo -ne "*\n!*/\n!*.yaml\n!catalog-info.yaml\n!.gitignore" > .gitignore
+    echo -ne "*\n!*/\n!*.yaml\n!*.yml\n!*.md\n!*.png\n!.gitignore" > .gitignore
     AUTH_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git"
     [[ ! -d ".git" ]] && git init && git remote add origin "$AUTH_URL" && git branch -M main
     git add .
-    git commit -m "Registry Sync: $IMPORT_TIME"
+    git commit -m "Registry & TechDocs Sync: $IMPORT_TIME"
     git push -u origin main
     popd > /dev/null
-    echo "✨ Registry Updated on GitHub."
+    echo "✨ Registry & Diagrams Updated on GitHub."
 fi
+
