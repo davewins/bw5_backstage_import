@@ -5,6 +5,7 @@ EAR_DIR="./ears"
 REPO_DIR="./bw5-inventory"
 APPS_DIR="$REPO_DIR/apps"
 RES_DIR="$REPO_DIR/resources"
+LIB_DIR="$REPO_DIR/libs"
 IMPORT_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 # --- 2. Argument Parsing ---
@@ -27,129 +28,113 @@ done
 APPMANAGE_BIN="$TRA_HOME/bin/AppManage"
 APPMANAGE_TRA="${APPMANAGE_BIN}.tra"
 
-# Prepare Workspace
-shopt -s nullglob
-mkdir -p "$APPS_DIR" "$RES_DIR"
+mkdir -p "$APPS_DIR" "$RES_DIR" "$LIB_DIR"
 rm -f "$APPS_DIR"/*.yaml
 
 TMP_DB_LIST="/tmp/db_unique.txt"
 TMP_JMS_LIST="/tmp/jms_unique.txt"
-IP_AUDIT_LOG="/tmp/ip_audit_summary.txt"
+TMP_LIB_LIST="/tmp/lib_discovered.txt"
+GLOBAL_CATALOG_LIST="/tmp/global_catalog_targets.tmp"
+
 > "$TMP_DB_LIST"
 > "$TMP_JMS_LIST"
-> "$IP_AUDIT_LOG"
+> "$TMP_LIB_LIST"
+> "$GLOBAL_CATALOG_LIST"
 
-# Initialize Root Location for Backstage
-echo "apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: bw5-global-inventory
-spec:
-  targets:
-    - ./resources/discovered-infrastructure.yaml" > "$REPO_DIR/catalog-info.yaml"
+echo "    - ./resources/discovered-infrastructure.yaml" >> "$GLOBAL_CATALOG_LIST"
+echo "    - ./libs/catalog-info.yaml" >> "$GLOBAL_CATALOG_LIST"
 
 # --- 4. Processing Loop ---
-echo "🚀 Starting Full Architectural Extraction..."
-SUCCESS_COUNT=0
-
 for ear in "${EAR_DIR}"/*.ear; do
     filename=$(basename -- "$ear")
     app_name="${filename%.*}"
     clean_name=$(echo "$app_name" | tr '[:upper:]' '[:lower:]' | tr '_ ' '-' | sed 's/[^a-z0-9-]//g' | sed 's/^-//;s/-$//')
 
     echo "▶️ Processing: $filename"
-
     APP_BASE_DIR="$(pwd)/$APPS_DIR/$clean_name"
     APP_DOCS_DIR="$APP_BASE_DIR/docs"
     mkdir -p "$APP_DOCS_DIR"
+    echo "    - ./apps/$clean_name/catalog-info.yaml" >> "$GLOBAL_CATALOG_LIST"
 
-    # 4a. Metadata Export
     XML_FILE="/tmp/${clean_name}_config.xml"
     ( unset LD_PRELOAD; "$APPMANAGE_BIN" --propFile "$APPMANAGE_TRA" -export -ear "$ear" -out "$XML_FILE" > /dev/null 2>&1 )
-    [[ ! -f "$XML_FILE" ]] && { echo "   ❌ AppManage failed for $filename"; continue; }
 
-    # 4b. Recursive Extraction
     EXTRACT_PATH="/tmp/extract_$clean_name"
     rm -rf "$EXTRACT_PATH" && mkdir -p "$EXTRACT_PATH"
     unzip -q "$ear" -d "$EXTRACT_PATH"
-    
-    find "$EXTRACT_PATH" -name "*.zip" -o -name "*.sar" -o -name "*.par" | while read -r sub; do
-        target_dir="${sub%.*}"
-        [[ "$VERBOSE" == "true" ]] && echo "   📦 Unpacking: $(basename "$sub")"
-        mkdir -p "$target_dir"
-        unzip -q -o "$sub" -d "$target_dir"
+    find "$EXTRACT_PATH" -type f \( -name "*.par" -o -name "*.sar" -o -name "*.zip" \) | while read -r sub; do
+        unzip -q -o "$sub" -d "${sub%.*}"
     done
 
-    # 4c. Process Discovery & Mermaid Generation
-    PROC_DATA="/tmp/${clean_name}_procs.raw"
-    MERMAID_SECTION="/tmp/${clean_name}_mermaid.md"
-    > "$PROC_DATA"
-    > "$MERMAID_SECTION"
+    LOCAL_LIB_DEPS="/tmp/${clean_name}_local_libs.tmp"
+    > "$LOCAL_LIB_DEPS"
 
-    find "$EXTRACT_PATH" -name "*.process" | sort | while read -r proc_file; do
+    # Unique Library ID combining App Name and Library Name
+    find "$EXTRACT_PATH" -name "*.sar" | while read -r sar_file; do
+        sar_filename=$(basename "$sar_file")
+        lib_id="${clean_name}-$(echo "${sar_filename%.*}" | tr '[:upper:]' '[:lower:]' | tr '_ ' '-' | sed 's/[^a-z0-9-]//g')"
+        lib_extract_path="/tmp/lib_extract_$lib_id"
+        mkdir -p "$lib_extract_path"
+        unzip -q -o "$sar_file" -d "$lib_extract_path"
+        
+        if find "$lib_extract_path" -iname "*.process" | grep -q "."; then
+            [[ "$VERBOSE" == "true" ]] && echo "   📦 Shared Library: $lib_id"
+            echo "$lib_id|${sar_filename%.*} (Internal to $app_name)|$lib_extract_path" >> "$TMP_LIB_LIST"
+            echo "    - component:default/$lib_id" >> "$LOCAL_LIB_DEPS"
+        fi
+    done
+
+    # Process Discovery
+    PROC_DATA_FILE="/tmp/${clean_name}_procs.raw"
+    MERMAID_SECTION_FILE="/tmp/${clean_name}_mermaid.md"
+    > "$PROC_DATA_FILE" && > "$MERMAID_SECTION_FILE"
+
+    find "$EXTRACT_PATH" -iname "*.process" | sort | while read -r proc_file; do
         rel_proc=$(echo "$proc_file" | sed "s|$EXTRACT_PATH/||")
         [[ "$VERBOSE" == "true" ]] && echo "   🔍 Scoping: $rel_proc"
-        
+
         P_BASE=$(basename "$rel_proc")
         P_MATCH=$(grep -n "name=\"$P_BASE\"" "$XML_FILE" | head -1 | cut -d: -f1)
-        if [[ -n "$P_MATCH" ]]; then
-            P_BLOCK=$(tail -n +$P_MATCH "$XML_FILE" | head -n 12)
-            P_MAX=$(echo "$P_BLOCK" | grep -oP '(?<=<maxJob>).*?(?=</maxJob>)' | head -1 || echo "0")
-            P_FLOW=$(echo "$P_BLOCK" | grep -oP '(?<=<flowLimit>).*?(?=</flowLimit>)' | head -1 || echo "0")
-        else
-            P_MAX="0"; P_FLOW="0"
-        fi
+        [[ -n "$P_MATCH" ]] && P_BLOCK=$(tail -n +$P_MATCH "$XML_FILE" | head -n 12)
+        P_MAX=$(echo "$P_BLOCK" | grep -oP '(?<=<maxJob>).*?(?=</maxJob>)' | head -1 || echo "0")
+        P_FLOW=$(echo "$P_BLOCK" | grep -oP '(?<=<flowLimit>).*?(?=</flowLimit>)' | head -1 || echo "0")
 
-        GROUP=$(echo "$rel_proc" | cut -d'/' -f1)
-        echo "$GROUP|$rel_proc|$P_MAX|$P_FLOW" >> "$PROC_DATA"
+        fid=$(echo "$rel_proc" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
+        echo "$(echo "$rel_proc" | cut -d'/' -f1)|$rel_proc|$P_MAX|$P_FLOW|$fid" >> "$PROC_DATA_FILE"
 
-        # The Header text is exactly "#### Process: $rel_proc"
-        echo "#### Process: $rel_proc" >> "$MERMAID_SECTION"
-        echo '```mermaid' >> "$MERMAID_SECTION"
-        echo "graph LR" >> "$MERMAID_SECTION"
-        echo "    linkStyle default stroke:#333,stroke-width:2px;" >> "$MERMAID_SECTION"
-        
-        T_COUNT=0
+        echo "#### Process: $rel_proc {: #$fid }" >> "$MERMAID_SECTION_FILE"
+        echo '```mermaid' >> "$MERMAID_SECTION_FILE"
+        echo "graph LR" >> "$MERMAID_SECTION_FILE"
         perl -0777 -ne 'while(/<(?:pd:)?transition>.*?<(?:pd:)?from>(.*?)<\/(?:pd:)?from>.*?<(?:pd:)?to>(.*?)<\/(?:pd:)?to>(?:.*?<(?:pd:)?conditionType>(.*?)<\/(?:pd:)?conditionType>)?.*?<\/(?:pd:)?transition>/gs){ print "$1|$2|$3\n"; }' "$proc_file" | while IFS='|' read -r FROM TO COND; do
             [[ -z "$FROM" || -z "$TO" ]] && continue
-            C_FROM="n_$(echo "$FROM" | sed 's/[^a-zA-Z0-9]/_/g')"
-            C_TO="n_$(echo "$TO" | sed 's/[^a-zA-Z0-9]/_/g')"
-            
-            if [[ "$COND" == "error" ]]; then
-                echo "    $C_FROM([\"$FROM\"]) -- Error --> $C_TO([\"$TO\"])" >> "$MERMAID_SECTION"
-                echo "    linkStyle $T_COUNT stroke:#ff0000,stroke-width:2px;" >> "$MERMAID_SECTION"
-            elif [[ -n "$COND" && "$COND" != "always" ]]; then
-                echo "    $C_FROM([\"$FROM\"]) -- \"$COND\" --> $C_TO([\"$TO\"])" >> "$MERMAID_SECTION"
-            else
-                echo "    $C_FROM([\"$FROM\"]) --> $C_TO([\"$TO\"])" >> "$MERMAID_SECTION"
-            fi
-            ((T_COUNT++))
+            echo "    n_$(echo "$FROM" | sed 's/[^a-zA-Z0-9]/_/g')([\"$FROM\"]) --> n_$(echo "$TO" | sed 's/[^a-zA-Z0-9]/_/g')([\"$TO\"])" >> "$MERMAID_SECTION_FILE"
         done
-        echo '```' >> "$MERMAID_SECTION"
-        echo -e "\n[↑ Back to Inventory](#process-inventory)\n" >> "$MERMAID_SECTION"
+        echo -e '```\n\n[↑ Back to Inventory](#process-inventory)\n' >> "$MERMAID_SECTION_FILE"
     done
 
-    # 4d. GV Extraction & Audit
-    GV_TABLE="| Variable Name | Value | Status |\n| :--- | :--- | :--- |\n"
-    GV_RAW="/tmp/${clean_name}_gv.raw"
-    sed -n '/name="Global Variables"/,/<\/NVPairs>/p' "$XML_FILE" | grep -E "<name>|<value>" | \
-    sed 'N;s/<name>\(.*\)<\/name>.*\n.*<value>\(.*\)<\/value>/\1|\2/' | \
-    grep -vE "Password|#!|Modulus|PrivateExponent" > "$GV_RAW"
-
-    HAS_IP_ISSUE=false
-    while IFS='|' read -r name value; do
+    # --- REFACTORED COMPILATION-SAFE GV EXTRACTION ---
+    GV_MD_FILE="/tmp/${clean_name}_gv.md"
+    echo -e "| Variable Name | Value | Status |" > "$GV_MD_FILE"
+    echo -e "| :--- | :--- | :--- |" >> "$GV_MD_FILE"
+    
+    # Using a safer approach to Perl to avoid Compilation Errors
+    perl -ne '
+        if (/<name>(.*?)<\/name>/) { $n = $1; }
+        if (/<value>(.*?)<\/value>/) { 
+            $v = $1; 
+            if ($n) {
+                if ($n =~ /Key|Token|Modulus|Exponent/i) { $v = substr($v,0,30)."..." }
+                else { $v =~ s/(.{25})/$1&#x200B;/g }
+                print "$n|$v\n";
+                $n = ""; $v = "";
+            }
+        }
+    ' "$XML_FILE" | while IFS='|' read -r name value; do
         STATUS="✅ OK"
-        if [[ $value =~ ([0-9]{1,3}\.){3}[0-9]{1,3} ]]; then
-            if [[ ! $value =~ "127.0.0.1" && ! $value =~ "0.0.0.0" ]]; then
-                STATUS="⚠️ **Hardcoded IP**"
-                HAS_IP_ISSUE=true
-            fi
-        fi
-        GV_TABLE+="| $name | \`$value\` | $STATUS |\n"
-    done < "$GV_RAW"
-    [[ "$HAS_IP_ISSUE" == "true" ]] && echo "$filename" >> "$IP_AUDIT_LOG"
+        [[ "$value" =~ ([0-9]{1,3}\.){3}[0-9]{1,3} && ! "$value" =~ "127.0.0.1" ]] && STATUS="⚠️ **IP**"
+        echo "| $name | \`$value\` | $STATUS |" >> "$GV_MD_FILE"
+    done
 
-    # 4e. TechDocs generation (Nav-Fix & Double-Hyphen Slug)
     cat <<EOF > "$APP_BASE_DIR/mkdocs.yml"
 site_name: $app_name Docs
 nav:
@@ -157,104 +142,104 @@ nav:
   - Process Inventory: index.md#process-inventory
   - Visual Flow Diagrams: index.md#visual-flow-diagrams
   - Global Variables: index.md#global-variables
-theme:
-  name: material
-  features:
-    - navigation.sections
-    - navigation.expand
-    - toc.follow
+theme: { name: material }
 EOF
 
     {
       echo "# $app_name Architecture"
-      
       echo -e "\n## Process Inventory"
-      sort -t'|' -k2,2 "$PROC_DATA" | cut -d'|' -f1 | uniq | while read -r group_name; do
-          echo "### Group: $group_name"
-          echo -e "| Process Path | Max Jobs | Flow Limit |"
-          echo -e "| :--- | :--- | :--- |"
-          # HUB PRECISION:
-          # MkDocs turns "Process: Archive/..." into "process-process-archive..."
-          # 1. Prefix 'process-'
-          # 2. Add the first word of the path, lowercase.
-          # 3. Add a hyphen.
-          # 4. Add the rest of the path stripped of non-alphanumeric.
-          grep "^$group_name|" "$PROC_DATA" | sort -t'|' -k2,2 | while IFS='|' read -r g path max flow; do
-              FIRST_WORD=$(echo "$path" | cut -d'/' -f1 | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
-              REST_OF_PATH=$(echo "$path" | cut -d'/' -f2- | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
-              LINK_ID="process-$FIRST_WORD-$REST_OF_PATH"
-              echo "| [$path](#$LINK_ID) | $max | $flow |"
+      if [[ -s "$PROC_DATA_FILE" ]]; then
+          sort -t'|' -k2,2 "$PROC_DATA_FILE" | cut -d'|' -f1 | uniq | while read -r group_name; do
+              echo -e "### Group: $group_name\n| Process Path | Max Jobs | Flow Limit |\n| :--- | :--- | :--- |"
+              grep "^$group_name|" "$PROC_DATA_FILE" | sort -t'|' -k2,2 | while IFS='|' read -r g path max flow fid; do echo "| [$path](#$fid) | $max | $flow |"; done
           done
-          echo -e "\n"
-      done
-
-      echo -e "\n## Visual Flow Diagrams"
-      [[ -s "$MERMAID_SECTION" ]] && cat "$MERMAID_SECTION" || echo "_No flows discovered._"
-      
-      echo -e "\n## Global Variables"
-      echo -e "$GV_TABLE"
-      
-      echo -e "\n---"
-      echo -e "_Last synchronized from source on: $IMPORT_TIME (UTC)_"
+      fi
+      echo -e "\n## Visual Flow Diagrams\n" && cat "$MERMAID_SECTION_FILE"
+      echo -e "\n## Global Variables\n" && cat "$GV_MD_FILE"
     } > "$APP_DOCS_DIR/index.md"
 
-    # 4f. Backstage Component YAML
+    # Component YAML
+    DEP_FILE="/tmp/${clean_name}_deps.tmp"
+    > "$DEP_FILE"
+    [[ -f "$LOCAL_LIB_DEPS" ]] && cat "$LOCAL_LIB_DEPS" >> "$DEP_FILE"
+    grep -oP '(jdbc|tcp|ssl|aaa|ldap|tibjmsnaming)://[^<]+' "$XML_FILE" | sort -u | while read -r url; do
+        res_id="endpoint-$(echo "$url" | sed 's/[^a-z0-9]/-/g' | tr '[:upper:]' '[:lower:]' | cut -c1-50 | sed 's/-$//')"
+        echo "    - resource:default/$res_id" >> "$DEP_FILE"
+        [[ "$url" == jdbc* ]] && echo "$res_id|$url" >> "$TMP_DB_LIST" || echo "$res_id|$url" >> "$TMP_JMS_LIST"
+    done
+    
     cat <<EOF > "$APP_BASE_DIR/catalog-info.yaml"
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: $clean_name
-  annotations:
-    backstage.io/techdocs-ref: dir:.
-    tibco.com/imported-at: "$IMPORT_TIME"
-  tags: ["bw5-imported"]
+  annotations: { backstage.io/techdocs-ref: dir:. }
 spec:
   type: service
   lifecycle: production
   owner: group:default/tibco-imported
 EOF
+    [[ -s "$DEP_FILE" ]] && echo "  dependsOn:" >> "$APP_BASE_DIR/catalog-info.yaml" && sort -u "$DEP_FILE" >> "$APP_BASE_DIR/catalog-info.yaml"
 
-    # 4g. Infrastructure Discovery
-    grep -oP '(jdbc|tcp|ssl|aaa|ldap|tibjmsnaming)://[^<]+' "$XML_FILE" | sort -u | while read -r url; do
-        prefix="endpoint"; [[ "$url" == jdbc* ]] && prefix="db"
-        res_id="${prefix}-$(echo "$url" | sed 's/[^a-z0-9]/-/g' | cut -c1-40 | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')"
-        echo "    - resource:default/$res_id" >> "$APP_BASE_DIR/catalog-info.yaml"
-        [[ "$prefix" == "db" ]] && echo "$res_id|$url" >> "$TMP_DB_LIST" || echo "$res_id|$url" >> "$TMP_JMS_LIST"
-    done
-
-    echo "    - ./apps/$clean_name/catalog-info.yaml" >> "$REPO_DIR/catalog-info.yaml"
-    rm -rf "$EXTRACT_PATH" "$XML_FILE" "$GV_RAW" "$MERMAID_SECTION" "$PROC_DATA"
+    rm -rf "$EXTRACT_PATH" "$XML_FILE" "$PROC_DATA_FILE" "$MERMAID_SECTION_FILE" "$DEP_FILE" "$LOCAL_LIB_DEPS" "$GV_MD_FILE"
     ((SUCCESS_COUNT++))
 done
 
-# --- 5. Global Resource Generation ---
-{
-  echo "# Discovered Infrastructure"
-  [[ -s "$TMP_DB_LIST" ]] && sort -u "$TMP_DB_LIST" | while IFS='|' read -r id url; do
-    echo -e "---\napiVersion: backstage.io/v1alpha1\nkind: Resource\nmetadata:\n  name: $id\n  description: \"JDBC: $url\"\nspec:\n  type: database\n  owner: group:default/infrastructure-team"
-  done
-  [[ -s "$TMP_JMS_LIST" ]] && sort -u "$TMP_JMS_LIST" | while IFS='|' read -r id url; do
-    echo -e "---\napiVersion: backstage.io/v1alpha1\nkind: Resource\nmetadata:\n  name: $id\n  description: \"Endpoint: $url\"\nspec:\n  type: endpoint\n  owner: group:default/infrastructure-team"
-  done
-} > "$RES_DIR/discovered-infrastructure.yaml"
+# --- 5. Library Docs (Project Scoped) ---
+echo "apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bw5-libraries
+spec:
+  targets:" > "$LIB_DIR/catalog-info.yaml"
 
-# --- 6. GitHub Sync ---
+sort -u "$TMP_LIB_LIST" | while IFS='|' read -r lib_id original lib_path; do
+    LIB_BASE_DIR="$LIB_DIR/$lib_id" && mkdir -p "$LIB_BASE_DIR/docs"
+    LIB_MERMAID="/tmp/lib_${lib_id}_mermaid.md" && LIB_PROC_RAW="/tmp/lib_${lib_id}_procs.raw"
+    > "$LIB_MERMAID" && > "$LIB_PROC_RAW"
+    
+    find "$lib_path" -iname "*.process" | sort | while read -r proc_file; do
+        rel_proc=$(echo "$proc_file" | sed "s|$lib_path/||")
+        fid=$(echo "$rel_proc" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
+        echo "$rel_proc|$fid" >> "$LIB_PROC_RAW"
+        echo -e "#### Process: $rel_proc {: #$fid }\n"'```mermaid'"\ngraph LR" >> "$LIB_MERMAID"
+        perl -0777 -ne 'while(/<(?:pd:)?transition>.*?<(?:pd:)?from>(.*?)<\/(?:pd:)?from>.*?<(?:pd:)?to>(.*?)<\/(?:pd:)?to>(?:.*?<(?:pd:)?conditionType>(.*?)<\/(?:pd:)?conditionType>)?.*?<\/(?:pd:)?transition>/gs){ print "$1|$2|$3\n"; }' "$proc_file" | while IFS='|' read -r FROM TO COND; do
+            [[ -z "$FROM" || -z "$TO" ]] && continue
+            echo "    n_$(echo "$FROM" | sed 's/[^a-zA-Z0-9]/_/g')([\"$FROM\"]) --> n_$(echo "$TO" | sed 's/[^a-zA-Z0-9]/_/g')([\"$TO\"])" >> "$LIB_MERMAID"
+        done
+        echo -e '```\n' >> "$LIB_MERMAID"
+    done
+
+    echo "site_name: $original Library Docs" > "$LIB_BASE_DIR/mkdocs.yml"
+    { echo -e "# $original\n\n## Library Process Inventory\n| Path |\n| :--- |"
+      sort "$LIB_PROC_RAW" | while IFS='|' read -r path fid; do echo "| [$path](#$fid) |"; done
+      echo -e "\n## Visual Flow Diagrams\n" && cat "$LIB_MERMAID"
+    } > "$LIB_BASE_DIR/docs/index.md"
+    
+    cat <<EOF > "$LIB_BASE_DIR/catalog-info.yaml"
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: $lib_id
+  annotations: { backstage.io/techdocs-ref: dir:. }
+spec: { type: library, lifecycle: production, owner: group:default/tibco-imported }
+EOF
+    echo "    - ./$lib_id/catalog-info.yaml" >> "$LIB_DIR/catalog-info.yaml"
+    rm -rf "$lib_path" "$LIB_MERMAID" "$LIB_PROC_RAW"
+done
+
+# Root Registry
+echo "apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bw5-global-inventory
+spec:
+  targets:" > "$REPO_DIR/catalog-info.yaml"
+cat "$GLOBAL_CATALOG_LIST" >> "$REPO_DIR/catalog-info.yaml"
+
 if [ "$PUSH_TO_GITHUB" = true ]; then
     pushd "$REPO_DIR" > /dev/null
-    echo -ne "*\n!*/\n!*.yaml\n!*.yml\n!*.md\n!.gitignore" > .gitignore
-    AUTH_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${GITHUB_REPO}.git"
-    [[ ! -d ".git" ]] && git init && git remote add origin "$AUTH_URL" && git branch -M main
-    git add .
-    git commit -m "Registry & Mermaid Sync: $IMPORT_TIME"
-    git push -u origin main
+    git add . && git commit -m "Comp-safe Responsive Scoped Sync: $IMPORT_TIME" && git push origin main
     popd > /dev/null
 fi
-
-# --- 7. Final Summary ---
-echo "------------------------------------------------"
-echo "✅ Finished! Processed $SUCCESS_COUNT EAR files."
-if [[ -s "$IP_AUDIT_LOG" ]]; then
-    echo -e "\n⚠️  HARDCODED IP WARNING - Review these services:"
-    cat "$IP_AUDIT_LOG" | sort -u | sed 's/^/   - /'
-fi
-echo "------------------------------------------------"
+echo "✅ Finished! Projects and Shared Archives are now cleanly separated without compilation errors."
