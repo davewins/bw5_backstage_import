@@ -2,7 +2,7 @@
 
 # --- 1. Configuration ---
 EAR_DIR="./ears"
-REPO_DIR="./bw5-inventory"
+REPO_DIR="../bw5-inventory"
 APPS_DIR="$REPO_DIR/apps"
 RES_DIR="$REPO_DIR/resources"
 LIB_DIR="$REPO_DIR/libs"
@@ -41,10 +41,10 @@ else
     echo "                 brew install graphviz        (macOS)"
 fi
 
-# Renders a .process file to an SVG and returns the markdown img reference.
+# Renders a .process file to an SVG.
 # Usage: render_process_diagram <process_file> <output_dir> <slug>
-# Writes:  <output_dir>/<slug>.svg
-# Returns: markdown line to embed the image, or empty string if skipped
+# Writes: <output_dir>/<slug>.svg
+# Returns exit code 0 on success, 1 on failure (caller constructs markdown)
 render_process_diagram() {
     local proc_file="$1"
     local out_dir="$2"
@@ -52,15 +52,12 @@ render_process_diagram() {
     local dot_file="/tmp/${slug}.dot"
     local svg_file="${out_dir}/${slug}.svg"
 
-    if [[ "$DOT_AVAILABLE" != "true" ]]; then
-        return
-    fi
+    [[ "$DOT_AVAILABLE" != "true" ]] && return 1
 
-    perl "$DOT_PERL" "$proc_file" "$dot_file" 2>/dev/null || return
-    dot -Tsvg "$dot_file" -o "$svg_file" 2>/dev/null || return
+    perl "$DOT_PERL" "$proc_file" "$dot_file" 2>/dev/null || return 1
+    dot -Tsvg "$dot_file" -o "$svg_file" 2>/dev/null || return 1
     rm -f "$dot_file"
-
-    echo "![${slug} process flow](${slug}.svg)"
+    return 0
 }
 
 # --- Global temp files ---
@@ -661,12 +658,15 @@ for ear in "${EAR_DIR}"/*.ear; do
 site_name: $app_name
 site_description: Documentation for $app_name
 nav:
-  - Home: index.md
+  - Process Inventory: index.md
+  - Visual Flow Diagrams: diagrams.md
+  - Global Variables: variables.md
 theme:
   name: material
   features:
     - navigation.sections
     - navigation.expand
+    - navigation.top
 EOF
 
     # --- Shared Libraries ---
@@ -685,16 +685,19 @@ EOF
             cat <<EOF > "$LIB_BASE/mkdocs.yml"
 site_name: $sar_fn Library
 nav:
-  - Home: index.md
+  - Process Inventory: index.md
+theme:
+  name: material
+  features:
+    - navigation.top
 EOF
             echo -e "# $sar_fn\n\n## Visual Flow Diagrams" > "$LIB_BASE/docs/index.md"
             find "$lib_extract" -iname "*.process" | while read -r lp; do
                 proc_base=$(basename "$lp" .process)
                 proc_slug=$(echo "$proc_base" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g;s/^-//;s/-$//')
                 echo -e "#### Process: $proc_base\n" >> "$LIB_BASE/docs/index.md"
-                img_line=$(render_process_diagram "$lp" "$LIB_BASE/docs" "$proc_slug")
-                if [[ -n "$img_line" ]]; then
-                    echo -e "$img_line\n" >> "$LIB_BASE/docs/index.md"
+                if render_process_diagram "$lp" "$LIB_BASE/docs" "$proc_slug"; then
+                    echo -e "![${proc_slug} flow](${proc_slug}.svg)\n" >> "$LIB_BASE/docs/index.md"
                 else
                     echo -e "_No diagram available — install Graphviz to enable process diagrams._\n" >> "$LIB_BASE/docs/index.md"
                 fi
@@ -721,8 +724,12 @@ EOF
 
     # --- Documentation ---
     PROC_RAW="/tmp/${clean_name}_procs.raw"
-    DIAGRAMS_MD="/tmp/${clean_name}_diagrams.md"
-    > "$PROC_RAW"; > "$DIAGRAMS_MD"
+    DIAGRAMS_MD="$APP_DOCS_DIR/diagrams.md"
+    VARIABLES_MD="$APP_DOCS_DIR/variables.md"
+    > "$PROC_RAW"
+
+    # Header for diagrams page
+    echo -e "# $app_name — Visual Flow Diagrams\n" > "$DIAGRAMS_MD"
 
     while IFS= read -r p_file; do
         rel_p=$(echo "$p_file" | sed "s|$EXTRACT_PATH/||")
@@ -730,34 +737,38 @@ EOF
         fid=$(echo "$rel_p" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
         echo "$(echo "$rel_p" | cut -d'/' -f1)|$rel_p|$fid" >> "$PROC_RAW"
 
-        # Render SVG into the docs directory; use fid as the slug so the
-        # anchor link in the inventory table matches the diagram heading
         echo -e "#### Process: $rel_p {: #$fid }\n" >> "$DIAGRAMS_MD"
-        img_line=$(render_process_diagram "$p_file" "$APP_DOCS_DIR" "$fid")
-        if [[ -n "$img_line" ]]; then
-            echo -e "$img_line\n" >> "$DIAGRAMS_MD"
+        if render_process_diagram "$p_file" "$APP_DOCS_DIR" "$fid"; then
+            echo -e "![${fid} flow](${fid}.svg)\n" >> "$DIAGRAMS_MD"
         else
             echo -e "_No diagram available — install Graphviz to enable process diagrams._\n" >> "$DIAGRAMS_MD"
         fi
-        echo -e "[↑ Back to Inventory](#process-inventory)\n" >> "$DIAGRAMS_MD"
+        echo -e "[↑ Back to Inventory](index.md)\n" >> "$DIAGRAMS_MD"
     done < <(find "$EXTRACT_PATH" -iname "*.process" | sort)
 
+    # --- index.md: Process Inventory table with links into diagrams.md ---
     {
-        echo "# $app_name Architecture"
-        echo -e "\n## Process Inventory"
+        echo "# $app_name"
+        echo -e "\n## Process Inventory\n"
         if [[ -s "$PROC_RAW" ]]; then
             sort -u "$PROC_RAW" | cut -d'|' -f1 | uniq | while read -r group; do
-                echo -e "### Group: $group\n| Path |\n| :--- |"
+                echo -e "### $group\n| Process | Diagram |\n| :--- | :--- |"
                 grep "^$group|" "$PROC_RAW" | while IFS='|' read -r g path fid; do
-                    echo "| [$path](#$fid) |"
+                    echo "| $path | [View diagram](diagrams.md#$fid) |"
                 done
+                echo ""
             done
+        else
+            echo "_No processes found in this application._"
         fi
-        echo -e "\n## Visual Flow Diagrams\n"
-        cat "$DIAGRAMS_MD"
-        echo -e "\n## Global Variables\n| Name | Value | Status |\n| :--- | :--- | :--- |"
-        perl "$GV_PERL" "$XML_FILE"
     } > "$APP_DOCS_DIR/index.md"
+
+    # --- variables.md: Global Variables table ---
+    {
+        echo "# $app_name — Global Variables"
+        echo -e "\n| Name | Value | Status |\n| :--- | :--- | :--- |"
+        perl "$GV_PERL" "$XML_FILE"
+    } > "$VARIABLES_MD"
 
     # --- Build relationship lists ---
     LOCAL_PROVIDES_API="/tmp/${clean_name}_provides.tmp"
@@ -833,7 +844,7 @@ EOF
     [[ -s "$LOCAL_CONSUMES_API" ]] && { echo "  consumesApis:"; sort -u "$LOCAL_CONSUMES_API"; } >> "$APP_BASE_DIR/catalog-info.yaml"
     [[ -s "$LOCAL_DEPENDS_ALL"  ]] && { echo "  dependsOn:";    sort -u "$LOCAL_DEPENDS_ALL";  } >> "$APP_BASE_DIR/catalog-info.yaml"
 
-    rm -f "$PROC_RAW" "$DIAGRAMS_MD" "$LOCAL_PROVIDES_API" "$LOCAL_CONSUMES_API" \
+    rm -f "$PROC_RAW" "$LOCAL_PROVIDES_API" "$LOCAL_CONSUMES_API" \
           "$LOCAL_LIB_DEPS" "$LOCAL_DEPENDS_RES" "$LOCAL_DEPENDS_ALL" "$PROTO_FILE"
 done
 

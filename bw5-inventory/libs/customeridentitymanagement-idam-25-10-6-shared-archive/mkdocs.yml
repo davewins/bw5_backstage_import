@@ -1,7 +1,0 @@
-site_name: Shared Archive.sar Library
-nav:
-  - Process Inventory: index.md
-theme:
-  name: material
-  features:
-    - navigation.top
