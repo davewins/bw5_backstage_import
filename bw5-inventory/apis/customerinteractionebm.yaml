@@ -1,0 +1,666 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customerinteractionebm
+  title: "CustomerInteractionEBM"
+  description: "Shared interface: CustomerInteractionEBM.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 1.0 **
+    ** Date: Aug 21, 2009 **
+     
+     Copyright (c) 2007, 2009, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Core\EBO\CustomerInteraction\V1\CustomerInteractionEBM.xsd 
+     
+    -->
+     
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO CustomerInteraction EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:corecustomerinteractioncust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerInteraction/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerInteraction/V1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0"> 
+    
+    <!-- ====================================================================== -->
+    <!-- ==============  Imports and Includes   =============================== -->
+    <!-- ====================================================================== -->
+    <xsd:include schemaLocation="CustomerInteractionEBO.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" schemaLocation="../../../Custom/EBO/CustomerInteraction/V1/CustomCustomerInteractionEBO.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    <xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing"   schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    <xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04"  schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    <xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04"   schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    
+    <!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>CustomerInteraction EBM identifies all the service operations that are supported for the CustomerInteraction EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry/>
+    				<svcdoc:EBOName>CustomerInteractionEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    
+    <!-- ====================================================================== -->
+    
+    	<xsd:complexType name="CustomerInteractionEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ==================QueryCustomerInteraction Service=================== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerInteractionEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerInteractionDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionEBM" type="QueryCustomerInteractionEBMType"/>
+    	<xsd:complexType name="QueryCustomerInteractionDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QueryCustomerInteraction"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="QueryCustomerInteractionType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteraction" type="QueryCustomerInteractionType"/>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ============= QueryCustomerInteraction Response Service ============= -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerInteractionResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerInteractionResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionResponseEBM" type="QueryCustomerInteractionResponseEBMType"/>
+    
+    	<xsd:complexType name="QueryCustomerInteractionResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryCustomerInteractionResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="QueryCustomerInteractionResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionResponse" type="QueryCustomerInteractionResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ================ QueryCustomerInteraction List Service ============== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerInteractionListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerInteractionListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionListEBM" type="QueryCustomerInteractionListEBMType"/>
+    	<xsd:complexType name="CustomerInteractionComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="CustomerInteractionQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="CustomerInteractionResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="QueryCustomerInteractionListDataAreaType">
+    		<xsd:sequence>
+    		<xsd:element name="Query" type="CustomerInteractionComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CustomerInteractionQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CustomerInteractionResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- =========== QueryCustomerInteraction List Response Service ==========-->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerInteractionListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerInteractionListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionListResponseEBM" type="QueryCustomerInteractionListResponseEBMType"/>
+    
+    	<xsd:complexType name="QueryCustomerInteractionListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryCustomerInteractionListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="QueryCustomerInteractionListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="QueryCustomerInteractionListResponse" type="QueryCustomerInteractionListResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ==================CreateCustomerInteraction Service=================== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerInteractionEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerInteractionDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionEBM" type="CreateCustomerInteractionEBMType"/>
+    	<xsd:complexType name="CreateCustomerInteractionDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateCustomerInteraction"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CreateCustomerInteractionType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteraction" type="CreateCustomerInteractionType"/>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ============= CreateCustomerInteraction Response Service ============= -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerInteractionResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerInteractionResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionResponseEBM" type="CreateCustomerInteractionResponseEBMType"/>
+    
+    	<xsd:complexType name="CreateCustomerInteractionResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateCustomerInteractionResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CreateCustomerInteractionResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionResponse" type="CreateCustomerInteractionResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ================ CreateCustomerInteraction List Service ============== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerInteractionListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerInteractionListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionListEBM" type="CreateCustomerInteractionListEBMType"/>
+    	<xsd:complexType name="CreateCustomerInteractionListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateCustomerInteractionList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CreateCustomerInteractionListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    <xsd:element name="CreateCustomerInteractionList" type="CreateCustomerInteractionListType"/>
+    
+    <!-- ====================================================================== -->
+    <!-- =========== CreateCustomerInteraction List Response Service ==========-->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerInteractionListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerInteractionListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionListResponseEBM" type="CreateCustomerInteractionListResponseEBMType"/>
+    
+    	<xsd:complexType name="CreateCustomerInteractionListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateCustomerInteractionListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="CreateCustomerInteractionListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="CreateCustomerInteractionListResponse" type="CreateCustomerInteractionListResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ==================DeleteCustomerInteraction Service=================== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerInteractionEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerInteractionDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionEBM" type="DeleteCustomerInteractionEBMType"/>
+    	<xsd:complexType name="DeleteCustomerInteractionDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteCustomerInteraction"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerInteraction unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			 <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteraction" type="DeleteCustomerInteractionType"/>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ============= DeleteCustomerInteraction Response Service ============= -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerInteractionResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerInteractionResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionResponseEBM" type="DeleteCustomerInteractionResponseEBMType"/>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteCustomerInteractionResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerInteraction unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			 <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionResponse" type="DeleteCustomerInteractionResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ================ DeleteCustomerInteraction List Service ============== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerInteractionListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerInteractionListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionListEBM" type="DeleteCustomerInteractionListEBMType"/>
+    	<xsd:complexType name="DeleteCustomerInteractionListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteCustomerInteractionList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerInteraction unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			 <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    <xsd:element name="DeleteCustomerInteractionList" type="DeleteCustomerInteractionListType"/>
+    
+    <!-- ====================================================================== -->
+    <!-- =========== DeleteCustomerInteraction List Response Service ==========-->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerInteractionListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerInteractionListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionListResponseEBM" type="DeleteCustomerInteractionListResponseEBMType"/>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteCustomerInteractionListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="DeleteCustomerInteractionListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerInteraction unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			 <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:element name="DeleteCustomerInteractionListResponse" type="DeleteCustomerInteractionListResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ================ SyncCustomerInteraction List Service ============== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="SyncCustomerInteractionListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncCustomerInteractionListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="SyncCustomerInteractionListEBM" type="SyncCustomerInteractionListEBMType"/>
+    	<xsd:complexType name="SyncCustomerInteractionListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncCustomerInteractionList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="SyncCustomerInteractionListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    <xsd:element name="SyncCustomerInteractionList" type="SyncCustomerInteractionListType"/>
+    
+    <!-- ====================================================================== -->
+    <!-- =========== SyncCustomerInteraction List Response Service ==========-->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="SyncCustomerInteractionListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncCustomerInteractionListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="SyncCustomerInteractionListResponseEBM" type="SyncCustomerInteractionListResponseEBMType"/>
+    
+    	<xsd:complexType name="SyncCustomerInteractionListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncCustomerInteractionListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="SyncCustomerInteractionListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="SyncCustomerInteractionListResponse" type="SyncCustomerInteractionListResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ==================UpdateCustomerInteraction Service=================== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerInteractionEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerInteractionDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionEBM" type="UpdateCustomerInteractionEBMType"/>
+    	<xsd:complexType name="UpdateCustomerInteractionDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateCustomerInteraction"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteraction" type="UpdateCustomerInteractionType"/>
+    
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ============= UpdateCustomerInteraction Response Service ============= -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerInteractionResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerInteractionResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionResponseEBM" type="UpdateCustomerInteractionResponseEBMType"/>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateCustomerInteractionResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionResponse" type="UpdateCustomerInteractionResponseType"/>
+    
+    
+    <!-- ====================================================================== -->
+    <!-- ================ UpdateCustomerInteraction List Service ============== -->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerInteractionListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerInteractionListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionListEBM" type="UpdateCustomerInteractionListEBMType"/>
+    	<xsd:complexType name="UpdateCustomerInteractionListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateCustomerInteractionList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    <xsd:element name="UpdateCustomerInteractionList" type="UpdateCustomerInteractionListType"/>
+    
+    <!-- ====================================================================== -->
+    <!-- =========== UpdateCustomerInteraction List Response Service ==========-->
+    <!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerInteractionListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerInteractionListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionListResponseEBM" type="UpdateCustomerInteractionListResponseEBMType"/>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateCustomerInteractionListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    
+    	<xsd:complexType name="UpdateCustomerInteractionListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerInteractionEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    
+    	<xsd:element name="UpdateCustomerInteractionListResponse" type="UpdateCustomerInteractionListResponseType"/>
+    </xsd:schema>

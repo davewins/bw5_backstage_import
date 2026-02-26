@@ -1,0 +1,164 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customordereventebo
+  title: "CustomOrderEventEBO"
+  description: "Shared interface: CustomOrderEventEBO.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- ====================================================================== -->
+    <!-- =====      Custom OrderEvent EBO Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2"
+    	 xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2"
+    	 targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/OrderEvent/V1"
+    	 version="2.03.00"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../../../../../AIAMetaData/AIAComponents/EnterpriseObjectLibrary/Industry/Communications/Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../../../../../AIAMetaData/AIAComponents/EnterpriseObjectLibrary/Industry/Communications/Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../../../../../AIAMetaData/AIAComponents/EnterpriseObjectLibrary/Industry/Communications/Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../../../../../AIAMetaData/AIAComponents/EnterpriseObjectLibrary/Industry/Communications/Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../../../../../../AIAMetaData/AIAComponents/EnterpriseObjectLibrary/Industry/Communications/Custom/Common/V2/CustomCommonComponents.xsd"/>
+    
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Order Event Custom Components ================ -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomOrderEventEBOType"/>
+    	<xsd:complexType name="CustomSalesOrderAllowanceType"/>
+    	<xsd:complexType name="CustomSalesOrderAttachmentType"/>
+    	<xsd:complexType name="CustomSalesOrderBillToPartyType"/>
+    	<xsd:complexType name="CustomSalesOrderCarrierPartyType"/>
+    	<xsd:complexType name="CustomSalesOrderChargeType"/>
+    	<xsd:complexType name="CustomSalesOrderCustomerPartyType"/>
+    	<xsd:complexType name="CustomSalesOrderItemInstanceType"/>
+    	<xsd:complexType name="CustomOrderEventLineType">
+    		<xsd:sequence>
+    			<xsd:element name="EarliestTerminationDate" type="xsd:dateTime" minOccurs="0"/>
+    			<xsd:element name="ValidationOverrideIndicator" type="xsd:boolean" minOccurs="0"/>
+    			<xsd:element name="RevenueType" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="NumberPorting" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="AgencyName" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="NumberToPort" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="PIN" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="RequestedPortingDate" type="xsd:dateTime" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="FulfillmentStatusCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="EligibilityReason" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="EligibilityStatus" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSalesOrderLineAttachmentType"/>
+    	<xsd:complexType name="CustomSalesOrderLineSpecificationGroupType"/>
+    	<xsd:complexType name="CustomSalesOrderPaymentInstrumentType"/>
+    	<xsd:complexType name="CustomSalesOrderReceivedPaymentType">
+    		<xsd:sequence>
+    			<xsd:element name="CreditCardAuthorizationResponse" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="AVSResponseCode" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="PaymentSystemCode" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="AuthorizationDateTime" type="xsd:dateTime" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="Bank" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="BankCustomerIdentifier" type="xsd:normalizedString" minOccurs="0"/>
+    						<xsd:element name="BankName" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="PhoneCommunication" minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:sequence>
+    									<xsd:element name="CompleteNumber" type="xsd:string" minOccurs="0"/>
+    								</xsd:sequence>
+    							</xsd:complexType>
+    						</xsd:element>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="MerchantIdentifier" type="xsd:normalizedString" minOccurs="0"/>
+    			<xsd:element name="PaymentProfile" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="PaymentStatusCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="TransactionType" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="TransactionNotes" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="TransactionTypeCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="TransactionAmount" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="VerificationNumber" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="PaidAmount" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="PaymentMethod" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSalesOrderSalesCommissionType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleAllowanceType">
+    		<xsd:sequence>
+    			<xsd:element name="VolumeDiscountIdentifier" type="xsd:normalizedString" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSalesOrderScheduleAttachmentType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleChargeType">
+    		<xsd:sequence>
+    			<xsd:element name="OverrideRepriceIndicator" type="xsd:boolean" minOccurs="0"/>
+    			<xsd:element name="OverridePrice" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="PolicyDiscountOverrideIndicator" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSalesOrderScheduleReceivedPaymentType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleSalesCommissionType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleTaxType">
+    		<xsd:sequence>
+    			<xsd:element name="TaxExemptIndicator" type="xsd:boolean" minOccurs="0"/>
+    		</xsd:sequence>
+    		<!-- 18 July 2011: Interface SalesOrder adding custom elements [START] -->
+    	</xsd:complexType>
+    
+    	<!-- 18 July 2011: Interface SalesOrder adding custom elements [END] -->
+    	<xsd:complexType name="CustomSalesOrderShipFromPartyType"/>
+    	<xsd:complexType name="CustomSalesOrderShipToPartyType"/>
+    	<xsd:complexType name="CustomSalesOrderShipmentType"/>
+    	<xsd:complexType name="CustomSalesOrderStatusHistoryType"/>
+    	<xsd:complexType name="CustomSalesOrderLineShippingChargeCalculationResponseType"/>
+    	<xsd:complexType name="CustomHoldSalesOrderFulfillmentResponseType"/>
+    	<xsd:complexType name="CustomReleaseSalesOrderLineFulfillmentHoldListResponseType"/>
+    	<xsd:complexType name="CustomProcessSalesOrderATPCheckResponseType"/>
+    	<xsd:complexType name="CustomHoldSalesOrderFulfillmentType"/>
+    	<xsd:complexType name="CustomInventoryAvailabilityType"/>
+    	<xsd:complexType name="CustomHoldSalesOrderLineFulfillmentListResponseType"/>
+    	<xsd:complexType name="CustomCancelSalesOrderFulfillmentResponseType"/>
+    	<xsd:complexType name="CustomReleaseSalesOrderFulfillmentHoldResponseType"/>
+    	<xsd:complexType name="CustomSalesOrderLineATPCheckResponseType"/>
+    	<xsd:complexType name="CustomProcessSalesOrderShippingChargeCalculationType"/>
+    	<xsd:complexType name="CustomCancelSalesOrderFulfillmentType"/>
+    	<xsd:complexType name="CustomHoldSalesOrderLineFulfillmentListType"/>
+    	<xsd:complexType name="CustomProcessSalesOrderATPCheckType"/>
+    	<xsd:complexType name="CustomReleaseSalesOrderFulfillmentHoldType"/>
+    	<xsd:complexType name="CustomReleaseSalesOrderLineFulfillmentHoldListType"/>
+    	<xsd:complexType name="CustomProcessSalesOrderShippingChargeCalculationResponseType"/>
+    	<xsd:complexType name="CustomSalesOrderLineShippingChargeCalculationType"/>
+    	<xsd:complexType name="CustomSalesOrderLineATPCheckType"/>
+    </xsd:schema>

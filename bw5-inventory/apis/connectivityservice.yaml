@@ -1,0 +1,286 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: connectivityservice
+  title: "ConnectivityService"
+  description: "Shared interface: ConnectivityService.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- ICC: LIB_FWPLUGIN_JMS - 12/10/2009 -->
+    <!-- ICC: Added "Destination" property -->
+    <!-- ICC: LIB_FWPLUGIN_JMS - 30/07/2010 -->
+    <!-- ICC: Added "RIG_CAIssuer" and "RIG_SerialNumber" properties -->
+    <!-- ICC: LIB_FWPLUGIN_JMS - 30/07/2010 -->
+    <!-- ICC: Renamed JMS property "RIG_CAIssuer" into "CAIssuer" -->
+    <!-- ICC: Renamed JMS property "RIG_SerialNumber" into "SerialNumber" -->
+    <!-- ICC: LIB_FWPLUGIN_JMS - 11/10/2010 -->
+    <!-- ICC: Added SoapAction, Content_Type and Mime_Version string properties to support SOAP over JMS -->
+    <!-- ICC: LIB_FWPLUGIN_JMS - 12/09/2012 -->
+    <!-- ICC: Added BusinessKey, EventSubType and Status -->
+    <!-- $Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/JMS/ConnectivityService.xsd,v 1.3 2016/11/02 18:46:36 sseernam Exp $ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:pjms="http://xmlns.vodafone.co.uk/map/til/JMS/ConnectivityService"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/JMS/ConnectivityService"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<complexType name="RequestProperties">
+    		<sequence>
+    			<element name="Operation" type="xsd:string"/>
+    			<element name="ReplyTopic" type="xsd:boolean" minOccurs="0"/>
+    			<element name="RequireResponse" type="xsd:boolean" minOccurs="0"/>
+    			<element name="Source" type="xsd:string" minOccurs="0"/>
+    			<element name="Destination" type="xsd:string" minOccurs="0"/>
+    			<element name="ContractVersion" type="xsd:string" minOccurs="0"/>
+    			<element name="EventType" type="xsd:string" minOccurs="0"/>
+    			<element name="ProcessId" type="xsd:string" minOccurs="0"/>
+    			<element name="TransactionId" type="xsd:string" minOccurs="0"/>
+    			<element name="Custom" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- LIB_FWPLUGIN_JMS_3_0_5 -->
+    			<element name="BusinessKey" type="xsd:string" minOccurs="0"/>
+    			<element name="EventSubType" type="xsd:string" minOccurs="0"/>
+    			<element name="Status" type="xsd:string" minOccurs="0"/>
+    			<element name="JMS_TIBCO_COMPRESS" type="xsd:boolean" minOccurs="0"/>
+    			<element name="AEProperties" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="strucId" type="xsd:string" minOccurs="0"/>
+    						<element name="version" type="xsd:integer" minOccurs="0"/>
+    						<element name="report" type="xsd:integer" minOccurs="0"/>
+    						<element name="expiry" type="xsd:integer" minOccurs="0"/>
+    						<element name="feedback" type="xsd:integer" minOccurs="0"/>
+    						<element name="encoding" type="xsd:integer" minOccurs="0"/>
+    						<element name="codedCharSetId" type="xsd:integer" minOccurs="0"/>
+    						<element name="format" type="xsd:string" minOccurs="0"/>
+    						<element name="priority" type="xsd:integer" minOccurs="0"/>
+    						<element name="persistence" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgId" type="xsd:string" minOccurs="0"/>
+    						<element name="correlId" type="xsd:string" minOccurs="0"/>
+    						<element name="backoutCount" type="xsd:integer" minOccurs="0"/>
+    						<element name="replyToQ" type="xsd:string" minOccurs="0"/>
+    						<element name="replyToQMgr" type="xsd:string" minOccurs="0"/>
+    						<element name="userIdentifier" type="xsd:string" minOccurs="0"/>
+    						<element name="accountingToken" type="xsd:string" minOccurs="0"/>
+    						<element name="applIdentityData" type="xsd:string" minOccurs="0"/>
+    						<element name="putApplType" type="xsd:long" minOccurs="0"/>
+    						<element name="putApplName" type="xsd:string" minOccurs="0"/>
+    						<element name="putDate" type="xsd:string" minOccurs="0"/>
+    						<element name="putTime" type="xsd:string" minOccurs="0"/>
+    						<element name="applOriginData" type="xsd:string" minOccurs="0"/>
+    						<element name="groupId" type="xsd:string" minOccurs="0"/>
+    						<element name="msgSeqNumber" type="xsd:long" minOccurs="0"/>
+    						<element name="offset" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgFlags" type="xsd:integer" minOccurs="0"/>
+    						<element name="originalLength" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgType" type="xsd:integer" minOccurs="0"/>
+    						<element name="ae_tracking" type="xsd:string" minOccurs="0"/>
+    						<element name="ae_pfmt" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_type" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_encoding" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_ver" type="xsd:short" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="_ns_" type="xsd:string" minOccurs="0"/>
+    			<element name="_nm_" type="xsd:string" minOccurs="0"/>
+    			<element name="CAIssuer" type="xsd:string" minOccurs="0"/>
+    			<element name="SerialNumber" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- SOAP over JMS -->
+    			<element name="SoapAction" type="xsd:string" minOccurs="0"/>
+    			<element name="Content_Type" type="xsd:string" minOccurs="0"/>
+    			<element name="Mime_Version" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ReplyProperties">
+    		<sequence>
+    			<element name="JMS_TIBCO_PRESERVE_UNDELIVERED" type="xsd:boolean" minOccurs="0"/>
+    			<element name="Operation" type="xsd:string"/>
+    			<element name="ReplyTopic" type="xsd:boolean" minOccurs="0"/>
+    			<element name="RequireResponse" type="xsd:boolean" minOccurs="0"/>
+    			<element name="Source" type="xsd:string" minOccurs="0"/>
+    			<element name="ContractVersion" type="xsd:string" minOccurs="0"/>
+    			<element name="EventType" type="xsd:string" minOccurs="0"/>
+    			<element name="ProcessId" type="xsd:string" minOccurs="0"/>
+    			<element name="TransactionId" type="xsd:string" minOccurs="0"/>
+    			<element name="Custom" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- LIB_FWPLUGIN_JMS_3_0_5 -->
+    			<element name="BusinessKey" type="xsd:string" minOccurs="0"/>
+    			<element name="EventSubType" type="xsd:string" minOccurs="0"/>
+    			<element name="Status" type="xsd:string" minOccurs="0"/>
+    			<element name="JMS_TIBCO_COMPRESS" type="xsd:boolean" minOccurs="0"/>
+    			<element name="AEProperties" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="strucId" type="xsd:string" minOccurs="0"/>
+    						<element name="version" type="xsd:integer" minOccurs="0"/>
+    						<element name="report" type="xsd:integer" minOccurs="0"/>
+    						<element name="expiry" type="xsd:integer" minOccurs="0"/>
+    						<element name="feedback" type="xsd:integer" minOccurs="0"/>
+    						<element name="encoding" type="xsd:integer" minOccurs="0"/>
+    						<element name="codedCharSetId" type="xsd:integer" minOccurs="0"/>
+    						<element name="format" type="xsd:string" minOccurs="0"/>
+    						<element name="priority" type="xsd:integer" minOccurs="0"/>
+    						<element name="persistence" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgId" type="xsd:string" minOccurs="0"/>
+    						<element name="correlId" type="xsd:string" minOccurs="0"/>
+    						<element name="backoutCount" type="xsd:integer" minOccurs="0"/>
+    						<element name="replyToQ" type="xsd:string" minOccurs="0"/>
+    						<element name="replyToQMgr" type="xsd:string" minOccurs="0"/>
+    						<element name="userIdentifier" type="xsd:string" minOccurs="0"/>
+    						<element name="accountingToken" type="xsd:string" minOccurs="0"/>
+    						<element name="applIdentityData" type="xsd:string" minOccurs="0"/>
+    						<element name="putApplType" type="xsd:long" minOccurs="0"/>
+    						<element name="putApplName" type="xsd:string" minOccurs="0"/>
+    						<element name="putDate" type="xsd:string" minOccurs="0"/>
+    						<element name="putTime" type="xsd:string" minOccurs="0"/>
+    						<element name="applOriginData" type="xsd:string" minOccurs="0"/>
+    						<element name="groupId" type="xsd:string" minOccurs="0"/>
+    						<element name="msgSeqNumber" type="xsd:long" minOccurs="0"/>
+    						<element name="offset" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgFlags" type="xsd:integer" minOccurs="0"/>
+    						<element name="originalLength" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgType" type="xsd:integer" minOccurs="0"/>
+    						<element name="ae_tracking" type="xsd:string" minOccurs="0"/>
+    						<element name="ae_pfmt" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_type" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_encoding" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_ver" type="xsd:short" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="_ns_" type="xsd:string" minOccurs="0"/>
+    			<element name="_nm_" type="xsd:string" minOccurs="0"/>
+    			<element name="CAIssuer" type="xsd:string" minOccurs="0"/>
+    			<element name="SerialNumber" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- SOAP over JMS -->
+    			<element name="SoapAction" type="xsd:string" minOccurs="0"/>
+    			<element name="Content_Type" type="xsd:string" minOccurs="0"/>
+    			<element name="Mime_Version" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="RequestJMSHeaders" type="pjms:RequestJMSHeaders"/>
+    	<complexType name="RequestJMSHeaders">
+    		<sequence>
+    			<element name="JMSDestination" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSDeliveryMode" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSPriority" type="xsd:integer" minOccurs="0"/>
+    			<element name="JMSCorrelationID" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="ReplyJMSHeaders" type="pjms:ReplyJMSHeaders"/>
+    	<complexType name="ReplyJMSHeaders">
+    		<sequence>
+    			<element name="JMSDestination" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSReplyTo" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSDeliveryMode" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSMessageID" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSTimestamp" type="xsd:long" minOccurs="0"/>
+    			<element name="JMSExpiration" type="xsd:long" minOccurs="0"/>
+    			<element name="JMSRedelivered" type="xsd:boolean" minOccurs="0"/>
+    			<element name="JMSPriority" type="xsd:integer" minOccurs="0"/>
+    			<element name="JMSCorrelationID" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSType" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="PublishProperties">
+    		<sequence>
+    			<element name="Operation" type="xsd:string"/>
+    			<element name="ReplyTopic" type="xsd:boolean" minOccurs="0"/>
+    			<element name="RequireResponse" type="xsd:boolean" minOccurs="0"/>
+    			<element name="Source" type="xsd:string" minOccurs="0"/>
+    			<element name="Destination" type="xsd:string" minOccurs="0"/>
+    			<element name="ContractVersion" type="xsd:string" minOccurs="0"/>
+    			<element name="EventType" type="xsd:string" minOccurs="0"/>
+    			<element name="ProcessId" type="xsd:string" minOccurs="0"/>
+    			<element name="TransactionId" type="xsd:string" minOccurs="0"/>
+    			<element name="Custom" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- LIB_FWPLUGIN_JMS_3_0_5 -->
+    			<element name="BusinessKey" type="xsd:string" minOccurs="0"/>
+    			<element name="EventSubType" type="xsd:string" minOccurs="0"/>
+    			<element name="Status" type="xsd:string" minOccurs="0"/>
+    			<element name="JMS_TIBCO_COMPRESS" type="xsd:boolean" minOccurs="0"/>
+    			<element name="AEProperties" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="strucId" type="xsd:string" minOccurs="0"/>
+    						<element name="version" type="xsd:integer" minOccurs="0"/>
+    						<element name="report" type="xsd:integer" minOccurs="0"/>
+    						<element name="expiry" type="xsd:integer" minOccurs="0"/>
+    						<element name="feedback" type="xsd:integer" minOccurs="0"/>
+    						<element name="encoding" type="xsd:integer" minOccurs="0"/>
+    						<element name="codedCharSetId" type="xsd:integer" minOccurs="0"/>
+    						<element name="format" type="xsd:string" minOccurs="0"/>
+    						<element name="priority" type="xsd:integer" minOccurs="0"/>
+    						<element name="persistence" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgId" type="xsd:string" minOccurs="0"/>
+    						<element name="correlId" type="xsd:string" minOccurs="0"/>
+    						<element name="backoutCount" type="xsd:integer" minOccurs="0"/>
+    						<element name="replyToQ" type="xsd:string" minOccurs="0"/>
+    						<element name="replyToQMgr" type="xsd:string" minOccurs="0"/>
+    						<element name="userIdentifier" type="xsd:string" minOccurs="0"/>
+    						<element name="accountingToken" type="xsd:string" minOccurs="0"/>
+    						<element name="applIdentityData" type="xsd:string" minOccurs="0"/>
+    						<element name="putApplType" type="xsd:long" minOccurs="0"/>
+    						<element name="putApplName" type="xsd:string" minOccurs="0"/>
+    						<element name="putDate" type="xsd:string" minOccurs="0"/>
+    						<element name="putTime" type="xsd:string" minOccurs="0"/>
+    						<element name="applOriginData" type="xsd:string" minOccurs="0"/>
+    						<element name="groupId" type="xsd:string" minOccurs="0"/>
+    						<element name="msgSeqNumber" type="xsd:long" minOccurs="0"/>
+    						<element name="offset" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgFlags" type="xsd:integer" minOccurs="0"/>
+    						<element name="originalLength" type="xsd:integer" minOccurs="0"/>
+    						<element name="msgType" type="xsd:integer" minOccurs="0"/>
+    						<element name="ae_tracking" type="xsd:string" minOccurs="0"/>
+    						<element name="ae_pfmt" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_type" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_encoding" type="xsd:short" minOccurs="0"/>
+    						<element name="ae_ver" type="xsd:short" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="_ns_" type="xsd:string" minOccurs="0"/>
+    			<element name="_nm_" type="xsd:string" minOccurs="0"/>
+    			<element name="CAIssuer" type="xsd:string" minOccurs="0"/>
+    			<element name="SerialNumber" type="xsd:string" minOccurs="0"/>
+    
+    			<!-- SOAP over JMS -->
+    			<element name="SoapAction" type="xsd:string" minOccurs="0"/>
+    			<element name="Content_Type" type="xsd:string" minOccurs="0"/>
+    			<element name="Mime_Version" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="PublishProperties" type="pjms:PublishProperties"/>
+    	<element name="PublishJMSHeaders" type="pjms:PublishJMSHeaders"/>
+    	<complexType name="PublishJMSHeaders">
+    		<sequence>
+    			<element name="JMSDestination" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSReplyTo" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSDeliveryMode" type="xsd:string" minOccurs="0"/>
+    			<element name="JMSPriority" type="xsd:integer" minOccurs="0"/>
+    			<element name="JMSCorrelationID" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ReplyJMSProperties">
+    		<sequence>
+    			<element name="JMSXDeliveryCount" type="xsd:integer" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="ReplyJMSProperties" type="pjms:ReplyJMSProperties"/>
+    	<element name="RequestProperties" type="pjms:RequestProperties"/>
+    	<element name="ReplyProperties" type="pjms:ReplyProperties"/>
+    </schema>

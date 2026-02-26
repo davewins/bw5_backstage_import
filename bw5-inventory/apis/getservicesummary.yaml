@@ -1,0 +1,189 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: getservicesummary
+  title: "GetServiceSummary"
+  description: "Shared interface: GetServiceSummary.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- edited with XMLSpy v2017 rel. 3 (x64) (http://www.altova.com) by E McSweeney (Hewlett Packard Enterprise Com) -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.2.xsd"/>
+    	<complexType name="GetServiceSummaryResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    			<element ref="til:InstalledProduct" minOccurs="0" maxOccurs="unbounded"/>
+    			<element name="LastPage" type="xsd:boolean" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="GetServiceSummaryResponse" type="til:GetServiceSummaryResponse"/>
+    	<complexType name="InstalledProduct">
+    		<sequence>
+    			<element name="Type" type="xsd:string"/>
+    			<element name="Service" type="til:ServiceType"/>
+    			<element name="Resource" type="til:Resource" minOccurs="0"/>
+    			<element name="Device" minOccurs="0">
+    				<complexType>
+    					<complexContent>
+    						<extension base="til:DeviceType">
+    							<sequence>
+    								<element name="Type" type="xsd:string" minOccurs="0"/>
+    								<element name="SerialNumber" type="xsd:string" minOccurs="0"/>
+    							</sequence>
+    						</extension>
+    					</complexContent>
+    				</complexType>
+    			</element>
+    			<element name="Account" type="til:AccountType" minOccurs="0" maxOccurs="unbounded"/>
+    			<element name="LineItems" type="til:InstalledProduct" minOccurs="0" maxOccurs="unbounded"/>
+    		</sequence>
+    	</complexType>
+    	<element name="InstalledProduct" type="til:InstalledProduct"/>
+    	<complexType name="ResourceIDType">
+    		<sequence>
+    			<element name="MSISDN" type="vod:CTN" minOccurs="0"/>
+    			<element name="FLN" type="vod:PHONENUMBER" minOccurs="0"/>
+    			<element name="BB_SERVICEID" type="xsd:string" minOccurs="0"/>
+    			<element name="MARKETPLACE_SERVICEID" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ServiceSpecificationType">
+    		<sequence>
+    
+    			<!--25/05/2017 Farrah: Re-arranged order of Bar and Attribute to align with UpdateResourceServiceBars service-->
+    			<!--<element name="Bar" type="srvc:BarType" minOccurs="0" maxOccurs="unbounded"/>-->
+    			<!--16/05/2017 Farrah: MobileSpecificationType added based on ConnectResource service-->
+    			<!--<element name="Mobile" type="srvc:MobileSpecificationType" minOccurs="0" maxOccurs="unbounded"/>-->
+    			<!--<element name="Attribute" type="comp:AttributeType" minOccurs="0" maxOccurs="unbounded"/>-->
+    			<!--09/10/2017 Eamon: Added AnonymousSpendControl and PromotionID-->
+    			<element name="AnonymousSpendControl" type="xsd:string" minOccurs="0"/>
+    			<element name="PromotionID" type="xsd:string" minOccurs="0"/>
+    
+    			<!--27/04/2018 Puneet: Added CustomerReference-->
+    			<element name="CustomerReference" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ServiceType">
+    		<sequence>
+    			<element name="InstalledID" type="xsd:string" minOccurs="0"/>
+    			<element name="IntegrationID" type="xsd:string"/>
+    			<element name="Name" type="xsd:string" minOccurs="0"/>
+    			<element name="Type" type="xsd:string" minOccurs="0"/>
+    
+    			<!--<element name="InstallationDateTime" type="xsd:dateTime" minOccurs="0"/>-->
+    			<!--<element name="ActivationStartDateTime" type="xsd:dateTime" minOccurs="0"/>-->
+    			<!--<element name="ActivationEndDateTime" type="xsd:dateTime" minOccurs="0"/>-->
+    			<element name="Status" type="xsd:string" minOccurs="0"/>
+    			<element name="ProductID" type="xsd:string" minOccurs="0"/>
+    			<element name="Specification" type="til:ServiceSpecificationType" minOccurs="0"/>
+    			<!--31/03/2020 Sandeep B: Below fields added for GIPL.2 service as part of Bingo project-->			
+    			<element name="RelatedID" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="ServiceIntegrationID" type="xsd:string" minOccurs="0"/>
+    						<element name="PrimaryServiceIntegrationID" type="xsd:string" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>			
+    		</sequence>
+    	</complexType>
+    	<complexType name="SpecificationType">
+    		<sequence>
+    			<element name="SIM" type="til:SIMSpecificationType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="SIMSpecificationType">
+    		<sequence>
+    			<element name="IMSI" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="Resource">
+    		<sequence>
+    			<element name="ID" type="til:ResourceIDType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="AccountType">
+    		<annotation>
+    			<documentation> 
+    Financial arrangement that a person or organization has with deploying company to buy products and services e.g. John's account at Vodafone, Dell's buying account at Oracle.
+    			</documentation>
+    		</annotation>
+    		<sequence>
+    			<element name="ID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Unique Identifier of the Party</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Unique Identifier of the Account Type</documentation>
+    				</annotation>
+    			</element>
+    			<element name="BillingProfile" type="til:BillingProfileType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>A Billing Profile is a sub account of a Customer Party and it is the account that the Invoice is raised against</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="BillingProfileType">
+    		<sequence>
+    			<element name="ID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Unique identifier of a billing profile</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="DeviceType"/>
+    	<complexType name="DeviceIDType"/>
+    	<complexType name="GetServiceSummaryRequest">
+    		<sequence>
+    			<element name="Resource" type="til:Resource" minOccurs="0"/>
+    			<element name="Account" minOccurs="0" maxOccurs="unbounded">
+    				<complexType>
+    					<sequence>
+    						<element name="Type" type="xsd:string" minOccurs="0"/>
+    						<element name="ID" type="xsd:string" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="Device" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="Type" type="xsd:string"/>
+    						<element name="SerialNumber" type="xsd:string"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="StartRecord" type="xsd:integer" minOccurs="0"/>
+    			<element name="Service" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="PromotionID" type="xsd:string"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<element name="GetServiceSummaryRequest" type="til:GetServiceSummaryRequest"/>
+    </schema>

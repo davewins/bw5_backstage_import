@@ -1,0 +1,74 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: getoutofbundlechargesresponse
+  title: "GetOutOfBundleChargesResponse"
+  description: "Shared interface: GetOutOfBundleChargesResponse.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="charges" type="chargesType"/>
+    	<xs:complexType name="detailType">
+    		<xs:all>
+    			<xs:element name="name" type="xs:string" minOccurs="0"/>
+    			<xs:element name="description" type="xs:string" minOccurs="0"/>
+    			<xs:element name="amount" type="xs:byte" minOccurs="0"/>
+    			<xs:element name="period" type="periodType" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="periodType">
+    		<xs:all>
+    			<xs:element name="from" type="xs:date" minOccurs="0"/>
+    			<xs:element name="to" type="xs:date" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="summaryType">
+    		<xs:all>
+    			<xs:element name="name" type="xs:string" minOccurs="0"/>
+    			<xs:element name="description" type="xs:string" minOccurs="0"/>
+    			<xs:element name="amount" type="xs:byte" minOccurs="0"/>
+    			<xs:element name="period" type="periodType" minOccurs="0"/>
+    			<xs:element name="thresholds" type="thresholdsType" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="detailsType">
+    		<xs:sequence>
+    			<xs:element name="detail" type="detailType" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="chargeType">
+    		<xs:all>
+    			<xs:element name="summary" type="summaryType" minOccurs="0"/>
+    			<xs:element name="details" type="detailsType" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="chargesType">
+    		<xs:sequence>
+    			<xs:element name="charge" type="chargeType" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="thresholdsType">
+    		<xs:sequence>
+    			<xs:element name="threshold" type="thresholdType" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="thresholdType">
+    		<xs:all>
+    			<xs:element name="name" type="xs:string" minOccurs="0"/>
+    			<xs:element name="description" type="xs:string" minOccurs="0"/>
+    			<xs:element name="enabled" type="xs:string" minOccurs="0"/>
+    			<xs:element name="limit" type="xs:byte" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    </xs:schema>

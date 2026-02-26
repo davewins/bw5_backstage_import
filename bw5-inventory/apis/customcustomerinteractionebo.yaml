@@ -1,0 +1,107 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customcustomerinteractionebo
+  title: "CustomCustomerInteractionEBO"
+  description: "Shared interface: CustomCustomerInteractionEBO.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 1.1 **
+    ** Date: Oct 8, 2009 **
+     
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Core\EBO\CustomerInteraction\V1\CustomerInteractionEBO.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO Custom CustomerInteraction EBO Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.00">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Common/V2/CustomCommonComponents.xsd"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==============  CustomerInteraction Custom Components ================ -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomCustomerInteractionEBOType">
+    		<xsd:sequence>
+    			<xsd:element name="Alarm" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="AssignToAll" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="CallLog" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="CallDuration" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="CallId" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="CallMePhoneNo" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="CallReport" type="xsd:string" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="Category" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ContactWorkPhone" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="DoneFlag" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Display" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Email" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="EMailBCCLine" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailBody" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailCCLine" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailFormat" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EmailForwardFlag" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailReceipientAddress" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailReceipientName" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailSenderAddress" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailSenderName" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailToLine" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="EMailNormalizedSubject" type="xsd:string" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<!-- xsd:element name="PreviousActivityId" type="xsd:string" minOccurs="0"/ -->
+    			<xsd:element name="PreviousCustomerInteractionId" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Private" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Repeating" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="RepeatingExpires" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="RepeatingType" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ResolutionCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="SubCategory" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="SupressCalendar" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Type" type="xsd:string"/>
+    			<xsd:element name="VFDPAValidation" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="LastPage" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="CreationDate" type="xsd:dateTime" minOccurs="0"/>
+    			<xsd:element name="Cost" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="DetailedDescription" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ProjectName" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ServiceRequest" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="InteractionType" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomCustomerInteractionActivityType"/>
+    	<xsd:complexType name="CustomCustomerInteractionAssociationType"/>
+    	<xsd:complexType name="CustomCustomerInteractionAttachmentType"/>
+    	<xsd:complexType name="CustomCustomerInteractionClassificationType"/>
+    	<xsd:complexType name="CustomCustomerInteractionOriginationBusinessUnitType"/>
+    	<xsd:complexType name="CustomCustomerInteractionParticipantType"/>
+    </xsd:schema>

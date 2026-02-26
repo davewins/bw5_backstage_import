@@ -1,0 +1,116 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: balancemanagement-surepay-26-1-4
+  title: "BalanceManagement-SurePay-26_1_4"
+  description: "TIBCO BW5 Application: BalanceManagement-SurePay-26_1_4"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tibco
+    - bw5
+    - integration
+    - jdbc
+    - soap-http
+    - xml-jms
+  links:
+    - url: https://example.com/admin/balancemanagement-surepay-26-1-4
+      title: Admin Console
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  providesApis:
+    - api:default/access-control-xacml-2-0-context-schema-cd-04
+    - api:default/access-control-xacml-2-0-policy-schema-cd-04
+    - api:default/address-2
+    - api:default/auditevent
+    - api:default/cancelreservedbalance
+    - api:default/cancelreservedbalance-concrete
+    - api:default/codelists
+    - api:default/commoncomponents
+    - api:default/contact-2
+    - api:default/createcustomerinteraction
+    - api:default/createcustomerinteraction-client-concrete
+    - api:default/curresponse
+    - api:default/customcommoncomponents
+    - api:default/customcustomerinteractionebo
+    - api:default/customcustomerpartyebo
+    - api:default/customerinteractionebm
+    - api:default/customerinteractionebo
+    - api:default/customerpartyebm
+    - api:default/customerpartyebo
+    - api:default/custommeta
+    - api:default/customreceivedpaymentebo
+    - api:default/datatypes
+    - api:default/debitbalance
+    - api:default/error
+    - api:default/exception
+    - api:default/exceptionjmsmessage
+    - api:default/frameworkservices
+    - api:default/getbalance
+    - api:default/getbalance-2
+    - api:default/getbalance2common
+    - api:default/getbalance2elements
+    - api:default/getbalance-2-forcouk
+    - api:default/getbalance-3
+    - api:default/getbalanceforbrm
+    - api:default/getbalanceforbrm-client-concrete
+    - api:default/getbalancepartialresponse
+    - api:default/getbalanceresponse
+    - api:default/getdatabalance
+    - api:default/getoutofbundlecharges
+    - api:default/getoutofbundlechargesresponse
+    - api:default/getservicesummary
+    - api:default/getservicesummary-client-concrete
+    - api:default/header
+    - api:default/invocationdetails
+    - api:default/jmsproperties
+    - api:default/jsonerror
+    - api:default/logon
+    - api:default/meta
+    - api:default/person-2
+    - api:default/querysimrtdb
+    - api:default/receivedpaymentebm
+    - api:default/receivedpaymentebo
+    - api:default/requestheader
+    - api:default/reservebalance
+    - api:default/reservebalancecommon
+    - api:default/reservebalanceelements
+    - api:default/reservebalanceforcouk
+    - api:default/reservebalance-json
+    - api:default/responseheader
+    - api:default/resultstatus
+    - api:default/saml-schema-assertion-2-0
+    - api:default/settlereservedbalance
+    - api:default/settlereservedbalance-concrete
+    - api:default/settlereservedbalance-json
+    - api:default/settlereservedbalance-request-json
+    - api:default/settlereservedbalance-response-json
+    - api:default/simpletypes
+    - api:default/simpletypes-2
+    - api:default/validateresource
+    - api:default/validateresource-client-concrete
+    - api:default/writetolog
+    - api:default/ws-addressing
+    - api:default/wssecurity
+    - api:default/wss-wssecurity-secext
+    - api:default/wss-wssecurity-utility
+    - api:default/xenc-schema
+    - api:default/xmldsig-core-schema
+    - api:default/xsdbuiltintypes
+  consumesApis:
+    - api:default/creditbalance
+    - api:default/reservebalancereq-json
+    - api:default/reservebalanceres-json
+    - api:default/resultstatus-2
+    - api:default/temp
+    - api:default/vfsubscriber
+  dependsOn:
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-balmgt-deb
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-json-bill-balmg
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-refreshproductc
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-auditeven
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-errorhand

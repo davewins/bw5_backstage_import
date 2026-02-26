@@ -1,0 +1,52 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: writetolog
+  title: "WriteToLog"
+  description: "Shared interface: WriteToLog.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- ICC: 22/06/2011 - LIB_FRAMEWORK_3_0_0 -->
+    <!-- ICC: Removed codePrefix element -->
+    <!-- ICC: Remove WriteToLogSoft element -->
+    <!-- TILV2: Header: /cvs/TIL_V2/SharedResources/SchemaDefinitions/Common/InvocationDetails.xsd,v 1.10 2010/05/05 09:10:29 ayelr Exp  -->
+    <!-- PXX: $Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/Common/WriteToLog.xsd,v 1.2 2011/06/27 11:55:35 ayelr Exp $ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:log="http://xmlns.tibco.com/common/WriteToLog"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace="http://xmlns.tibco.com/common/WriteToLog"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<complexType name="WriteToLog">
+    		<sequence>
+    			<element name="message" type="xsd:string"/>
+    			<element name="severity">
+    				<simpleType>
+    					<restriction base="xsd:string">
+    						<enumeration value="WARN"/>
+    						<enumeration value="ERROR"/>
+    						<enumeration value="INFO"/>
+    						<enumeration value="DEBUG"/>
+    					</restriction>
+    				</simpleType>
+    			</element>
+    			<element name="msgCode">
+    				<simpleType>
+    					<restriction base="xsd:integer">
+    						<totalDigits value="3"/>
+    					</restriction>
+    				</simpleType>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<element name="WriteToLog" type="log:WriteToLog"/>
+    </schema>

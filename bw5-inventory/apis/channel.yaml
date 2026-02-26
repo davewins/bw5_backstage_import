@@ -1,0 +1,45 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: channel
+  title: "Channel"
+  description: "Shared interface: Channel.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version = "1.0" encoding = "UTF-8"?>
+    
+    <!--
+         ICC: Kumaravel Narayanan 03/09/2008 - Initial version
+         INDIRECT for dealers
+         EXTERNAL for thrid party
+         CALLCENTRE for 
+            
+    -->
+    
+    <!-- PXX: $Header: /cvs/TIL_XML/SharedResources/SchemaDefinitions/Vodafone/Common/Channel.xsd,v 1.1 2008/09/03 10:22:44 narayank Exp $ -->
+    <schema xmlns = "http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace = "http://xmlns.vodafone.co.uk/map/til/Common/Channel"
+    	 xmlns:ch = "http://xmlns.vodafone.co.uk/map/til/Common/Channel"
+    	 xmlns:xsd = "http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault = "qualified">
+    
+    	<simpleType name = "CHANNEL">
+    			<restriction base = "string">
+    				<enumeration value = "WEB"/>
+    				<enumeration value = "IVR"/>
+    				<enumeration value = "HANDSET"/>
+    				<enumeration value = "CALLCENTRE"/>
+    				<enumeration value = "RETAIL"/>
+    				<enumeration value = "EXTERNAL"/>
+    				<enumeration value = "INDIRECT"/>
+    			</restriction>
+    	</simpleType>
+    	<element name = "CHANNEL" type = "ch:CHANNEL"/>
+    </schema>

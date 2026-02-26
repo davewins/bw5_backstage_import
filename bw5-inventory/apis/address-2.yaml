@@ -1,0 +1,193 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: address-2
+  title: "Address.2"
+  description: "Shared interface: Address.2.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!--	Anitha Govindasamy on 08/02/2018.
+    	Updated to include ID, Name, Category, SubCategory, Status, Specification as part of Common Data Model.
+    
+    	Anitha Govindasamy on 07/03/2018.
+    	Updated to include ReferenceID, PremiseID as part of Common Data Model.
+    
+    	Anitha Govindasamy on 12/03/2018.
+    	Updated ReferenceID to RelatedID, PremiseID to use the ID and Added Classification and SubClassification fields as part of Common Data Model.
+    -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 xmlns:ad="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Address"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Address"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents" schemaLocation="../CommonComponents.xsd"/>
+    	<simpleType name="RESIDENT_STATUS">
+    		<restriction base="xsd:string">
+    			<enumeration value="OWNER"/>
+    			<enumeration value="TENANT"/>
+    			<enumeration value="PARENTS"/>
+    			<enumeration value="OTHER"/>
+    		</restriction>
+    	</simpleType>
+    	<complexType name="AddressType">
+    		<sequence>
+    			<element name="ID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Unique Identifier of the Address eg. Customer Party Address Identifier, Premise Address Identifier,etc.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Type of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Category" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Category of the Address. Please refer to the "AddressCategory_v1" for LOV's in the Common Reference Data sheet.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubCategory" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>SubCategory of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Status" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Status of the Adress.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="FAO" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>For the Attention of.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Flat" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Flat number of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="BuildingNumber" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Building number of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Building" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Building of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Street" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Street of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubStreet" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Sub Street of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="StreetSuffix" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Street Suffix of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="PrivateStreet" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Private Street of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Locality" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Locality of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubLocality" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Sub Locality of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Town" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Town of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="TownSuffix" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Town Suffix of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="City" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>City of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="County" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>County of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Country" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Country of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Postcode" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Post code of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="ResidentStatus" type="ad:RESIDENT_STATUS" minOccurs="0">
+    				<annotation>
+    					<documentation>Resident Status of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="StayPeriod" type="comp:PeriodType" minOccurs="0">
+    				<annotation>
+    					<documentation>Stay Period of the customer in the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Notes" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Notes relating to the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Specification" type="comp:SpecificationType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Any Additional details/Specification of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="RelatedID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>External Address reference identifier.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Classification" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Classification of the Address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubClassification" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Sub Classification of the Address.</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<element name="Address" type="ad:AddressType"/>
+    </schema>

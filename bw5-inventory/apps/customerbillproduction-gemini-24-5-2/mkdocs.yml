@@ -1,0 +1,12 @@
+site_name: CustomerBillProduction-Gemini-24_5_2
+site_description: Documentation for CustomerBillProduction-Gemini-24_5_2
+nav:
+  - Process Inventory: index.md
+  - Visual Flow Diagrams: diagrams.md
+  - Global Variables: variables.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top

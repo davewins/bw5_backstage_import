@@ -1,0 +1,114 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: getsubscriber-2
+  title: "GetSubscriber.2"
+  description: "Shared interface: GetSubscriber.2.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- 
+    ICC: Pierre Ayel 17/03/2010
+    	(1) Renamed INTNUMBER type into INTNUMBER.
+    -->
+    <!-- 
+    ICC: Revanth 05/05/2010
+    	(1) Added new element isVISUser under the SubscriberDetails .
+    	
+    ICC: Kumaravel Narayanan 15/09/2010
+    	(1) Added isPositionAllowed & isPAIControl under SubscriberDetails for LES project
+    -->
+    <!-- PXX: $Header: /cvs/TIL_PROJECT07/SharedResources/SchemaDefinitions/Vodafone/CustomerManagement/CustomerProfileManagement/CustomerPersonalInformationManagement/GetSubscriber.2.xsd,v 1.1 2014/02/21 11:52:53 tparames Exp $ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerPersonalInformationManagement/GetSubscriber"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:ln="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Logon"
+    	 xmlns:e164="http://xmlns.vodafone.co.uk/map/til/Common/INTNUMBER"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerPersonalInformationManagement/GetSubscriber"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Logon" schemaLocation="../../../Common/CommonObjects/Logon.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/INTNUMBER" schemaLocation="../../../Common/INTNUMBER.xsd"/>
+    	<complexType name="GetSubscriberResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    			<element name="SubscriberDetails" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="CTN" type="e164:INTNUMBER"/>
+    						<element name="welcomeSMSOptout" type="xsd:boolean"/>
+    						<element name="modifiedDate" type="xsd:dateTime"/>
+    						<element name="UID" type="vod:UUID" minOccurs="0"/>
+    						<element name="IMSI" type="vod:IMSI" minOccurs="0"/>
+    						<element name="IMEI" type="vod:IMEI" minOccurs="0"/>
+    						<element name="SIM" type="vod:SIM" minOccurs="0"/>
+    						<element name="billingAccountNumber" type="vod:BAN" minOccurs="0"/>
+    						<element name="confirmPossessionLock" type="xsd:boolean" minOccurs="0"/>
+    						<element name="confirmPossessionDate" type="xsd:dateTime" minOccurs="0"/>
+    						<element name="SMSSecretCodeDate" type="xsd:dateTime" minOccurs="0"/>
+    						<element name="phoneModel" type="xsd:string" minOccurs="0"/>
+    						<element name="servicePlan" type="xsd:string" minOccurs="0"/>
+    						<element name="VPN" type="xsd:string" minOccurs="0"/>
+    						<element name="serviceProvider" type="xsd:string" minOccurs="0"/>
+    						<element name="SMSCapability" type="xsd:string" minOccurs="0"/>
+    						<element name="nickName" type="xsd:string" minOccurs="0"/>
+    						<element name="nickNameType" type="xsd:string" minOccurs="0"/>
+    						<element name="subscriptionStatus" type="xsd:string" minOccurs="0"/>
+    						<element name="statusDate" type="xsd:dateTime" minOccurs="0"/>
+    						<element name="subAdminSubscription" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    						<element name="subAdminBar" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    						<element name="subscriptionType" type="xsd:string" minOccurs="0"/>
+    						<element name="connectionType" type="xsd:string" minOccurs="0"/>
+    						<element name="networkType" type="xsd:string" minOccurs="0"/>
+    						<element name="serviceProviderType" type="xsd:string" minOccurs="0"/>
+    						<element name="customerValue" type="xsd:string" minOccurs="0"/>
+    						<element name="marketSegment" type="xsd:string" minOccurs="0"/>
+    						<element name="SIPPassword" type="xsd:string" minOccurs="0"/>
+    						<element name="isVISUser" type="xsd:boolean" minOccurs="0"/>
+    						<element name="GPRSPlan" type="xsd:string" minOccurs="0"/>
+    						<element name="billingAnniversaryDay" type="xsd:string" minOccurs="0"/>
+    						<element name="dataSubscriptions" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    						<element name="dataBars" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    						<element name="ContentSubscriptions" type="til:ContentSubscriptions" minOccurs="0" maxOccurs="unbounded"/>
+    						<element name="isPositionAllowed" type="xsd:boolean" minOccurs="0"/>
+    						<element name="isPAIControl" type="xsd:boolean" minOccurs="0"/>
+    						<element name="groupServiceID" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    						<!-- Start of changes for EU Roaming -->
+    						<element name="dataUsageRoamingCap" type="xsd:boolean" minOccurs="0"/>
+    						<element name="ARP-TADIG" type="xsd:string" minOccurs="0"/>
+    						<element name="softGPRSBar" type="xsd:boolean" minOccurs="0"/>
+    						<element name="arpSuspended" type="xsd:boolean" minOccurs="0"/>
+    						<!-- End of changes for EU Roaming -->
+    					</sequence>
+    				</complexType>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<element name="GetSubscriberResponse" type="til:GetSubscriberResponse"/>
+    	<complexType name="ContentSubscriptions">
+    		<sequence>
+    			<element name="packageID" type="xsd:string"/>
+    			<element name="subscriptionID" type="xsd:int"/>
+    			<element name="serviceID" type="xsd:string"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="GetSubscriberRequest">
+    		<sequence>
+    			<element name="CTN" type="e164:INTNUMBER"/>
+    			<element name="Logon" type="ln:Logon" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="GetSubscriberRequest" type="til:GetSubscriberRequest"/>
+    </schema>

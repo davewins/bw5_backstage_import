@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-custdistpr
+  title: "%%Env/JMS/MIG_Jms_Dest_Prefix_IF%%.Request.BILL.CustDistProm.CustomerDiscountCalculation.SetDiscount.1"
+  description: "%%Env/JMS/MIG_Jms_Dest_Prefix_IF%%.Request.BILL.CustDistProm.CustomerDiscountCalculation.SetDiscount.1"
+  tags:
+    - tibco
+    - bw5
+    - messaging
+    - jms
+    - destination
+spec:
+  type: jms-destination
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate

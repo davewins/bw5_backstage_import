@@ -1,0 +1,61 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: til-hss-diameteradapter-25-11-1
+  title: "TIL_HSS_DiameterAdapter-25_11_1"
+  description: "TIBCO BW5 Application: TIL_HSS_DiameterAdapter-25_11_1"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tibco
+    - bw5
+    - integration
+    - jdbc
+    - soap-http
+    - xml-jms
+  links:
+    - url: https://example.com/admin/til-hss-diameteradapter-25-11-1
+      title: Admin Console
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  providesApis:
+    - api:default/access-control-xacml-2-0-context-schema-cd-04
+    - api:default/access-control-xacml-2-0-policy-schema-cd-04
+    - api:default/auditevent
+    - api:default/codelists
+    - api:default/custommeta
+    - api:default/datatypes
+    - api:default/exception
+    - api:default/exceptionjmsmessage
+    - api:default/frameworkservices
+    - api:default/header
+    - api:default/invocationdetails
+    - api:default/jmsproperties
+    - api:default/logon
+    - api:default/meta
+    - api:default/requestheader
+    - api:default/resultstatus
+    - api:default/retrievehsslocationdetails
+    - api:default/retrievehsslocationdetails-2
+    - api:default/shdatatype-rel17
+    - api:default/shdatatype-rel17-nons
+    - api:default/simpletypes
+    - api:default/userdataresponse
+    - api:default/writetolog
+    - api:default/ws-addressing
+    - api:default/wss-wssecurity-secext
+    - api:default/wss-wssecurity-utility
+    - api:default/xsdbuiltintypes
+  consumesApis:
+    - api:default/hss-shdata
+    - api:default/schema
+    - api:default/shdatatype-rel15
+    - api:default/shdatatype-rel15-nons
+  dependsOn:
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-cust-custprofmg
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-auditeven
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-errorhand

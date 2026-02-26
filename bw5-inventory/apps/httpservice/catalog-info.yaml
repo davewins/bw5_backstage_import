@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: httpservice
+  title: "HTTPService"
+  description: "TIBCO BW5 Application: HTTPService"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tibco
+    - bw5
+    - integration
+    - xml-http
+  links:
+    - url: https://example.com/admin/httpservice
+      title: Admin Console
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  dependsOn:
+    - resource:default/http-listen-httpservice

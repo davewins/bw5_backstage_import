@@ -1,0 +1,39 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: osmtilroutingconfig
+  title: "OSMTILRoutingConfig"
+  description: "Shared interface: OSMTILRoutingConfig.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/ITIntegration/ApplicationIntegration/Routing/OSMAdapter"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/ITIntegration/ApplicationIntegration/Routing/OSMAdapter"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<complexType name="OSMTILRoutingConfigOpDetails">
+    		<sequence>
+    			<element name="operationName" type="xsd:string"/>
+    			<element name="soapAction" type="xsd:string" minOccurs="0"/>
+    			<element name="origin" type="xsd:string"/>
+    			<element name="flowType" type="xsd:string"/>
+    			<element name="sourceDestinationType" type="xsd:string"/>
+    			<element name="sourceRequest" type="xsd:string" minOccurs="0"/>
+    			<element name="sourceResponse" type="xsd:string" minOccurs="0"/>
+    			<element name="targetDestinationType" type="xsd:string" minOccurs="0"/>
+    			<element name="targetRequest" type="xsd:string" minOccurs="0"/>
+    			<element name="tilTargetResponse" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="OSMTILRoutingConfig" type="til:OSMTILRoutingConfigOpDetails"/>
+    </schema>

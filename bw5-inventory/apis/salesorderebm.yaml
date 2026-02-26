@@ -1,0 +1,1574 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: salesorderebm
+  title: "SalesOrderEBM"
+  description: "Shared interface: SalesOrderEBM.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 2.0 **
+    ** Date: Aug 28, 2008 **
+     
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Industry\Communications\EBO\SalesOrder\V2\SalesOrderEBM.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO SalesOrder EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:coresalesordercust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/SalesOrder/V2" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2" xmlns:ebocontext="http://xmlns.oracle.com/EBO/BusinessContext/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/SalesOrder/V2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.2">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="SalesOrderEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/SalesOrder/V2" schemaLocation="../../../Custom/EBO/SalesOrder/V2/CustomSalesOrderEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    	<xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    	<!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>SalesOrder EBM identifies all the service operations that are supported for the SalesOrder EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry>Communications</svcdoc:Industry>
+    				<svcdoc:EBOName>SalesOrderEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SalesOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="PriorSalesOrder" type="SalesOrderEBMType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================QuerySalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QuerySalesOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QuerySalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderEBM" type="QuerySalesOrderEBMType"/>
+    	<xsd:complexType name="QuerySalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QuerySalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QuerySalesOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrder" type="QuerySalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= QuerySalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QuerySalesOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QuerySalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderResponseEBM" type="QuerySalesOrderResponseEBMType"/>
+    	<xsd:complexType name="QuerySalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QuerySalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QuerySalesOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderResponse" type="QuerySalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ QuerySalesOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QuerySalesOrderListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QuerySalesOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderListEBM" type="QuerySalesOrderListEBMType"/>
+    	<xsd:complexType name="SalesOrderComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="SalesOrderQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="SalesOrderResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="QuerySalesOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="SalesOrderComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SalesOrderQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="SalesOrderResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =========== QuerySalesOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QuerySalesOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QuerySalesOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderListResponseEBM" type="QuerySalesOrderListResponseEBMType"/>
+    	<xsd:complexType name="QuerySalesOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QuerySalesOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QuerySalesOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QuerySalesOrderListResponse" type="QuerySalesOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CreateSalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateSalesOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateSalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderEBM" type="CreateSalesOrderEBMType"/>
+    	<xsd:complexType name="CreateSalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateSalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateSalesOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrder" type="CreateSalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CreateSalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateSalesOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateSalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderResponseEBM" type="CreateSalesOrderResponseEBMType"/>
+    	<xsd:complexType name="CreateSalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateSalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateSalesOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderResponse" type="CreateSalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ CreateSalesOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateSalesOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateSalesOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderListEBM" type="CreateSalesOrderListEBMType"/>
+    	<xsd:complexType name="CreateSalesOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateSalesOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateSalesOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderList" type="CreateSalesOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== CreateSalesOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateSalesOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateSalesOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderListResponseEBM" type="CreateSalesOrderListResponseEBMType"/>
+    	<xsd:complexType name="CreateSalesOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateSalesOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateSalesOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateSalesOrderListResponse" type="CreateSalesOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================DeleteSalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteSalesOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteSalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderEBM" type="DeleteSalesOrderEBMType"/>
+    	<xsd:complexType name="DeleteSalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteSalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteSalesOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    SalesOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrder" type="DeleteSalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= DeleteSalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteSalesOrderResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteSalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderResponseEBM" type="DeleteSalesOrderResponseEBMType"/>
+    	<xsd:complexType name="DeleteSalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteSalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteSalesOrderResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    SalesOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderResponse" type="DeleteSalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ DeleteSalesOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteSalesOrderListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteSalesOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderListEBM" type="DeleteSalesOrderListEBMType"/>
+    	<xsd:complexType name="DeleteSalesOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteSalesOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteSalesOrderListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    SalesOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderList" type="DeleteSalesOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== DeleteSalesOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteSalesOrderListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteSalesOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderListResponseEBM" type="DeleteSalesOrderListResponseEBMType"/>
+    	<xsd:complexType name="DeleteSalesOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteSalesOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteSalesOrderListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    SalesOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteSalesOrderListResponse" type="DeleteSalesOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessSalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderEBM" type="ProcessSalesOrderEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessSalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrder" type="ProcessSalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessSalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderResponseEBM" type="ProcessSalesOrderResponseEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessSalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType">
+    				<xsd:sequence>
+    					<xsd:element ref="PriorSalesOrder" minOccurs="0"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderResponse" type="ProcessSalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =============ProcessSalesOrderUpdate=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderUpdateEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderUpdateDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderUpdateEBM" type="ProcessSalesOrderUpdateEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderUpdateDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessSalesOrderUpdate"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderUpdateType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType">
+    				<xsd:sequence>
+    					<xsd:element ref="PriorSalesOrder" minOccurs="0"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderUpdate" type="ProcessSalesOrderUpdateType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessSalesOrderUpdate Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderUpdateResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderUpdateResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderUpdateResponseEBM" type="ProcessSalesOrderUpdateResponseEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderUpdateResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessSalesOrderUpdateResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderUpdateResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderUpdateResponse" type="ProcessSalesOrderUpdateResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =============ProcessSalesOrderFulfillment=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderFulfillmentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderFulfillmentEBM" type="ProcessSalesOrderFulfillmentEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessSalesOrderFulfillment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType">
+    				<xsd:sequence>
+    					<xsd:element ref="PriorSalesOrder" minOccurs="0"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderFulfillment" type="ProcessSalesOrderFulfillmentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessSalesOrderFulfillment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderFulfillmentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderFulfillmentResponseEBM" type="ProcessSalesOrderFulfillmentResponseEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessSalesOrderFulfillmentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderFulfillmentResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderFulfillmentResponse" type="ProcessSalesOrderFulfillmentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessSalesOrderATPCheck Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderATPCheckEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderATPCheckDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderATPCheckEBM" type="ProcessSalesOrderATPCheckEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderATPCheckDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessSalesOrderATPCheck"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderATPCheckType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element name="RequestedDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:SourceInventoryLocationReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element ref="SalesOrderLineATPCheck" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomProcessSalesOrderATPCheckType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="actionCode" type="corecom:ActionCodeType"/>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderATPCheck" type="ProcessSalesOrderATPCheckType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessSalesOrderATPCheck Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderATPCheckResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderATPCheckResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderATPCheckResponseEBM" type="ProcessSalesOrderATPCheckResponseEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderATPCheckResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessSalesOrderATPCheckResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderATPCheckResponse" type="ProcessSalesOrderATPCheckResponseType"/>
+    	<xsd:complexType name="ProcessSalesOrderATPCheckResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="SalesOrderLineATPCheckResponse" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomProcessSalesOrderATPCheckResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="actionCode" type="corecom:ActionCodeType"/>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =====    Process ATP Check Types                                          ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="SalesOrderLineATPCheck" type="SalesOrderLineATPCheckType"/>
+    	<xsd:complexType name="SalesOrderLineATPCheckType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="RequestedQuantity" type="corecom:QuantityType" minOccurs="0"/>
+    			<xsd:element name="RequestedDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:ItemReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:SourceInventoryLocationReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderLineATPCheckType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="SalesOrderLineATPCheckResponse" type="SalesOrderLineATPCheckResponseType"/>
+    	<xsd:complexType name="SalesOrderLineATPCheckResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="AvailableQuantity" type="corecom:QuantityType" minOccurs="0"/>
+    			<xsd:element ref="corecom:ItemReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:Status" minOccurs="0"/>
+    			<xsd:element ref="InventoryAvailability" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderLineATPCheckResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="InventoryAvailabilityType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="AvailableQuantity" type="corecom:QuantityType" minOccurs="0"/>
+    			<xsd:element name="AvailableDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:FulfilmentInventoryLocationReference" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomInventoryAvailabilityType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="InventoryAvailability" type="InventoryAvailabilityType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessSalesOrderShippingChargeCalculation Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderShippingChargeCalculationDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderShippingChargeCalculationEBM" type="ProcessSalesOrderShippingChargeCalculationEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessSalesOrderShippingChargeCalculation"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomProcessSalesOrderShippingChargeCalculationType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element name="TotalWeight" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="TotalVolume" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="ModeOfTransportCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Identifies the default Shipping method of the order (old desc)    </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="ServiceLevelCode" type="corecom:CodeType" minOccurs="0"/>
+    			<xsd:element name="RequestedShipmentDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:CarrierPartyReference" minOccurs="0"/>
+    			<xsd:element ref="SalesOrderLineShippingChargeCalculation" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomProcessSalesOrderShippingChargeCalculationType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="actionCode" type="corecom:ActionCodeType"/>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderShippingChargeCalculation" type="ProcessSalesOrderShippingChargeCalculationType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessSalesOrderShippingChargeCalculation Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessSalesOrderShippingChargeCalculationResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderShippingChargeCalculationResponseEBM" type="ProcessSalesOrderShippingChargeCalculationResponseEBMType"/>
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessSalesOrderShippingChargeCalculationResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessSalesOrderShippingChargeCalculationResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element name="TotalChargeAmount" type="corecom:AmountType" minOccurs="0"/>
+    			<xsd:element name="TotalWeight" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="TotalVolume" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="ModeOfTransportCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Identifies the default Shipping method of the order (old desc)    </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="ServiceLevelCode" type="corecom:CodeType" minOccurs="0"/>
+    			<xsd:element name="RequestedShipmentDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:CarrierPartyReference" minOccurs="0"/>
+    			<xsd:element ref="SalesOrderLineShippingChargeCalculationResponse" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomProcessSalesOrderShippingChargeCalculationResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="actionCode" type="corecom:ActionCodeType"/>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessSalesOrderShippingChargeCalculationResponse" type="ProcessSalesOrderShippingChargeCalculationResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====    Process Shipping Charge Calculation Types                                          ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SalesOrderLineShippingChargeCalculationType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TotalWeight" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="TotalVolume" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="ModeOfTransportCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Identifies the default Shipping method of the order (old desc)    </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="ServiceLevelCode" type="corecom:CodeType" minOccurs="0"/>
+    			<xsd:element name="RequestedShipmentDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:ItemReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:CarrierPartyReference" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderLineShippingChargeCalculationType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="SalesOrderLineShippingChargeCalculation" type="SalesOrderLineShippingChargeCalculationType"/>
+    	<xsd:complexType name="SalesOrderLineShippingChargeCalculationResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TotalChargeAmount" type="corecom:AmountType" minOccurs="0"/>
+    			<xsd:element name="TotalWeight" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="TotalVolume" type="corecom:MeasureType" minOccurs="0"/>
+    			<xsd:element name="ModeOfTransportCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Identifies the default Shipping method of the order (old desc)    </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="ServiceLevelCode" type="corecom:CodeType" minOccurs="0"/>
+    			<xsd:element name="RequestedShipmentDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:ItemReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipFromPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:ShipToPartyReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:CarrierPartyReference" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomSalesOrderLineShippingChargeCalculationResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="SalesOrderLineShippingChargeCalculationResponse" type="SalesOrderLineShippingChargeCalculationResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ SyncSalesOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncSalesOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncSalesOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncSalesOrderListEBM" type="SyncSalesOrderListEBMType"/>
+    	<xsd:complexType name="SyncSalesOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncSalesOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncSalesOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncSalesOrderList" type="SyncSalesOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== SyncSalesOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncSalesOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncSalesOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncSalesOrderListResponseEBM" type="SyncSalesOrderListResponseEBMType"/>
+    	<xsd:complexType name="SyncSalesOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncSalesOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncSalesOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncSalesOrderListResponse" type="SyncSalesOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateSalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderEBM" type="UpdateSalesOrderEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateSalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrder" type="UpdateSalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateSalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderResponseEBM" type="UpdateSalesOrderResponseEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateSalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderResponse" type="UpdateSalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateSalesOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderListEBM" type="UpdateSalesOrderListEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateSalesOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderList" type="UpdateSalesOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateSalesOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderListResponseEBM" type="UpdateSalesOrderListResponseEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateSalesOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderListResponse" type="UpdateSalesOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateSalesOrderLineStatus List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderLineStatusListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderLineStatusListEBM" type="UpdateSalesOrderLineStatusListEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateSalesOrderLineStatusList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderLineStatusList" type="UpdateSalesOrderLineStatusListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateSalesOrderLineStatus List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateSalesOrderLineStatusListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderLineStatusListResponseEBM" type="UpdateSalesOrderLineStatusListResponseEBMType"/>
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateSalesOrderLineStatusListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateSalesOrderLineStatusListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateSalesOrderLineStatusListResponse" type="UpdateSalesOrderLineStatusListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ValidateSalesOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ValidateSalesOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ValidateSalesOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ValidateSalesOrderEBM" type="ValidateSalesOrderEBMType"/>
+    	<xsd:complexType name="ValidateSalesOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Validate"/>
+    			<xsd:element ref="ValidateSalesOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ValidateSalesOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ValidateSalesOrder" type="ValidateSalesOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ValidateSalesOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ValidateSalesOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ValidateSalesOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ValidateSalesOrderResponseEBM" type="ValidateSalesOrderResponseEBMType"/>
+    	<xsd:complexType name="ValidateSalesOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ValidateResponse"/>
+    			<xsd:element ref="ValidateSalesOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ValidateSalesOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="SalesOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ValidateSalesOrderResponse" type="ValidateSalesOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CancelSalesOrderFulfillment Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CancelSalesOrderFulfillmentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CancelSalesOrderFulfillmentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CancelSalesOrderFulfillmentEBM" type="CancelSalesOrderFulfillmentEBMType"/>
+    	<xsd:complexType name="CancelSalesOrderFulfillmentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="CancelSalesOrderFulfillment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CancelSalesOrderFulfillmentType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    Sales Order unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomCancelSalesOrderFulfillmentType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="CancelSalesOrderFulfillment" type="CancelSalesOrderFulfillmentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CancelSalesOrderFulfillment Response Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CancelSalesOrderFulfillmentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CancelSalesOrderFulfillmentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CancelSalesOrderFulfillmentResponseEBM" type="CancelSalesOrderFulfillmentResponseEBMType"/>
+    	<xsd:complexType name="CancelSalesOrderFulfillmentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="CancelSalesOrderFulfillmentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CancelSalesOrderFulfillmentResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    Sales Order unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomCancelSalesOrderFulfillmentResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="CancelSalesOrderFulfillmentResponse" type="CancelSalesOrderFulfillmentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================HoldSalesOrderFulfillment
+     Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="HoldSalesOrderFulfillmentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="HoldSalesOrderFulfillmentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderFulfillmentEBM" type="HoldSalesOrderFulfillmentEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A message to convey the request for holding the fulfillment process from progressing further. If the hold is successful, it also implies that the fulfillment process can still be updated. An example use case is an upstream order fulfillment system issuing a hold request to the shipping system before attempting to make some changes to its scheduling which could require changes in the request.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="HoldSalesOrderFulfillmentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="HoldSalesOrderFulfillment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="HoldSalesOrderFulfillmentType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Comment" type="corecom:TextType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomHoldSalesOrderFulfillmentType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderFulfillment" type="HoldSalesOrderFulfillmentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= HoldSalesOrderFulfillment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="HoldSalesOrderFulfillmentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="HoldSalesOrderFulfillmentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderFulfillmentResponseEBM" type="HoldSalesOrderFulfillmentResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A response message for indicating whether the corresponding hold request was successful or unsuccessful.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="HoldSalesOrderFulfillmentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="HoldSalesOrderFulfillmentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderFulfillmentResponse" type="HoldSalesOrderFulfillmentResponseType"/>
+    	<xsd:complexType name="HoldSalesOrderFulfillmentResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="SuccessfulIndicator" type="corecom:IndicatorType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>Indicates if the hold request associated with this response is successful or unsuccessful.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>This is primarily used when the hold request is unsuccessful to describe the failure reason.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomHoldSalesOrderFulfillmentResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================HoldSalesOrderLineFulfillmentList
+     Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="HoldSalesOrderLineFulfillmentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderLineFulfillmentListEBM" type="HoldSalesOrderLineFulfillmentListEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A message to convey the request for holding the fulfillment process from progressing further. If the hold is successful, it also implies that the fulfillment process can still be updated. An example use case is an upstream order fulfillment system issuing a hold request to the shipping system before attempting to make some changes to its scheduling which could require changes in the request.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="HoldSalesOrderLineFulfillmentList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Comment" type="corecom:TextType" minOccurs="0" maxOccurs="unbounded">
+    				<xsd:annotation>
+    					<xsd:documentation>Comment describing the detail of the hold request.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomHoldSalesOrderLineFulfillmentListType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderLineFulfillmentList" type="HoldSalesOrderLineFulfillmentListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= HoldSalesOrderLineFulfillmentList Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="HoldSalesOrderLineFulfillmentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderLineFulfillmentListResponseEBM" type="HoldSalesOrderLineFulfillmentListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A response message for indicating whether the corresponding hold request was successful or unsuccessful.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="HoldSalesOrderLineFulfillmentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="HoldSalesOrderLineFulfillmentListResponse" type="HoldSalesOrderLineFulfillmentListResponseType"/>
+    	<xsd:complexType name="HoldSalesOrderLineFulfillmentListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="SuccesfulIndicator" type="corecom:IndicatorType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>Indicates if the hold request associated with this response is successful or unsuccessful.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>This is primarily used when the hold request is unsuccessful to describe the failure reason.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomHoldSalesOrderLineFulfillmentListResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ReleaseSalesOrderFulfillmentHold
+     Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ReleaseSalesOrderFulfillmentHoldDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderFulfillmentHoldEBM" type="ReleaseSalesOrderFulfillmentHoldEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A message to convey the request for releasing the fulfillment process from the prior hold to continue its progression. </xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ReleaseSalesOrderFulfillmentHold"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Comment" type="corecom:TextType" minOccurs="0" maxOccurs="unbounded">
+    				<xsd:annotation>
+    					<xsd:documentation>Comment describing the detail of the release request.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomReleaseSalesOrderFulfillmentHoldType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderFulfillmentHold" type="ReleaseSalesOrderFulfillmentHoldType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ReleaseSalesOrderFulfillmentHold Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ReleaseSalesOrderFulfillmentHoldResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderFulfillmentHoldResponseEBM" type="ReleaseSalesOrderFulfillmentHoldResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A response message for indicating whether the corresponding release hold request was successful or unsuccessful.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ReleaseSalesOrderFulfillmentHoldResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderFulfillmentHoldResponse" type="ReleaseSalesOrderFulfillmentHoldResponseType"/>
+    	<xsd:complexType name="ReleaseSalesOrderFulfillmentHoldResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold that is attempted to be released, e.g., CreditHold. </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="SuccessfulIndicator" type="corecom:IndicatorType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>Indicates if the release request associated with this response is successful or unsuccessful.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>This is primarily used when the release request is unsuccessful to describe the failure reason.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomReleaseSalesOrderFulfillmentHoldResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ReleaseSalesOrderLineFulfillmentHoldList
+     Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ReleaseSalesOrderLineFulfillmentHoldListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderLineFulfillmentHoldListEBM" type="ReleaseSalesOrderLineFulfillmentHoldListEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A message to convey the request for releasing the fulfillment process from the prior hold to continue its progression. </xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ReleaseSalesOrderLineFulfillmentHoldList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold, e.g., ItemBasedHold (hold due to item issues), CustomerBasedHold (hold due to customer issues, e.g, credit), ChangeRequestHold (hold for subsequent order change). </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Comment" type="corecom:TextType" minOccurs="0" maxOccurs="unbounded">
+    				<xsd:annotation>
+    					<xsd:documentation>Comment describing the detail of the release request.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomReleaseSalesOrderLineFulfillmentHoldListType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderLineFulfillmentHoldList" type="ReleaseSalesOrderLineFulfillmentHoldListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ReleaseSalesOrderLineFulfillmentHoldList Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ReleaseSalesOrderLineFulfillmentHoldListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderLineFulfillmentHoldListResponseEBM" type="ReleaseSalesOrderLineFulfillmentHoldListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>A response message for indicating whether the corresponding release hold request was successful or unsuccessful.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ReleaseSalesOrderLineFulfillmentHoldListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ReleaseSalesOrderLineFulfillmentHoldListResponse" type="ReleaseSalesOrderLineFulfillmentHoldListResponseType"/>
+    	<xsd:complexType name="ReleaseSalesOrderLineFulfillmentHoldListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SalesOrderIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:SalesOrderLineIdentification" minOccurs="0"/>
+    			<xsd:element name="TypeCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>It indicates the type of hold that is attempted to be released, e.g., CreditHold. </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="SuccessfulIndicator" type="corecom:IndicatorType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>Indicates if the release request associated with this response is successful or unsuccessful.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Reason" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>This is primarily used when the release request is unsuccessful to describe the failure reason.</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coresalesordercust:CustomReleaseSalesOrderLineFulfillmentHoldListResponseType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    </xsd:schema>

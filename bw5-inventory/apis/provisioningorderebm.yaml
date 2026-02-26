@@ -1,0 +1,878 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: provisioningorderebm
+  title: "ProvisioningOrderEBM"
+  description: "Shared interface: ProvisioningOrderEBM.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 1.00 **
+    ** Date: Oct 13, 2008 **
+     
+    Copyright (c) 2007, Oracle. All rights reserved 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Industry\Communications\EBO\ProvisioningOrder\V1\ProvisioningOrderEBM.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO ProvisioningOrder EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:coreprovisioningordercust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/ProvisioningOrder/V1" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/ProvisioningOrder/V1" xmlns:ebocontext="http://xmlns.oracle.com/EBO/BusinessContext/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/ProvisioningOrder/V1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.00">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="ProvisioningOrderEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/ProvisioningOrder/V1" schemaLocation="../../../Custom/EBO/ProvisioningOrder/V1/CustomProvisioningOrderEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    	<xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    	<!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>ProvisioningOrder EBM identifies all the service operations that are supported for the ProvisioningOrder EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry>Communications</svcdoc:Industry>
+    				<svcdoc:EBOName>ProvisioningOrderEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="PriorProvisioningOrder" type="ProvisioningOrderEBMType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================QueryProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderEBM" type="QueryProvisioningOrderEBMType"/>
+    	<xsd:complexType name="QueryProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QueryProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryProvisioningOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrder" type="QueryProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= QueryProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryProvisioningOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderResponseEBM" type="QueryProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="QueryProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryProvisioningOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderResponse" type="QueryProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ QueryProvisioningOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryProvisioningOrderListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryProvisioningOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderListEBM" type="QueryProvisioningOrderListEBMType"/>
+    	<xsd:complexType name="ProvisioningOrderComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="ProvisioningOrderQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="ProvisioningOrderResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryProvisioningOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="ProvisioningOrderComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProvisioningOrderQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProvisioningOrderResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =========== QueryProvisioningOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryProvisioningOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryProvisioningOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderListResponseEBM" type="QueryProvisioningOrderListResponseEBMType"/>
+    	<xsd:complexType name="QueryProvisioningOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryProvisioningOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryProvisioningOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryProvisioningOrderListResponse" type="QueryProvisioningOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CreateProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateProvisioningOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderEBM" type="CreateProvisioningOrderEBMType"/>
+    	<xsd:complexType name="CreateProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateProvisioningOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrder" type="CreateProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CreateProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateProvisioningOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderResponseEBM" type="CreateProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="CreateProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateProvisioningOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderResponse" type="CreateProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ CreateProvisioningOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateProvisioningOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateProvisioningOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderListEBM" type="CreateProvisioningOrderListEBMType"/>
+    	<xsd:complexType name="CreateProvisioningOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateProvisioningOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateProvisioningOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderList" type="CreateProvisioningOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== CreateProvisioningOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateProvisioningOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateProvisioningOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderListResponseEBM" type="CreateProvisioningOrderListResponseEBMType"/>
+    	<xsd:complexType name="CreateProvisioningOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateProvisioningOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateProvisioningOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateProvisioningOrderListResponse" type="CreateProvisioningOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessProvisioningOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessProvisioningOrderEBM" type="ProcessProvisioningOrderEBMType"/>
+    	<xsd:complexType name="ProcessProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessProvisioningOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType">
+    				<xsd:sequence>
+    					<xsd:element ref="PriorProvisioningOrder" minOccurs="0"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessProvisioningOrder" type="ProcessProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessFulfillmentOrder Response Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessProvisioningOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessProvisioningOrderResponseEBM" type="ProcessProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="ProcessProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessProvisioningOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessProvisioningOrderResponse" type="ProcessProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================DeleteProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderEBM" type="DeleteProvisioningOrderEBMType"/>
+    	<xsd:complexType name="DeleteProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteProvisioningOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrder" type="DeleteProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= DeleteProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteProvisioningOrderResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderResponseEBM" type="DeleteProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="DeleteProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteProvisioningOrderResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderResponse" type="DeleteProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ DeleteProvisioningOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteProvisioningOrderListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteProvisioningOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderListEBM" type="DeleteProvisioningOrderListEBMType"/>
+    	<xsd:complexType name="DeleteProvisioningOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteProvisioningOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteProvisioningOrderListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderList" type="DeleteProvisioningOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== DeleteProvisioningOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteProvisioningOrderListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteProvisioningOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderListResponseEBM" type="DeleteProvisioningOrderListResponseEBMType"/>
+    	<xsd:complexType name="DeleteProvisioningOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteProvisioningOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteProvisioningOrderListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteProvisioningOrderListResponse" type="DeleteProvisioningOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CancelProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CancelProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CancelProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CancelProvisioningOrderEBM" type="CancelProvisioningOrderEBMType"/>
+    	<xsd:complexType name="CancelProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="CancelProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CancelProvisioningOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="CancelProvisioningOrder" type="CancelProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CancelProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CancelProvisioningOrderResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CancelProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CancelProvisioningOrderResponseEBM" type="CancelProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="CancelProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="CancelProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CancelProvisioningOrderResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="CancelProvisioningOrderResponse" type="CancelProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================SuspendProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SuspendProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SuspendProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SuspendProvisioningOrderEBM" type="SuspendProvisioningOrderEBMType"/>
+    	<xsd:complexType name="SuspendProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="SuspendProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SuspendProvisioningOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="SuspendProvisioningOrder" type="SuspendProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= SuspendProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SuspendProvisioningOrderResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SuspendProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SuspendProvisioningOrderResponseEBM" type="SuspendProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="SuspendProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="SuspendProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SuspendProvisioningOrderResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="SuspendProvisioningOrderResponse" type="SuspendProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ResumeProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ResumeProvisioningOrderEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ResumeProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ResumeProvisioningOrderEBM" type="ResumeProvisioningOrderEBMType"/>
+    	<xsd:complexType name="ResumeProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ResumeProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ResumeProvisioningOrderType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ResumeProvisioningOrder" type="ResumeProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ResumeProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ResumeProvisioningOrderResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ResumeProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ResumeProvisioningOrderResponseEBM" type="ResumeProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="ResumeProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ResumeProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ResumeProvisioningOrderResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ProvisioningOrder unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreprovisioningordercust:CustomProvisioningOrderEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ResumeProvisioningOrderResponse" type="ResumeProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ SyncProvisioningOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncProvisioningOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncProvisioningOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncProvisioningOrderListEBM" type="SyncProvisioningOrderListEBMType"/>
+    	<xsd:complexType name="SyncProvisioningOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncProvisioningOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncProvisioningOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncProvisioningOrderList" type="SyncProvisioningOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== SyncProvisioningOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncProvisioningOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncProvisioningOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncProvisioningOrderListResponseEBM" type="SyncProvisioningOrderListResponseEBMType"/>
+    	<xsd:complexType name="SyncProvisioningOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncProvisioningOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncProvisioningOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncProvisioningOrderListResponse" type="SyncProvisioningOrderListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateProvisioningOrder Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateProvisioningOrderEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateProvisioningOrderDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderEBM" type="UpdateProvisioningOrderEBMType"/>
+    	<xsd:complexType name="UpdateProvisioningOrderDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateProvisioningOrder"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateProvisioningOrderType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType">
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrder" type="UpdateProvisioningOrderType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateProvisioningOrder Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateProvisioningOrderResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateProvisioningOrderResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderResponseEBM" type="UpdateProvisioningOrderResponseEBMType"/>
+    	<xsd:complexType name="UpdateProvisioningOrderResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateProvisioningOrderResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateProvisioningOrderResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderResponse" type="UpdateProvisioningOrderResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateProvisioningOrder List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateProvisioningOrderListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateProvisioningOrderListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderListEBM" type="UpdateProvisioningOrderListEBMType"/>
+    	<xsd:complexType name="UpdateProvisioningOrderListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateProvisioningOrderList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateProvisioningOrderListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType">
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderList" type="UpdateProvisioningOrderListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateProvisioningOrder List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateProvisioningOrderListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateProvisioningOrderListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderListResponseEBM" type="UpdateProvisioningOrderListResponseEBMType"/>
+    	<xsd:complexType name="UpdateProvisioningOrderListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateProvisioningOrderListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateProvisioningOrderListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProvisioningOrderEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateProvisioningOrderListResponse" type="UpdateProvisioningOrderListResponseType"/>
+    </xsd:schema>
