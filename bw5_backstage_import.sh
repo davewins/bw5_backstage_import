@@ -2,7 +2,8 @@
 
 # --- 1. Configuration ---
 EAR_DIR="./ears"
-REPO_DIR="../bw5-inventory"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$SCRIPT_DIR/../bw5-inventory"
 APPS_DIR="$REPO_DIR/apps"
 RES_DIR="$REPO_DIR/resources"
 LIB_DIR="$REPO_DIR/libs"
@@ -654,6 +655,38 @@ for ear in "${EAR_DIR}"/*.ear; do
     mkdir -p "$APP_DOCS_DIR"
     echo "    - ./$clean_name/catalog-info.yaml" >> "$APP_INDEX"
 
+    # Create stylesheet for table formatting
+    mkdir -p "$APP_DOCS_DIR/stylesheets"
+    cat <<'EOF' > "$APP_DOCS_DIR/stylesheets/extra.css"
+/* Force process inventory table to wrap long paths and stay within viewport */
+.md-typeset table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.md-typeset table th:first-child,
+.md-typeset table td:first-child {
+    width: 75%;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.md-typeset table th:last-child,
+.md-typeset table td:last-child {
+    width: 25%;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Make SVG diagrams scale to fit the page width */
+.md-typeset img[src$=".svg"] {
+    max-width: 100%;
+    height: auto;
+}
+EOF
+
     cat <<EOF > "$APP_BASE_DIR/mkdocs.yml"
 site_name: $app_name
 site_description: Documentation for $app_name
@@ -667,6 +700,8 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.top
+extra_css:
+  - stylesheets/extra.css
 EOF
 
     # --- Shared Libraries ---
@@ -682,6 +717,13 @@ EOF
             echo "    - ./$lib_id/catalog-info.yaml" >> "$LIB_INDEX"
             LIB_BASE="$LIB_DIR/$lib_id"
             mkdir -p "$LIB_BASE/docs"
+            mkdir -p "$LIB_BASE/docs/stylesheets"
+            cp "$APP_DOCS_DIR/stylesheets/extra.css" "$LIB_BASE/docs/stylesheets/extra.css" 2>/dev/null || \
+            cat <<'EOF' > "$LIB_BASE/docs/stylesheets/extra.css"
+.md-typeset table { display: table; width: 100%; table-layout: fixed; }
+.md-typeset table td:first-child { width: 75%; word-break: break-all; overflow-wrap: anywhere; white-space: normal; }
+.md-typeset img[src$=".svg"] { max-width: 100%; height: auto; }
+EOF
             cat <<EOF > "$LIB_BASE/mkdocs.yml"
 site_name: $sar_fn Library
 nav:
@@ -690,6 +732,8 @@ theme:
   name: material
   features:
     - navigation.top
+extra_css:
+  - stylesheets/extra.css
 EOF
             echo -e "# $sar_fn\n\n## Visual Flow Diagrams" > "$LIB_BASE/docs/index.md"
             find "$lib_extract" -iname "*.process" | while read -r lp; do

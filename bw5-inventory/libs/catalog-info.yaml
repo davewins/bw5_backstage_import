@@ -1,8 +1,0 @@
-apiVersion: backstage.io/v1alpha1
-kind: Location
-metadata:
-  name: bw5-libs
-  title: "BW5 Libraries"
-spec:
-  targets:
-    - ./customeridentitymanagement-idam-25-10-6-shared-archive/catalog-info.yaml
