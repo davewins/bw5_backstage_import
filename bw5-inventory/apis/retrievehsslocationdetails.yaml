@@ -1,0 +1,61 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: retrievehsslocationdetails
+  title: "RetrieveHSSLocationDetails"
+  description: "Shared interface: RetrieveHSSLocationDetails.xsd (provided by til-hss-diameteradapter-25-11-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- $Header: /cvs/TIL_BW_ADP/TIL_BW_ADP_01/SharedResources/SchemaDefinitions/Vodafone/CustomerManagement/CustomerProfileManagement/CustomerIdentityManagement/RetrieveHSSLocationDetails.xsd,v 1.1 2016/02/17 17:30:21 tparames Exp $ -->
+    <!--  As part of IRIS 23505 , this schema is added to retrieve the Userdata from HSS-->
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 xmlns="http://www.tibco.com/schemas/TIL_BW_ADP_01/SharedResources/SchemaDefinitions/HSS/RetrieveHSSLocationDetails.xsd"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerIdentityManagement/RetrieveHSSLocationDetails"
+    	 xmlns:ns0="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerIdentityManagement/RetrieveHSSLocationDetails"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.xsd"/>
+    	<xs:import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<xs:element name="RetrieveHSSLocationDetailsRequest">
+    		<xs:complexType>
+    			<xs:sequence>
+    				<xs:element name="SessionId" type="xs:string"/>
+    				<xs:element name="MSISDN" type="xs:string"/>
+    				<xs:element name="DataReference" type="xs:int"/>
+    				<xs:element name="RequestedDomain" type="xs:int"/>
+    				<xs:element name="CurrentLocation" type="xs:int"/>
+    				<xs:element name="RequestedNodes" type="xs:int"/>
+    				<xs:element name="AuthSessionState" type="xs:int"/>
+    			</xs:sequence>
+    		</xs:complexType>
+    	</xs:element>
+    	<xs:element name="RetrieveHSSLocationDetailsResponse">
+    		<xs:complexType>
+    			<xs:sequence>
+    				<xs:element ref="rs:ResultStatus"/>
+    				<xs:element name="SessionId" type="xs:string" minOccurs="0"/>
+    				<xs:element name="UserDetails" minOccurs="0">
+    					<xs:complexType>
+    						<xs:sequence>
+    							<xs:element name="GlobalId" type="xs:string" minOccurs="0"/>
+    							<xs:element name="TrackingAreaId" type="xs:string" minOccurs="0"/>
+    							<xs:element name="AgeOfLocation" type="xs:int" minOccurs="0"/>
+    							<xs:element name="userData" type="xs:string" minOccurs="0"/>
+    						</xs:sequence>
+    					</xs:complexType>
+    				</xs:element>
+    			</xs:sequence>
+    		</xs:complexType>
+    	</xs:element>
+    </xs:schema>

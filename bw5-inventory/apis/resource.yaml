@@ -1,0 +1,83 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: resource
+  title: "Resource"
+  description: "Shared interface: Resource.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    	
+    	Updated by Anitha Govindasamy on 04/03/2020 to include PIN2, SIM Profile ID fields.
+    -->
+    <schema xmlns:res="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Resource"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns="http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Resource"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../SimpleTypes.2.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents" schemaLocation="../CommonComponents.xsd"/>
+    	<complexType name="ResourceIDType">
+    		<sequence>
+    			<element name="MSISDN" type="vod:CTN" minOccurs="0"/>
+    			<element name="SIM" type="vod:SIM" minOccurs="0"/>
+    			<element name="FLN" type="xsd:string" minOccurs="0"/>
+    			<element name="BB_SERVICE_ID" type="xsd:string" minOccurs="0"/>
+    			<element name="TV_SERVICE_ID" type="xsd:string" minOccurs="0"/>
+    			<element name="DEVICE_SERVICEID" type="xsd:string" minOccurs="0"/>
+    			<element name="MARKETPLACE_SERVICEID" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="SpecificationType">
+    		<sequence>
+    			<element name="SIM" type="res:SIMSpecificationType" minOccurs="0"/>
+    			<element name="Router" type="res:RouterType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="SIMSpecificationType">
+    		<sequence>
+    			<element name="IMSI" type="xsd:string" minOccurs="0"/>
+    			<element name="OEMName" type="xsd:string" minOccurs="0"/>
+    			<element name="PUK" type="xsd:string" minOccurs="0"/>
+    			<element name="PIN" type="xsd:string" minOccurs="0"/>
+    			<element name="IsChameleon" type="xsd:boolean" minOccurs="0"/>
+    			<element name="Attribute" type="comp:AttributeType" minOccurs="0"/>
+    			<element name="PUK2" type="xsd:string" minOccurs="0"/>
+    			<element name="PIN2" type="xsd:string" minOccurs="0"/>
+    			<element name="Profile" type="res:ProfileType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="RouterType">
+    		<sequence>
+    			<element name="Attribute" type="comp:AttributeType" minOccurs="0" maxOccurs="unbounded"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ProfileType">
+    		<sequence>
+    			<element name="ID" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="Resource">
+    		<sequence>
+    			<element name="ID" type="res:ResourceIDType" minOccurs="0"/>
+    			<element name="Name" type="xsd:string" minOccurs="0"/>
+    			<element name="Description" type="xsd:string" minOccurs="0"/>
+    			<element name="Type" type="xsd:string" minOccurs="0"/>
+    			<element name="Status" type="xsd:string" minOccurs="0"/>
+    			<element name="ValidityPeriod" type="comp:PeriodType" minOccurs="0"/>
+    			<element name="ActivationDateTime" type="xsd:dateTime" minOccurs="0"/>
+    			<element name="Specification" type="res:SpecificationType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    </schema>

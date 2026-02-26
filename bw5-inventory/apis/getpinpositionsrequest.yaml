@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: getpinpositionsrequest
+  title: "GetPINPositionsRequest"
+  description: "External or unresolved API — referenced by customeridentitymanagement-idam-25-10-6 as 'GetPINPositionsRequest.xsd'"
+  tags:
+    - tibco
+    - bw5
+    - external
+    - unresolved
+spec:
+  type: openapi
+  lifecycle: unknown
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    # Not found in scanned EAR files.
+    # Original reference: GetPINPositionsRequest.xsd
+    # First referenced by: customeridentitymanagement-idam-25-10-6

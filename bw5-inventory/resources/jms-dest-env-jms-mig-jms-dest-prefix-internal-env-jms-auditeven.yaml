@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-auditeven
+  title: "%%Env/JMS/MIG_Jms_Dest_Prefix_Internal%%.%%Env/JMS/AuditEvents/GLB_JMS_AuditEventsTopic%%"
+  description: "%%Env/JMS/MIG_Jms_Dest_Prefix_Internal%%.%%Env/JMS/AuditEvents/GLB_JMS_AuditEventsTopic%%"
+  tags:
+    - tibco
+    - bw5
+    - messaging
+    - jms
+    - destination
+spec:
+  type: jms-destination
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate

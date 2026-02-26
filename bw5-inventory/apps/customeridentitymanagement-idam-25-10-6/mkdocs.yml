@@ -1,0 +1,9 @@
+site_name: CustomerIdentityManagement-IDAM-25_10_6
+site_description: Documentation for CustomerIdentityManagement-IDAM-25_10_6
+nav:
+  - Home: index.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand

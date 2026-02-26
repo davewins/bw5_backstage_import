@@ -11,7 +11,13 @@
 
 # Allow the .gitignore itself
 !.gitignore
+!README.md
 
 # Ignore temporary TIBCO XML exports if they land here
 *.xml
 *.log
+
+# Allow TechDocs content
+!*.svg
+!*.md
+!*.png

@@ -1,0 +1,9 @@
+site_name: SMSAdapter-26_1_1
+site_description: Documentation for SMSAdapter-26_1_1
+nav:
+  - Home: index.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand

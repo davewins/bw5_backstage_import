@@ -1,0 +1,49 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customernotifications
+  title: "CustomerNotifications"
+  description: "Shared interface: CustomerNotifications.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerPersonalInformationManagement/CustomerNotifications"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 xmlns:evt="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Event"
+    	 xmlns:comm="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Communication"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerPersonalInformationManagement/CustomerNotifications"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.2.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents" schemaLocation="../../../Common/CommonComponents.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Event" schemaLocation="../../../Common/CommonObjects/Event.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Communication" schemaLocation="../../../Common/CommonObjects/Communication.xsd"/>
+    	<complexType name="CustomerNotificationsResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    		</sequence>
+    	</complexType>
+    	<element name="CustomerNotificationsResponse" type="til:CustomerNotificationsResponse"/>
+    	<complexType name="CustomerNotificationsRequest">
+    		<sequence>
+    			<element name="NotificationEvent" type="evt:EventType"/>
+    			<element name="CustomerIdentification" type="comp:CustomerIdentificationType"/>
+    			<element name="Communication" type="comm:CommunicationType" minOccurs="0"/>
+    			<element name="Specification" type="comp:SpecificationType" minOccurs="0" maxOccurs="unbounded"/>
+    		</sequence>
+    	</complexType>
+    	<element name="CustomerNotificationsRequest" type="til:CustomerNotificationsRequest"/>
+    </schema>

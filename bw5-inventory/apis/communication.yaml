@@ -1,0 +1,466 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: communication
+  title: "Communication"
+  description: "Shared interface: Communication.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!--	Created by Shantanu Rakshit on 18/12/2020.
+    	Created First version of Communication.xsd as part of Common Data Model.
+    -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:comm="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Communication"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 xmlns:cont="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Contact"
+    	 xmlns:per="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Person"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Communication"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Person" schemaLocation="Person.2.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Contact" schemaLocation="Contact.2.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents" schemaLocation="../CommonComponents.xsd"/>
+    	<complexType name="CommunicationType">
+    		<annotation>
+    			<documentation>Communication is used to send various customers communications.</documentation>
+    		</annotation>
+    		<sequence>
+    			<element name="ID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>ID of Communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of Communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Type of Communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubType" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>SubType of Communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Category" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Category of the Communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubCategory" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Sub Category of the Communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Classification" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Describes the Classification of the Communication. Examples are Regulatory, Security, Information etc</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubClassification" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Describes the Sub Classification of the Communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="From" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="Person" type="per:PersonType" minOccurs="0">
+    							<annotation>
+    								<documentation>Details about the Individual Person.</documentation>
+    							</annotation>
+    						</element>
+    						<element name="ContactPoint" type="cont:ContactPointType" minOccurs="0">
+    							<annotation>
+    								<documentation>From ContactPoint Details of a communication.</documentation>
+    							</annotation>
+    						</element>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="To" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="Person" type="per:PersonType" minOccurs="0">
+    							<annotation>
+    								<documentation>Details about the Individual Person.</documentation>
+    							</annotation>
+    						</element>
+    						<element name="ContactPoint" type="cont:ContactPointType" minOccurs="0">
+    							<annotation>
+    								<documentation>To ContactPoint Details of a communication.</documentation>
+    							</annotation>
+    						</element>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="CC" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Email Carbon Copy address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="BCC" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Email Blind Carbon Copy address.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="ReplyTo" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Email address to send response.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Subject" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Subject of the communicatio.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Header" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="ContentType" type="xsd:string" minOccurs="0">
+    							<annotation>
+    								<documentation>Content Type of the communication.</documentation>
+    							</annotation>
+    						</element>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="Message" type="comm:MessageType" minOccurs="0">
+    				<annotation>
+    					<documentation>Message of the communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Template" type="comm:TemplateType" minOccurs="0">
+    				<annotation>
+    					<documentation>Template of the communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Attachments" minOccurs="0" maxOccurs="unbounded">
+    				<complexType>
+    					<sequence>
+    						<element name="Attachment" type="comm:AttachmentType" minOccurs="0"/>
+    					</sequence>
+    				</complexType>
+    			</element>
+    			<element name="DeliveryConfirmation" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Indicates whether confirmation of delivery is required for the communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="ValidityPeriod" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Validatiy Period of the communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="DeliveryMode" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Indicates more details on how a communication has to be processed. Example FlashSMS in case of SMS Communication.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Scheduled" type="xsd:boolean" minOccurs="0">
+    				<annotation>
+    					<documentation>Scheduling of SMS / Email during social hour is required</documentation>
+    				</annotation>
+    			</element>
+    			<element name="AppNotification" type="comm:AppNotificationType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>AppNotification.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Specification" type="comp:SpecificationType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Specification/Additional Information</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="MessageType">
+    		<sequence>
+    			<element name="ContentType" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Content Type of the Message</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Content" type="xsd:base64Binary" minOccurs="0">
+    				<annotation>
+    					<documentation>Binary content  of the Message</documentation>
+    				</annotation>
+    			</element>
+    			<element name="TextContent" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Text content  of the Message</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="TemplateType">
+    		<sequence>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the Template</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Template Type</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Value" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Value of the Template</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Attribute" type="comp:AttributeType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Placement parameter's information of the Template.</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="AttachmentType">
+    		<sequence>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the Attachment</documentation>
+    				</annotation>
+    			</element>
+    			<element name="ContentType" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Content Type of the communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Content" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Content  of the communication</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Extension" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Extension of the Attachment</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="TargetDeviceType">
+    		<sequence>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Platform of the device like IOS/ANDROID</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Title" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Title of the notification which send to target device</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubTitle" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Message that display below the title of the notification in target device</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Message" type="comm:MessageType" minOccurs="0">
+    				<annotation>
+    					<documentation>Notification message in text content which send to target device</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Attachment" type="comm:AttachmentType" minOccurs="0">
+    				<annotation>
+    					<documentation>Attachement details</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="DisplayType">
+    		<sequence>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Specifies the display type like BANNER</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Colour" type="comm:ColourType" minOccurs="0">
+    				<annotation>
+    					<documentation>color of the message</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Position" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>screen position of the message. TOP or BOTTOM.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Duration" type="xsd:integer" minOccurs="0">
+    				<annotation>
+    					<documentation>screen position of the message. TOP or BOTTOM.</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ColourType">
+    		<sequence>
+    			<element name="Primary" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Primary color of the message</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Secondary" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Secondary color of the message</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ActionType">
+    		<sequence>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the action like ADD_TAG, REMOVE_TAG, OPEN, SHARE</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Specifies the display type like BANNER</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Content" type="comm:ContentType" minOccurs="0">
+    				<annotation>
+    					<documentation>content of the Action</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ContentType">
+    		<sequence>
+    			<element name="Primary" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Primary content of the message</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Secondary" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Secondary content of the message</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="InteractiveType">
+    		<sequence>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Category of the interactive</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Button" type="comm:ButtonType" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Details of the button</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="ButtonType">
+    		<sequence>
+    			<element name="Name" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the button like Yes or No</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Action" type="comm:ActionType" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Action to perform for the button</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="AppNotificationType">
+    		<sequence>
+    			<element name="Identifier" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Name of the App eg. MYVODAFONE</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Type" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Type of Notification like PUSH, IN-APP, MESSAGE_CENTRE or LANDING_PAG</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Title" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Title of the notification</documentation>
+    				</annotation>
+    			</element>
+    			<element name="SubTitle" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Sub Title of the notification</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Message" type="comm:MessageType" minOccurs="0">
+    				<annotation>
+    					<documentation>Message of the AppNotification</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Expiry" type="xsd:dateTime" minOccurs="0">
+    				<annotation>
+    					<documentation>Expiry of the Message. Absolute time stamp in UTC forma</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Priority" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation>Priority of the delivery or order of appearance</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Attachment" type="comm:AttachmentType" minOccurs="0">
+    				<annotation>
+    					<documentation>Attachment with respect to the AppNotification</documentation>
+    				</annotation>
+    			</element>
+    			<element name="TargetDevice" type="comm:TargetDeviceType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Device details to send variant notifications</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Template" type="comm:TemplateType" minOccurs="0">
+    				<annotation>
+    					<documentation>Details of the Template.</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Display" type="comm:DisplayType" minOccurs="0">
+    				<annotation>
+    					<documentation>Detail of the display</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Action" type="comm:ActionType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Details of the Action to perform when tap notification</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Interactive" type="comm:InteractiveType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Interaction and corresponding action details</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Specification" type="comp:SpecificationType" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Specification/Additional Information</documentation>
+    				</annotation>
+    			</element>
+    			<element name="Notes" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+    				<annotation>
+    					<documentation>Additional information like Campaign categories</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<element name="Communication" type="comm:CommunicationType"/>
+    </schema>

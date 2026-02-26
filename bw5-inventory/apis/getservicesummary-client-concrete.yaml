@@ -1,0 +1,109 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: getservicesummary-client-concrete
+  title: "GetServiceSummary-Client-CONCRETE"
+  description: "Shared interface: GetServiceSummary-Client-CONCRETE.wsdl (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--Created by TIBCO WSDL-->
+    <!-- ICC: 01/07/2011 - LIB_FWPLUGIN_TILINVOCATION_3_0_0 -->
+    <!-- ICC: First version -->
+    <!-- ICC: 08/08/2011 - LIB_FWPLUGIN_TILINVOCATION_3_0_1 -->
+    <!-- ICC: Changed response schema to contain only "any" elements -->
+    <!-- ICC: 16/09/2011 - LIB_FWPLUGIN_TILINVOCATION_3_0_3 -->
+    <!-- ICC: Changed response schema to redefine response schema from operation XSD -->
+    <!-- ICC: 02/07/2012 - LIB_FWPLUGIN_TILINVOCATION_4_0_1 -->
+    <!-- ICC: Added WS-Security header in order to pass security tokens -->
+    <!-- TILV2: Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/Vodafone/GITA1/GITA2/GITA3/MyOperation-Client-CONCRETE.wsdl,v 1.1 2011/07/01 09:10:05 ayelr Exp  -->
+    <!-- PXX: $Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/Vodafone/GITA1/GITA2/GITA3/MyOperation-Client-CONCRETE.wsdl,v 1.7 2012/12/11 12:49:05 sseernam Exp $ -->
+    <wsdl:definitions xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://xmlns.vodafone.co.uk/map/til/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary" xmlns:wss="http://xmlns.tibco.com/common/wsdl/WSSecurity" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" xmlns:tns="http://xmlns.vodafone.co.uk/map/til/wsdl/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary/DocImpl/Client" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/Header" xmlns:ns1="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" name="Untitled" targetNamespace="http://xmlns.vodafone.co.uk/map/til/wsdl/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary/DocImpl/Client">
+        <wsdl:import location="../../../../Common/wsdl/WSSecurity.wsdl" namespace="http://xmlns.tibco.com/common/wsdl/WSSecurity"/>
+        <wsdl:types>
+            <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/Header">
+                <xs:include schemaLocation="../../../wsdl/Common/Header.xsd"/>
+            </xs:schema>
+            <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.vodafone.co.uk/map/til/ProvisioningAndFulfilment/SubscriptionManagement/SubscriptionLifecycleManagement/GetServiceSummary">
+                <!-- LIB_FWPLUGIN_TILINVOCATION_3_0_3 -->
+                <xs:include schemaLocation="GetServiceSummary.xsd"/>
+                <xs:redefine schemaLocation="GetServiceSummary.xsd">
+                    <xs:complexType name="GetServiceSummaryResponse">
+                        <xs:complexContent>
+                            <xs:restriction base="GetServiceSummaryResponse">
+                                <xs:sequence>
+                                    <xs:element ref="ns1:ResultStatus"/>
+                                    <xs:any maxOccurs="unbounded" minOccurs="0" processContents="skip"/>
+                                </xs:sequence>
+                            </xs:restriction>
+                        </xs:complexContent>
+                    </xs:complexType>
+                </xs:redefine>
+            </xs:schema>
+            <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus">
+                <xs:element name="ResultStatus">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:any maxOccurs="unbounded" minOccurs="0" processContents="skip"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:schema>
+        </wsdl:types>
+        <wsdl:service name="Service">
+            <wsdl:port binding="tns:JMSEndpointBinding" name="JMSEndpoint">
+                <soap:address location=""/>
+                <jms:connectionFactory>%%Env/JMS/Connections/BW/GLB_TopicConnectionFactory%%</jms:connectionFactory>
+                <jms:targetAddress destination="topic">$topics:%%Env/JMS/MIG_Jms_Dest_Prefix_IF%%.Request.SOAP.PROV.SubMgt.SubscriptionLifecycleManagement.GetServiceSummary.1</jms:targetAddress>
+            </wsdl:port>
+        </wsdl:service>
+        <wsdl:portType name="Port">
+            <wsdl:operation name="GetServiceSummary">
+                <wsdl:input message="tns:Request"/>
+                <wsdl:output message="tns:Response"/>
+                <wsdl:fault message="tns:Fault" name="fault1"/>
+            </wsdl:operation>
+        </wsdl:portType>
+        <wsdl:binding name="JMSEndpointBinding" type="tns:Port">
+            <soap:binding style="document" transport="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS"/>
+            <jms:binding messageFormat="Text"/>
+            <wsdl:operation name="GetServiceSummary">
+                <soap:operation soapAction="GetServiceSummary.1" style="document"/>
+                <wsdl:input>
+                    <soap:body parts="part1" use="literal"/>
+                    <soap:header message="wss:WSSecurityHeader" part="wssecurity" use="literal"/>
+                    <soap:header message="tns:RequestHeader" part="part1" use="literal"/>
+                </wsdl:input>
+                <wsdl:output>
+                    <soap:body parts="part1" use="literal"/>
+                    <soap:header message="tns:ResponseHeader" part="part1" use="literal"/>
+                </wsdl:output>
+                <wsdl:fault name="fault1">
+                    <soap:fault name="fault1" use="literal"/>
+                </wsdl:fault>
+            </wsdl:operation>
+        </wsdl:binding>
+        <wsdl:message name="Request">
+            <!-- wsdl:part name="part1" type="xsd:anyType"/ -->
+            <wsdl:part element="ns:GetServiceSummaryRequest" name="part1"/>
+        </wsdl:message>
+        <wsdl:message name="Response">
+            <wsdl:part element="ns:GetServiceSummaryResponse" name="part1"/>
+        </wsdl:message>
+        <wsdl:message name="Fault">
+            <wsdl:part element="ns1:ResultStatus" name="part1"/>
+        </wsdl:message>
+        <wsdl:message name="RequestHeader">
+            <wsdl:part element="ns2:Header" name="part1"/>
+        </wsdl:message>
+        <wsdl:message name="ResponseHeader">
+            <wsdl:part element="ns2:Header" name="part1"/>
+        </wsdl:message>
+    </wsdl:definitions>

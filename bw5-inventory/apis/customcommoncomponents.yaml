@@ -1,0 +1,853 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customcommoncomponents
+  title: "CustomCommonComponents"
+  description: "Shared interface: CustomCommonComponents.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!-- edited with XMLSpy v2015 rel. 3 sp1 (http://www.altova.com) by Jee (ABC) -->
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version 2.8 **
+    ** Date: December 2011 **
+    
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+      
+        XML Schema 
+        
+        Name: \EnterpriseObjectLibrary\Industry\Communications\Custom\Common\V2\CustomCommonComponents.xsd
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO Custom Comomn Components Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.8">
+    	<!-- ====================================================================== -->
+    	<!-- =====      Imports                                                                                                      ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="../../../../../Infrastructure/Custom/V1/CustomMeta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../../../Infrastructure/V1/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====                                 Custom VF Components                                                     ==== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CharacteristicValueType">
+    		<xsd:sequence>
+    			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ValueType" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="StartDate" type="xsd:dateTime" minOccurs="0"/>
+    			<xsd:element name="EndDate" type="xsd:dateTime" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =====                                 END VF Components                                                          ==== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomSeasonalEffectivePeriodType"/>
+    	<xsd:complexType name="CustomContactType">
+    		<xsd:sequence>
+    			<xsd:element name="ContactSMSCommunication" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Status" type="corecom:StatusType"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="ContactMMSCommunication" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Status" type="corecom:StatusType" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="ContactSurveyCommunication" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Status" type="corecom:StatusType" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="ContactCharacteristic" type="CharacteristicValueType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element name="Group" type="corecom:TextType" minOccurs="0"/>
+    			<xsd:element name="CriticallyIll" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ContactAccountStatus" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSpecificationType">
+    		<xsd:sequence>
+    			<xsd:element name="Name" type="corecom:NameType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<!-- ====================================================================== -->
+    		<!-- =====      Added as part of P11 TV Integrations for operation GetMediaDeviceList             ===== -->
+    		<!-- ====================================================================== -->
+    		<!-- ====================================================================== -->
+    		<!-- =====      Added as part of P11 TV Integrations for operation GetMediaDeviceList            ===== -->
+    		<!-- ====================================================================== -->
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSpecificationGroupType">
+    		<xsd:sequence>
+    			<xsd:element name="Identification" type="corecom:IdentificationType" minOccurs="0"/>
+    			<xsd:element name="Limit" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="ConcurrentLimit" type="corecom:StringType" minOccurs="0"/>
+    		</xsd:sequence>
+    		<!-- ====================================================================== -->
+    		<!-- =====      Added as part of P11 TV Integrations for operation GetMediaDeviceList             ===== -->
+    		<!-- ====================================================================== -->
+    		<!-- ====================================================================== -->
+    		<!-- =====      Added as part of P11 TV Integrations for operation GetMediaDeviceList            ===== -->
+    		<!-- ====================================================================== -->
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Custom Organization Unit Reference Components                                                      ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomOrganizationUnitReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Custom Party Reference Components                                                      ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomAuctioneerPartyReferenceType"/>
+    	<xsd:complexType name="CustomBankAccountHolderPartyReferenceType"/>
+    	<xsd:complexType name="CustomBankChargeBearerPartyReferenceType"/>
+    	<!-- CCS8.0 | CR: 110148 Direct Debit refund fixes Start -->
+    	<xsd:complexType name="CustomBankPartyReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="VodafoneTxId" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- CCS8.0 | CR: 110148 Direct Debit refund fixes End -->
+    	<xsd:complexType name="CustomBidderPartyReferenceType"/>
+    	<xsd:complexType name="CustomBillFromPartyReferenceType"/>
+    	<xsd:complexType name="CustomBillingProfileReferenceType"/>
+    	<xsd:complexType name="CustomBillToPartyReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomBuyerPartyReferenceType"/>
+    	<xsd:complexType name="CustomSuggestedBuyerPartyReferenceType"/>
+    	<xsd:complexType name="CustomCarrierPartyReferenceType"/>
+    	<xsd:complexType name="CustomCreditRatingPartyReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPartyReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPartyAccountReferenceType"/>
+    	<xsd:complexType name="CustomCustomerAgentPartyReferenceType"/>
+    	<xsd:complexType name="CustomCustomerServiceRepresentativePersonPartyReferenceType"/>
+    	<xsd:complexType name="CustomDeliverToPartyReferenceType"/>
+    	<xsd:complexType name="CustomDriverPartyReferenceType"/>
+    	<xsd:complexType name="CustomEmployeePartyReferenceType"/>
+    	<xsd:complexType name="CustomEmployerPartyReferenceType"/>
+    	<xsd:complexType name="CustomMandateSignerPartyReferenceType"/>
+    	<xsd:complexType name="CustomManufacturerPartyReferenceType"/>
+    	<xsd:complexType name="CustomMediatorPartyReferenceType"/>
+    	<xsd:complexType name="CustomOwnerPartyReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomOutsourcerPartyReferenceType"/>
+    	<xsd:complexType name="CustomPayeePartyReferenceType"/>
+    	<xsd:complexType name="CustomPayFromPartyReferenceType"/>
+    	<xsd:complexType name="CustomPOSupplierPartyReferenceType"/>
+    	<!--<xsd:complexType name="CustomPrimarySalespersonPartyReferenceType"/> -->
+    	<xsd:complexType name="CustomPublisherPartyReferenceType"/>
+    	<xsd:complexType name="CustomReceivingPartyReferenceType"/>
+    	<xsd:complexType name="CustomRemitToPartyReferenceType"/>
+    	<xsd:complexType name="CustomResponsiblePartyReferenceType"/>
+    	<xsd:complexType name="CustomRequesterPartyReferenceType"/>
+    	<xsd:complexType name="CustomRequiredByPartyReferenceType"/>
+    	<xsd:complexType name="CustomShipFromPartyReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="ModeOfTransportCode" type="corecom:CodeType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomShipToPartyReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="AccountName" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomSoldToPartyReferenceType"/>
+    	<xsd:complexType name="CustomSubscriberPartyReferenceType"/>
+    	<xsd:complexType name="CustomSupplierPartyReferenceType"/>
+    	<xsd:complexType name="CustomParentSupplierPartyReferenceType"/>
+    	<xsd:complexType name="CustomSuggestedSupplierPartyReferenceType"/>
+    	<xsd:complexType name="CustomTradingPartnerPartyReferenceType"/>
+    	<xsd:complexType name="CustomVendorPartyReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPartyContactReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Custom Document Reference Components                                              ===== -->
+    	<!-- ====================================================================== -->
+    	<!-- =====    added elements under CustomDocumentReferenceType as part of IRIS 24510 Components                                              ===== -->
+    	<xsd:complexType name="CustomDocumentReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="MessageContent" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ContentType" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    <!-- =====       added elements under CustomDocumentReferenceType as part of IRIS 24510 Components      ends here                                        ===== -->
+    	<xsd:complexType name="CustomDocumentLineReferenceType"/>
+    	<xsd:complexType name="CustomDocumentScheduleReferenceType"/>
+    	<xsd:complexType name="CustomSourceDocumentReferenceType"/>
+    	<xsd:complexType name="CustomAdvanceShipmentNoticeReferenceType"/>
+    	<xsd:complexType name="CustomBillOfLadingReferenceType"/>
+    	<xsd:complexType name="CustomBillOfMaterialsReferenceType"/>
+    	<xsd:complexType name="CustomCommonBillOfMaterialsReferenceType"/>
+    	<xsd:complexType name="CustomModelBillOfMaterialsReferenceType"/>
+    	<xsd:complexType name="CustomContractReferenceType"/>
+    	<xsd:complexType name="CustomContractLineReferenceType"/>
+    	<xsd:complexType name="CustomPurchasingContractReferenceType"/>
+    	<xsd:complexType name="CustomServiceContractLineReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Custom Reference Components                                                               ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomDepartmentReferenceType"/>
+    	<xsd:complexType name="CustomInvoiceReferenceType"/>
+    	<xsd:complexType name="CustomExternalInvoiceReferenceType"/>
+    	<xsd:complexType name="CustomEmploymentGradeReferenceType"/>
+    	<xsd:complexType name="CustomEmploymentAssignmentReferenceType"/>
+    	<!-- 2011/07/01  Operation [QueryServiceRequestMapping] Add element [QueryServiceRequestListResponse/DataArea/QueryServiceRequestListResponse/ItemReference/Custom/Number] -->
+    	<!-- 18 July 2011: Interface SalesOrder adding custom elements [START] -->
+    	<xsd:complexType name="CustomItemReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="PACCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="PACStatus" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="PACExpiration" type="xsd:dateTime" minOccurs="0"/>
+    			<xsd:element name="Number" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="PrimaryClassificationId" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="FulfilmentItemCode" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- 18 July 2011: Interface SalesOrder adding custom elements [END] -->
+    	<!-- -->
+    	<xsd:complexType name="CustomPayableInvoiceLineReferenceType"/>
+    	<xsd:complexType name="CustomExternalInvoiceLineReferenceType"/>
+    	<xsd:complexType name="CustomJobReferenceType"/>
+    	<xsd:complexType name="CustomPayableInvoiceReferenceType"/>
+    	<xsd:complexType name="CustomPositionReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseOrderReferenceType"/>
+    	<xsd:complexType name="CustomShippingProfileReferenceType"/>
+    	<xsd:complexType name="CustomPriceListReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPurchaseOrderReferenceType"/>
+    	<xsd:complexType name="CustomSalesOrderReferenceType"/>
+    	<xsd:complexType name="CustomProvisioningOrderReferenceType"/>
+    	<xsd:complexType name="CustomFulfillmentOrderReferenceType"/>
+    	<xsd:complexType name="CustomTransportationSalesOrderReferenceType"/>
+    	<xsd:complexType name="CustomItemPublicationReferenceType"/>
+    	<xsd:complexType name="CustomPriceFormulaReferenceType"/>
+    	<xsd:complexType name="CustomInvoiceLineReferenceType"/>
+    	<xsd:complexType name="CustomPriceListLineReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseOrderLineScheduleReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPurchaseOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPaymentReceiptReferenceType"/>
+    	<xsd:complexType name="CustomCustomerPurchaseOrderLineScheduleReferenceType"/>
+    	<xsd:complexType name="CustomProjectTaskReferenceType"/>
+    	<xsd:complexType name="CustomSalesOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomProvisioningOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomFulfillmentOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomTransportationSalesOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomSalesOrderLineScheduleReferenceType"/>
+    	<xsd:complexType name="CustomItemPublicationLineReferenceType"/>
+    	<xsd:complexType name="CustomBankAccountReferenceType"/>
+    	<xsd:complexType name="CustomBankBranchReferenceType">
+    		<!--<xsd:sequence>
+    			<xsd:element name="BankBranchName" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence> -->
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomItemCatalogReferenceType"/>
+    	<xsd:complexType name="CustomClaimReferenceType"/>
+    	<xsd:complexType name="CustomCreditMemoReferenceType"/>
+    	<xsd:complexType name="CustomDirectDebitMandateReferenceType"/>
+    	<xsd:complexType name="CustomFundReferenceType"/>
+    	<xsd:complexType name="CustomInstalledProductReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="StatusCode" minOccurs="0"/>
+    			<!-- CCS10.0 | IRIS 25561 Athena - EBO build Start -->
+    			<xsd:element name="SpecificationGroup" type="corecom:SpecificationGroupType" minOccurs="0"/>
+    			<!-- CCS10.0 | IRIS 25561 Athena - EBO build End -->
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomItemInstanceReferenceType"/>
+    	<xsd:complexType name="CustomItemStructureReferenceType"/>
+    	<xsd:complexType name="CustomLegalEntityReferenceType"/>
+    	<xsd:complexType name="CustomLocationReferenceType">
+    		<xsd:sequence>
+    			<xsd:element name="DateMovedIn" type="xsd:dateTime" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomOfferReferenceType"/>
+    	<xsd:complexType name="CustomPaymentProfileReferenceType"/>
+    	<xsd:complexType name="CustomProjectReferenceType"/>
+    	<xsd:complexType name="CustomPromotionReferenceType"/>
+    	<xsd:complexType name="CustomRMAReferenceType"/>
+    	<xsd:complexType name="CustomSpecificationReferenceType"/>
+    	<xsd:complexType name="CustomSpecificationGroupReferenceType"/>
+    	<xsd:complexType name="CustomSpecificationValueSetReferenceType"/>
+    	<xsd:complexType name="CustomShipmentReferenceType"/>
+    	<xsd:complexType name="CustomServiceRequestReferenceType"/>
+    	<xsd:complexType name="CustomRelatedServiceRequestReferenceType"/>
+    	<xsd:complexType name="CustomSupportTeamReferenceType"/>
+    	<xsd:complexType name="CustomSettlementReferenceType"/>
+    	<xsd:complexType name="CustomChartOfAccountsStructureReferenceType"/>
+    	<xsd:complexType name="CustomLedgerReferenceType"/>
+    	<xsd:complexType name="CustomBudgetReferenceType"/>
+    	<xsd:complexType name="CustomAccountingPeriodReferenceType"/>
+    	<xsd:complexType name="CustomLatestAccountingPeriodReferenceType"/>
+    	<xsd:complexType name="CustomBusinessCalendarReferenceType"/>
+    	<xsd:complexType name="CustomSalesTerritoryReferenceType"/>
+    	<xsd:complexType name="CustomWorkerReferenceType"/>
+    	<xsd:complexType name="CustomItemLotReferenceType"/>
+    	<xsd:complexType name="CustomPersonReferenceType"/>
+    	<xsd:complexType name="CustomItemFormulaReferenceType"/>
+    	<xsd:complexType name="CustomOperationReferenceType"/>
+    	<xsd:complexType name="CustomActivityReferenceType"/>
+    	<xsd:complexType name="CustomRecipeReferenceType"/>
+    	<xsd:complexType name="CustomRecipeValidityRuleReferenceType"/>
+    	<xsd:complexType name="CustomProductionOrderMaterialReferenceType"/>
+    	<xsd:complexType name="CustomItemFormulaMaterialReferenceType"/>
+    	<xsd:complexType name="CustomManufacturingRoutingOperationReferenceType"/>
+    	<xsd:complexType name="CustomManufacturingRoutingActivityReferenceType"/>
+    	<xsd:complexType name="CustomManufacturingRoutingReferenceType"/>
+    	<xsd:complexType name="CustomProductionOrderResourceReferenceType"/>
+    	<xsd:complexType name="CustomBatchProductionOrderReferenceType"/>
+    	<xsd:complexType name="CustomProductionOrderReferenceType"/>
+    	<xsd:complexType name="CustomProductionOrderOperationReferenceType"/>
+    	<xsd:complexType name="CustomProductionOrderActivityReferenceType"/>
+    	<xsd:complexType name="CustomObjectReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileTypeReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileContentTypeReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileContentItemReferenceType"/>
+    	<xsd:complexType name="CustomPerformanceReviewRatingModelReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileInstanceQualifierReferenceType"/>
+    	<xsd:complexType name="CustomPerformanceReviewRatingReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileContentItemCatalogReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileContentTypePropertyReferenceType"/>
+    	<xsd:complexType name="CustomShipmentRequestOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomSupplierPartyTradingLocationProfileReferenceType"/>
+    	<xsd:complexType name="CustomProjectSchedulableResourceReferenceType"/>
+    	<xsd:complexType name="CustomResourceAvailabilityCalendarReferenceType"/>
+    	<xsd:complexType name="CustomTalentProfileInstanceQualifierSetReferenceType"/>
+    	<xsd:complexType name="CustomInvoicingRuleReferenceType"/>
+    	<xsd:complexType name="CustomAccountingRuleReferenceType"/>
+    	<xsd:complexType name="CustomSignatoryGroupReferenceType"/>
+    	<xsd:complexType name="CustomMarketingEventReferenceType"/>
+    	<xsd:complexType name="CustomCompetitorPartyReferenceType"/>
+    	<xsd:complexType name="CustomAccountingEntryReferenceType"/>
+    	<xsd:complexType name="CustomAdjusterPartyReferenceType"/>
+    	<xsd:complexType name="CustomParticipatingPartyReferenceType"/>
+    	<xsd:complexType name="CustomChartOfAccountsReferenceType"/>
+    	<xsd:complexType name="CustomAccountBalanceAdjustmentReferenceType"/>
+    	<xsd:complexType name="CustomCalendarReferenceType"/>
+    	<xsd:complexType name="CustomResourceReferenceType"/>
+    	<xsd:complexType name="CustomPayeePartyAccountReferenceType"/>
+    	<xsd:complexType name="CustomOrganizationReferenceType"/>
+    	<xsd:complexType name="CustomWorkOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomItemATPRuleReferenceType"/>
+    	<xsd:complexType name="CustomItemPickingRuleReferenceType"/>
+    	<xsd:complexType name="CustomClassificationSpecificationGroupReferenceType"/>
+    	<xsd:complexType name="CustomSpecificationValueSetLineReferenceType"/>
+    	<xsd:complexType name="CustomAttributeBasedPricingMatrixReferenceType"/>
+    	<xsd:complexType name="CustomSalaryPlanReferenceType"/>
+    	<xsd:complexType name="CustomClassificationReferenceType"/>
+    	<xsd:complexType name="CustomProjectNonSchedulableResourceReferenceType"/>
+    	<xsd:complexType name="CustomTeamReferenceType"/>
+    	<xsd:complexType name="CustomEstablishmentReferenceType"/>
+    	<xsd:complexType name="CustomReportingPeriodReferenceType"/>
+    	<xsd:complexType name="CustomBusinessUnitFunctionReferenceType"/>
+    	<xsd:complexType name="CustomInventoryTransactionReferenceType"/>
+    	<xsd:complexType name="CustomIncentiveCompensationPlanComponentReferenceType"/>
+    	<xsd:complexType name="CustomWorkerUnionReferenceType"/>
+    	<xsd:complexType name="CustomValueSetReferenceType"/>
+    	<xsd:complexType name="CustomVolumeDiscountPlanReferenceType"/>
+    	<xsd:complexType name="CustomRegionReferenceType"/>
+    	<xsd:complexType name="CustomBargainingUnitReferenceType"/>
+    	<xsd:complexType name="CustomCompensationPackageTemplateReferenceType"/>
+    	<xsd:complexType name="CustomAssignmentGradeReferenceType"/>
+    	<xsd:complexType name="CustomAssignmentGradeStepReferenceType"/>
+    	<xsd:complexType name="CustomPositionPoolReferenceType"/>
+    	<xsd:complexType name="CustomCompensationPackageRuleReferenceType"/>
+    	<xsd:complexType name="CustomJobFamilyReferenceType"/>
+    	<xsd:complexType name="CustomCareerPathReferenceType"/>
+    	<xsd:complexType name="CustomServiceCreditCalculationGroupReferenceType"/>
+    	<xsd:complexType name="CustomTrainingProgramReferenceType"/>
+    	<xsd:complexType name="CustomGovernmentAgencyReferenceType"/>
+    	<xsd:complexType name="CustomLaborAgreementReferenceType"/>
+    	<xsd:complexType name="CustomPayEquityJobClassReferenceType"/>
+    	<xsd:complexType name="CustomINAILRiskProfileReferenceType"/>
+    	<xsd:complexType name="CustomFestivalAdvancePayProgramReferenceType"/>
+    	<xsd:complexType name="CustomAcademicRankReferenceType"/>
+    	<xsd:complexType name="CustomWorkersCompensationBoardRateGroupReferenceType"/>
+    	<xsd:complexType name="CustomSalaryIncreaseMatrixReferenceType"/>
+    	<xsd:complexType name="CustomLegislativeDataGroupReferenceType"/>
+    	<xsd:complexType name="CustomLaborAgreementFirstLevelEmployeeClassificationReferenceType"/>
+    	<xsd:complexType name="CustomLaborAgreementSecondLevelEmployeeClassificationReferenceType"/>
+    	<xsd:complexType name="CustomLaborAgreementThirdLevelEmployeeClassificationReferenceType"/>
+    	<xsd:complexType name="CustomPositionStandardClassificationReferenceType"/>
+    	<xsd:complexType name="CustomWorkersCompensationBoardRateGroupClassificationReferenceType"/>
+    	<xsd:complexType name="CustomFinancialAccountReferenceType"/>
+    	<xsd:complexType name="CustomMarketingOfferReferenceType"/>
+    	<xsd:complexType name="CustomMarketingTreatmentReferenceType"/>
+    	<xsd:complexType name="CustomServiceContractCoverageTemplateReferenceType"/>
+    	<xsd:complexType name="CustomServiceContractSubscriptionTemplateReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====     Custom Message Assembly Components                                                 ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomAreaType"/>
+    	<xsd:complexType name="CustomEBMReferenceType"/>
+    	<xsd:complexType name="CustomDocumentInformationType"/>
+    	<xsd:complexType name="CustomRequestType"/>
+    	<xsd:complexType name="CustomResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Verb Components                                                                                    =====  -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomQueryType"/>
+    	<xsd:complexType name="CustomCreateType"/>
+    	<xsd:complexType name="CustomPaidInvoiceReferenceType"/>
+    	<xsd:complexType name="CustomFreightInvoiceReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====     Custom Common EBO Components                                                           ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomAddressType">
+    		<xsd:sequence>
+    			<xsd:element name="Category" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="FAO" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="YearsAtAddress" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="MonthsAtAddress" type="xsd:string" minOccurs="0"/>
+    			<!--CR 75380: Added for P11, Fixed Line Address & Appointment EBO customization-->
+    			<xsd:element name="AddressTypeCode" type="corecom:CodeType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- Added fields AuthorizationCode, AuthorizationType, AuthorizationID for CreateSalesOrder operation  -->
+    	<xsd:complexType name="CustomCreditCardType">
+    		<xsd:sequence>
+    			<xsd:element name="AuthorizationCode" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="AuthorizationType" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="AuthorizationID" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="IssueNumber" type="xsd:integer" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomDebitCardType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====     Custom Common Identification Components                                              ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomItemIdentificationType"/>
+    	<xsd:complexType name="CustomCustomerItemIdentificationType"/>
+    	<xsd:complexType name="CustomManufacturerItemIdentificationType"/>
+    	<xsd:complexType name="CustomSupplierItemIdentificationType"/>
+    	<xsd:complexType name="CustomInvoiceIdentificationType"/>
+    	<!--===================-->
+    	<xsd:complexType name="CustomBankPaymentAuthorizationReferenceTypeType"/>
+    	<xsd:complexType name="CustomCreditChargeAuthorizationReferenceType"/>
+    	<xsd:complexType name="CustomDebitChargeAuthorizationReferenceType"/>
+    	<!--==============-->
+    	<xsd:complexType name="CustomContainerReferenceType"/>
+    	<xsd:complexType name="CustomShipmentType"/>
+    	<xsd:complexType name="CustomShipmentPlanUnitType"/>
+    	<xsd:complexType name="CustomShipmentUnitChargeType"/>
+    	<xsd:complexType name="CustomShipmentContainerType"/>
+    	<xsd:complexType name="CustomShipmentContainerChargeType"/>
+    	<xsd:complexType name="CustomShipmentContainerItemType"/>
+    	<xsd:complexType name="CustomEducationalInstitutionReferenceType"/>
+    	<xsd:complexType name="CustomFinancialInstitutionReferenceType"/>
+    	<xsd:complexType name="CustomPrimarySalespersonPartyReferenceType"/>
+    	<!-- 30.01.2012. Appeared twice so it had to be commented out-->
+    	<!--	<xsd:complexType name="CustomSalespersonPartyReferenceType"/>-->
+    	<xsd:complexType name="CustomBeneficiaryPartyReferenceType"/>
+    	<xsd:complexType name="CustomBillOfMaterialsComponentItemReferenceType"/>
+    	<xsd:complexType name="CustomEngineeringChangeOrderReferenceType"/>
+    	<xsd:complexType name="CustomEngineeringChangeOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPricingAgreementReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseAgreementReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseAgreementPriceBreakReferenceType"/>
+    	<xsd:complexType name="CustomQuoteReferenceType"/>
+    	<xsd:complexType name="CustomQuoteLineReferenceType"/>
+    	<xsd:complexType name="CustomQuotePriceQualificationReferenceType"/>
+    	<xsd:complexType name="CustomRequestForQuoteReferenceType"/>
+    	<xsd:complexType name="CustomRequestForQuoteLineReferenceType"/>
+    	<xsd:complexType name="CustomRequestForQuotePriceBreakReferenceType"/>
+    	<xsd:complexType name="CustomRequisitionReferenceType"/>
+    	<xsd:complexType name="CustomRequisitionLineReferenceType"/>
+    	<xsd:complexType name="CustomRequisitionDistributionReferenceType"/>
+    	<xsd:complexType name="CustomSalesOrderScheduleReferenceType"/>
+    	<xsd:complexType name="CustomSalesOpportunityReferenceType"/>
+    	<xsd:complexType name="CustomBusinessUnitReferenceType"/>
+    	<xsd:complexType name="CustomConfigurationReferenceType"/>
+    	<xsd:complexType name="CustomItemStructureComponentItemReferenceType"/>
+    	<xsd:complexType name="CustomPayeeLegalEntityReferenceType"/>
+    	<xsd:complexType name="CustomPaymentReferenceType"/>
+    	<xsd:complexType name="CustomPaymentLineReferenceType"/>
+    	<xsd:complexType name="CustomDisbursedPaymentReferenceType"/>
+    	<xsd:complexType name="CustomShipmentItemReferenceType"/>
+    	<xsd:complexType name="CustomVehicleReferenceType"/>
+    	<xsd:complexType name="CustomWIPEntityReferenceType"/>
+    	<xsd:complexType name="CustomWIPEntityLineReferenceType"/>
+    	<xsd:complexType name="CustomWIPOperationReferenceType"/>
+    	<xsd:complexType name="CustomWIPOperationResourceReferenceType"/>
+    	<xsd:complexType name="CustomSalesPersonPartyReferenceType"/>
+    	<xsd:complexType name="CustomItemStructureType"/>
+    	<xsd:complexType name="CustomComponentItemType"/>
+    	<xsd:complexType name="CustomComponentItemSpecificationGroupType"/>
+    	<xsd:complexType name="CustomItemStructureAttachmentType"/>
+    	<xsd:complexType name="CustomItemStructureSpecificationGroupType"/>
+    	<xsd:complexType name="CustomSubstituteComponentItemType"/>
+    	<xsd:complexType name="CustomSubstituteComponentItemSpecificationGroupType"/>
+    	<xsd:complexType name="CustomFreightInvoiceLineReferenceType"/>
+    	<xsd:complexType name="CustomPurchaseOrderShipmentReferenceType"/>
+    	<xsd:complexType name="CustomOrganizationCertificationType"/>
+    	<xsd:complexType name="CustomOrganizationCreditRatingType"/>
+    	<xsd:complexType name="CustomOrganizationFinancialProfileType"/>
+    	<xsd:complexType name="CustomOrganizationFinancialStatementType"/>
+    	<xsd:complexType name="CustomTotalEmploymentType"/>
+    	<xsd:complexType name="CustomEmploymentStatisticsType"/>
+    	<xsd:complexType name="CustomPrimaryAddressEmploymentDetailType"/>
+    	<xsd:complexType name="CustomCommercialCreditScoreType"/>
+    	<xsd:complexType name="CustomCreditScoreCommentaryType"/>
+    	<xsd:complexType name="CustomEstimatedDelinquentPaymentIncidenceType"/>
+    	<xsd:complexType name="CustomFailureRiskType"/>
+    	<xsd:complexType name="CustomParentBankruptcyType"/>
+    	<xsd:complexType name="CustomPaydexType"/>
+    	<xsd:complexType name="CustomPaydexNormType"/>
+    	<xsd:complexType name="CustomOrganizationFinancialNumberType"/>
+    	<xsd:complexType name="CustomCitizenshipType"/>
+    	<xsd:complexType name="CustomEducationRecordType"/>
+    	<xsd:complexType name="CustomEmploymentRecordType"/>
+    	<xsd:complexType name="CustomPersonInterestType"/>
+    	<xsd:complexType name="CustomLanguageProficiencyType"/>
+    	<xsd:complexType name="CustomPersonCertificationType"/>
+    	<xsd:complexType name="CustomPersonFinancialProfileType"/>
+    	<xsd:complexType name="CustomMilitaryEmploymentType"/>
+    	<xsd:complexType name="CustomContactAddressCommunicationType"/>
+    	<xsd:complexType name="CustomContactPhoneCommunicationType"/>
+    	<xsd:complexType name="CustomContactFaxCommunicationType"/>
+    	<xsd:complexType name="CustomContactEmailCommunicationType"/>
+    	<xsd:complexType name="CustomContactWebsiteCommunicationType"/>
+    	<xsd:complexType name="CustomGLAccountType"/>
+    	<xsd:complexType name="CustomPurchasingContractLineReferenceType"/>
+    	<xsd:complexType name="CustomBlanketPurchaseAgreementReferenceType"/>
+    	<xsd:complexType name="CustomLocationParentType"/>
+    	<xsd:complexType name="CustomShipmentChargeType"/>
+    	<xsd:complexType name="CustomShipmentItemType"/>
+    	<xsd:complexType name="CustomShipmentItemChargeType"/>
+    	<xsd:complexType name="CustomPartyLocationType">
+    		<xsd:sequence>
+    			<xsd:element name="EmailAddress" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomPartyContactType">
+    		<xsd:sequence>
+    			<xsd:element name="Person" type="corecom:PersonType"/>
+    			<xsd:element name="Status" type="corecom:StatusType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomBankPaymentAuthorizationType"/>
+    	<xsd:complexType name="CustomPaymentDebitCommunicationType"/>
+    	<xsd:complexType name="CustomPaymentDirectDebitMandateType"/>
+    	<xsd:complexType name="CustomPaymentRemittanceCommunicationType"/>
+    	<xsd:complexType name="CustomCreditChargeAuthorizationType"/>
+    	<xsd:complexType name="CustomCreditChargeAuthorizationResponseType"/>
+    	<xsd:complexType name="CustomDebitChargeAuthorizationType"/>
+    	<xsd:complexType name="CustomDebitChargeAuthorizationResponseType"/>
+    	<xsd:complexType name="CustomPaymentRegulatoryReportType"/>
+    	<xsd:complexType name="CustomOrganizationType">
+    		<xsd:sequence>
+    			<xsd:element name="Identification" type="corecom:IdentificationType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomPersonType">
+    		<xsd:sequence>
+    			<!-- Added for CR 133/CR 152 -->
+    			<xsd:element name="AgeProof" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="Identity" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Action" minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:simpleContent>
+    									<xsd:extension base="xsd:string">
+    										<xsd:attribute name="ActionCode" type="xsd:string"/>
+    									</xsd:extension>
+    								</xsd:simpleContent>
+    							</xsd:complexType>
+    						</xsd:element>
+    						<xsd:element name="EmailAddress" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="NewPassword" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="NewPIN" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="NewUsername" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="Password" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="PIN" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="SecretsList" minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:sequence>
+    									<xsd:element name="Secret" minOccurs="0" maxOccurs="unbounded">
+    										<xsd:complexType>
+    											<xsd:sequence>
+    												<xsd:element name="Answer" type="xsd:string" minOccurs="0"/>
+    												<xsd:element name="Question" minOccurs="0" maxOccurs="unbounded">
+    													<xsd:complexType>
+    														<xsd:sequence>
+    															<xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+    															<xsd:element name="Text" type="xsd:string" minOccurs="0"/>
+    														</xsd:sequence>
+    													</xsd:complexType>
+    												</xsd:element>
+    											</xsd:sequence>
+    										</xsd:complexType>
+    									</xsd:element>
+    								</xsd:sequence>
+    							</xsd:complexType>
+    						</xsd:element>
+    						<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+    						<xsd:element name="Username" type="xsd:string" minOccurs="0"/>
+    						<!-- Added element OptInFlag for CR 152-->
+    						<!--	<xsd:element name="OptInFlag" type="xsd:boolean"/>-->
+    						<xsd:element name="MemorablePair" minOccurs="0">
+    							<xsd:complexType>
+    								<xsd:sequence>
+    									<!-- CCS11.0 | CR 154 TOBI Reset Password via UCP  START -->
+    									<xsd:element name="MemorableWord" type="xsd:string" minOccurs="0"/>
+    									<xsd:element name="Hint" type="xsd:string" minOccurs="0"/>
+    									<!-- CCS11.0 | CR 154 TOBI Reset Password via UCP  END -->
+    								</xsd:sequence>
+    							</xsd:complexType>
+    						</xsd:element>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="EmploymentStatus" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="ResidentialStatus" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomCheckType"/>
+    	<xsd:complexType name="CustomEFTType"/>
+    	<xsd:complexType name="CustomBankDraftType"/>
+    	<xsd:complexType name="CustomBankPaymentType"/>
+    	<!-- CCS16.0 | CR VFUKE-395 LionHeart:Split Delivery | Start -->
+    	<xsd:complexType name="CustomShipmentSetType">
+    		<xsd:sequence>
+    			<xsd:element name="ShippingDependency" type="corecom:StringType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>Shipping Dependency</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    		</xsd:sequence>	
+    	</xsd:complexType>
+    	<!-- CCS16.0 | CR VFUKE-395 LionHeart:Split Delivery | End -->
+    	<xsd:complexType name="CustomActivityType"/>
+    	<xsd:complexType name="CustomItemInstanceRangeType"/>
+    	<xsd:complexType name="CustomVisaType"/>
+    	<xsd:complexType name="CustomPassportType"/>
+    	<xsd:complexType name="CustomDriversLicenseClassType"/>
+    	<xsd:complexType name="CustomPersonDriversLicenseType"/>
+    	<!--IRIS23287: Extended for eShop 1.3, Identity LineOne and LineTwo-->
+    	<xsd:complexType name="CustomPersonNationalIdentityType">
+    		<xsd:sequence>
+    			<xsd:element name="LineOne" type="xsd:string" minOccurs="0"/>
+    			<xsd:element name="LineTwo" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomPersonAffiliationType"/>
+    	<xsd:complexType name="CustomShipmentItemLotType"/>
+    	<xsd:complexType name="CustomShipmentItemInstanceRangeType"/>
+    	<xsd:complexType name="CustomShipmentItemInstanceType"/>
+    	<xsd:complexType name="ShipmentItemInstanceGenealogyType"/>
+    	<xsd:complexType name="CustomItemInstanceGenealogyCompositionType"/>
+    	<!--CR 75380: Added for P11, Fixed Line Address & Appointment EBO customization-->
+    	<xsd:complexType name="CustomAppointmentWindowType">
+    		<xsd:sequence>
+    			<xsd:element name="TimeSlot" type="xsd:string" minOccurs="0"/>
+    			<!--CCS12.0|IRIS25628: Extended for FTTH Appointments, StartTime and EndTime| Start-->
+    			<xsd:element name="StartTime" type="xsd:time" minOccurs="0"/>
+                <xsd:element name="EndTime" type="xsd:time" minOccurs="0"/>
+    			<!--CCS12.0|IRIS25628: Extended for FTTH Appointments, StartTime and EndTime| End-->
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomPersonNameUsageType"/>
+    	<xsd:complexType name="CustomContactTelexCommunicationType"/>
+    	<xsd:complexType name="CustomFinancialAccountBalanceType"/>
+    	<xsd:complexType name="CustomFinancialAccountPersonHolderType"/>
+    	<xsd:complexType name="CustomFinancialAccountOrganizationHolderType"/>
+    	<xsd:complexType name="CustomFinancialAccountHolderType"/>
+    	<xsd:complexType name="CustomPartyRelatedPartyType"/>
+    	<xsd:complexType name="CustomPartyRelationshipType"/>
+    	<xsd:complexType name="CustomPartyRelatedPersonPartyType"/>
+    	<xsd:complexType name="CustomPartyRelatedOrganizationPartyType"/>
+    	<xsd:complexType name="CustomPartyRelatedHouseholdPartyType"/>
+    	<xsd:complexType name="CustomBeneficiaryType"/>
+    	<xsd:complexType name="CustomBeneficiaryOrganizationPartyType"/>
+    	<xsd:complexType name="CustomBeneficiaryPersonPartyType"/>
+    	<xsd:complexType name="CustomPayerOrganizationPartyType"/>
+    	<xsd:complexType name="CustomPayerPersonPartyType"/>
+    	<xsd:complexType name="CustomPayerType"/>
+    	<xsd:complexType name="CustomDependentPersonPartyType"/>
+    	<xsd:complexType name="CustomDependentType"/>
+    	<xsd:complexType name="CustomSWOTAnalysisType"/>
+    	<xsd:complexType name="CustomPersonProfessionalLicenseType"/>
+    	<xsd:complexType name="CustomShipmentFulfillmentOrderScheduleType"/>
+    	<xsd:complexType name="CustomShipmentAttachmentType"/>
+    	<xsd:complexType name="CustomShipmentItemAttachmentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====     Custom Telco Components                                                                         ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomUsageChargeDistributionType">
+    		<xsd:sequence>
+    			<xsd:element name="Duration" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="StartTimestamp" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element name="EndTimestamp" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element name="TaxTreatment" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="PreEventValue" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="PostEventValue" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="NetAmount" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="VAT" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="Unit" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="NetQuantity" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="DataVolumeSent" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="DataVolumeReceived" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="UsageScenario" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="ImpactCategory" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="Threshold" type="corecom:IntegerType" minOccurs="0"/>
+    			<xsd:element name="ChargedQuantity" type="xsd:decimal" minOccurs="0"/>
+    			<xsd:element name="Origin" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="ResourceID" type="xsd:normalizedString" minOccurs="0"/>
+    			<xsd:element name="Destination" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="MSISDN" type="xsd:normalizedString" minOccurs="0"/>
+    			<xsd:element name="DetailedUsageScenario" type="xsd:normalizedString" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomUsageChargeDistributionBaseType"/>
+    	<xsd:complexType name="CustomUsageChargeDistributionResourceType">
+    		<xsd:sequence>
+    			<xsd:element name="Name" type="corecom:StringType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomPaymentTermType"/>
+    	<xsd:complexType name="CustomPlanType"/>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomPriceType">
+    		<xsd:sequence>
+    			<xsd:element name="RecuringAmount" type="xsd:decimal" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomCustomerPartyBillingProfileReferenceType"/>
+    	<xsd:complexType name="CustomBalanceGroupReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ===== Custom Item Instance Components enhanced to support EID    ===== -->
+    	<!-- ====================================================================== -->
+    	<!--CCS14|IRIS25924: Extended for eSIM FulfilmentOrders, EID| Start-->
+    	<xsd:complexType name="CustomItemInstanceType">
+    		<xsd:sequence>
+    			<xsd:element name="EID" type="xsd:string" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!--CCS14|IRIS25924: Extended for eSIM FulfilmentOrders, EID| End-->
+    	<xsd:complexType name="CustomChargeParentLineReferenceType"/>
+    	<xsd:complexType name="CustomPromotionSalesOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPriorPromotionSalesOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPromotionProvisioningOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPriorPromotionProvisioningOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPromotionFulfillmentOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomPriorPromotionFulfillmentOrderLineReferenceType"/>
+    	<xsd:complexType name="CustomParentInvoiceLineReferenceType"/>
+    	<xsd:complexType name="CustomParentServiceUsageLineReferenceType"/>
+    	<xsd:complexType name="CustomServiceUsageLineReferenceType"/>
+    	<xsd:complexType name="CustomBalanceSummaryReferenceType"/>
+    	<xsd:complexType name="CustomUsageAllocationResourceBaseType"/>
+    	<xsd:complexType name="CustomPriorPayFromPartyReferenceType"/>
+    	<xsd:complexType name="CustomDocumentGroupReferenceType"/>
+    	<xsd:complexType name="CustomRelatedTroubleTicketReferenceType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====     Custom CreditVet Components                            ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomCreditVetResultType">
+    		<xsd:sequence>
+    			<xsd:element name="ApplicationDetails" type="ApplicationDetailsType" minOccurs="0"/>
+    			<xsd:element name="DecisionDetails" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="Outcome" type="corecom:CodeType" minOccurs="0"/>
+    						<xsd:element name="OutcomeReasonCode" type="corecom:CodeType" minOccurs="0"/>
+    						<xsd:element name="Score" type="corecom:IntegerType" minOccurs="0"/>
+    						<xsd:element name="CreditClass" type="corecom:IntegerType" minOccurs="0"/>
+    						<xsd:element name="RecurringChargeLimit" type="corecom:AmountType" minOccurs="0"/>
+    						<xsd:element name="RemainingRecurringCharge" type="corecom:AmountType" minOccurs="0"/>
+    						<xsd:element name="ExpiryDateOfLastVet" type="corecom:DateTimeType" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="TermsOfBusiness" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="CreditLimit" type="corecom:AmountType" minOccurs="0"/>
+    						<xsd:element name="ShadowLimit" type="corecom:AmountType" minOccurs="0"/>
+    						<xsd:element name="MaxNoOfPostpaidConnectionsAllowed" type="corecom:IntegerType" minOccurs="0"/>
+    						<xsd:element name="RemainingNoOfPostpaidConnections" type="corecom:IntegerType" minOccurs="0"/>
+    						<xsd:element name="CallBars" minOccurs="0" maxOccurs="unbounded">
+    							<xsd:complexType>
+    								<xsd:sequence>
+    									<xsd:element name="CallBarProductID" type="corecom:StringType" minOccurs="0"/>
+    									<xsd:element name="CallBarFlag" type="xsd:boolean" minOccurs="0"/>
+    								</xsd:sequence>
+    							</xsd:complexType>
+    						</xsd:element>
+    						<xsd:element name="DepositAmount" type="corecom:AmountType" minOccurs="0"/>
+    						<xsd:element name="DepositTimePeriod" type="corecom:IntegerType" minOccurs="0"/>
+    						<xsd:element name="AdditionalTermsOfBusiness1" type="corecom:TextType" minOccurs="0"/>
+    						<xsd:element name="AdditionalTermsOfBusiness2" type="corecom:TextType" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    			<xsd:element name="Notes" minOccurs="0">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="AgentNotes" type="corecom:TextType" minOccurs="0"/>
+    					</xsd:sequence>
+    				</xsd:complexType>
+    			</xsd:element>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ApplicationDetailsType">
+    		<xsd:sequence>
+    			<xsd:element name="Identification" type="corecom:IdentificationType" minOccurs="0"/>
+    			<xsd:element name="CustomerPartyAccountIdentification" type="corecom:IdentificationType" minOccurs="0"/>
+    			<xsd:element name="ApplicationDateTime" type="corecom:DateTimeType" minOccurs="0"/>
+    			<xsd:element name="StoreID" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="TransactionType" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="WhiteListReference" type="corecom:StringType" minOccurs="0"/>
+    			<xsd:element name="RequestingAgent" type="corecom:StringType" minOccurs="0"/>
+    			<!-- Below field is Added for Commercial creditvetting(EBU) 8/01/2014 -->
+    			<xsd:element name="SharedRiskAccepted" type="corecom:StringType" minOccurs="0"/>
+    			<!-- Below field is Added for Commercial creditvetting(EBU) 08/01/2014 -->
+    			<xsd:element name="SharedRiskFlag" type="corecom:StringType" minOccurs="0"/>
+    			<!-- Below field is Added for Commercial creditvetting(EBU) 08/01/2014 -->
+    			<xsd:element name="BusinessName" type="corecom:StringType" minOccurs="0"/>
+    			<!-- Below Field is Added for Commercial creditVetting(BINGO) 23/01/2019 -->
+    			<xsd:element name="CreditType" type="corecom:StringType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- Added on 23/01/2019 part of BINGO -->
+    	<xsd:complexType name="AffordabilityDetailsType">
+    		<xsd:sequence>
+    			<xsd:element name="MonthlyIncome" type="corecom:AmountType" minOccurs="0"/>
+    			<xsd:element name="MonthlyExpenditure" type="corecom:AmountType" minOccurs="0"/>
+    			<xsd:element name="IncomeReductionExpectedFlag" type="xsd:boolean" minOccurs="0"/>
+    			<xsd:element name="MonthlyMobilePhoneExpenditure" type="corecom:AmountType" minOccurs="0"/>
+    			<xsd:element name="OutstandingDebtFlag" type="xsd:boolean" minOccurs="0"/>
+    	<!-- Above Field is Added for Commercial creditVetting(BINGO) 23/01/2019 -->
+    		</xsd:sequence>
+    	</xsd:complexType>
+    </xsd:schema>

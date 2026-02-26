@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bw5-resources
+  title: "BW5 Infrastructure Resources"
+spec:
+  targets:
+    - ./http-listen-customeridentitymanagement-idam-25-10-6.yaml
+    - ./http-listen-greeting.yaml
+    - ./http-listen-httpservice.yaml
+    - ./jms-dest-dummy.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-notify-soap-cust-ordcap.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-processes-itintegration.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-balmgt-deb.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-custdistpr.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-custprd-bi.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-pmtmethmgt.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-cust-custprofmg.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-itin-dataint-da.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-json-bill-balmg.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-json-cust-custp.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-prov-submgt-sub.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-if-request-refreshproductc.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-auditeven.yaml
+    - ./jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-errorhand.yaml
+    - ./jms-dest-ftlqueuein.yaml
+    - ./jms-dest-ftlqueueout.yaml
+    - ./jms-dest-processes-itintegration-applicationintegration-routing.yaml

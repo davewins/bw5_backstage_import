@@ -1,0 +1,43 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: reservebalanceforcouk
+  title: "ReserveBalanceForCOUK"
+  description: "Shared interface: ReserveBalanceForCOUK.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/Billing/BalanceManagement/DebitCreditManagement/ReserveBalanceForCOUK"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:ns0="http://xmlns.vodafone.co.uk/map/til/Billing/BalanceManagement/DebitCreditManagement/ReserveBalanceElements" 
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Billing/BalanceManagement/DebitCreditManagement/ReserveBalanceForCOUK"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Billing/BalanceManagement/DebitCreditManagement/ReserveBalanceElements" schemaLocation="ReserveBalanceElements.xsd"/>
+    	<complexType name="ReserveBalanceResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    			<element name="ReceivedPayment" type="ns0:ReceivedPaymentEBMType" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="ReserveBalanceForCOUKResponse" type="til:ReserveBalanceResponse"/>
+    	<complexType name="ReserveBalanceRequest">
+    		<sequence>
+    			<element name="ReceivedPayment" type="ns0:ReceivedPaymentEBMType"/>
+    		</sequence>
+    	</complexType>
+    	<element name="ReserveBalanceForCOUKRequest" type="til:ReserveBalanceRequest"/>
+    </schema>

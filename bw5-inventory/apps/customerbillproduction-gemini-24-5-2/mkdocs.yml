@@ -1,0 +1,9 @@
+site_name: CustomerBillProduction-Gemini-24_5_2
+site_description: Documentation for CustomerBillProduction-Gemini-24_5_2
+nav:
+  - Home: index.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand

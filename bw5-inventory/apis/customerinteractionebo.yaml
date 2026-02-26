@@ -1,0 +1,420 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customerinteractionebo
+  title: "CustomerInteractionEBO"
+  description: "Shared interface: CustomerInteractionEBO.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 1.1 **
+    ** Date: Oct 8, 2009 **
+     
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Core\EBO\CustomerInteraction\V1\CustomerInteractionEBO.xsd 
+     
+    -->
+     
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO CustomerInteraction EBO Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:corecustomerinteractioncust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerInteraction/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerInteraction/V1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.00" > 
+    <!-- ====================================================================== -->
+    <!-- ==============  Imports and Includes   =============================== -->
+    <!-- ====================================================================== -->
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerInteraction/V1" schemaLocation="../../../Custom/EBO/CustomerInteraction/V1/CustomCustomerInteractionEBO.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    <!-- ====================================================================== -->
+    <!-- ==============  CustomerInteraction EBO ====================== -->
+    <!-- ====================================================================== -->
+                          <xsd:element name="CustomerInteractionEBO" type="CustomerInteractionEBOType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    A customer interaction is the tracking of a customer communication with an organization in the context of the channel through which it occurs and the business objects it references. A customer interaction can take the form of a phone call, email, chat request, web collaboration or communication through some other channel. This may include internal communications within the organization that may or may not result in a communication to the customer
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                     <xsd:annotation> 
+                          <xsd:documentation> 
+                               <svcdoc:EBO> 
+                                       <svcdoc:Description> 
+    A customer interaction is the tracking of a customer communication with an organization in the context of the channel through which it occurs and the business objects it references. A customer interaction can take the form of a phone call, email, chat request, web collaboration or communication through some other channel. This may include internal communications within the organization that may or may not result in a communication to the customer
+                                       </svcdoc:Description> 
+                                       <svcdoc:Type>EBO</svcdoc:Type> 
+                                       <svcdoc:Industry/> 
+                               </svcdoc:EBO> 
+                          </xsd:documentation> 
+                     </xsd:annotation> 
+                    <xsd:complexType name="CustomerInteractionEBOType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Unique Identifier for the  Customer Interaction.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element name="Comment" type="corecom:TextType"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Comments related to the customer interaction.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="Description" type="corecom:TextType"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Descriptive information about the communication.   Example:  Credit and collections contact or charity reminder letter.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="CommunicationChannelCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    The channel through which the communication takes place, for example, email, phone call, chat, web conference, fax, meeting, or mailing.  Examples: Phone; Email.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="CommunicationChannelAddress" type="corecom:StringType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Describes the actual communication channel details.  For example if comminication channel code is PHONE this would hold the phone number such as (677) 908-7676 or for code of postal actual address.  Example: (775) 851-6000; georgia@mail.com.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="StartDateTime" type="corecom:DateTimeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Start Date and Time of the Interaction.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="EndDateTime" type="corecom:DateTimeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    End Date and Time of the Interaction.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="OutcomeCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    A list of lookup values defined to capture the resolution or outcome of the interaction.  Examples inlclude Closed, Resolved.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="OutboundIndicator" type="corecom:IndicatorType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    The direction that indicates whether the interaction is inbound (from customer to agent) or outbound (from agent to customer).
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="PriorityCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Priority for the customer Interaction. (High, Medium, Low)
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element ref="corecom:CustomerPartyReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Reference to the Customer Party for whom the CustomerInteraction is created.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionAttachment"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    A supporting document or other attachment related to the interaction.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionClassification"  minOccurs="0" maxOccurs="2" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Interactions can be classified into groupings.  Up to two classifications are supported.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionAssociation"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+     Business object association capability allows interactions to have linkage to other business objects that are involved in an interaction.  Multiple object associations are supported. For each association, the action taken against the business object can be captured. At the time of interaction creation or update, users can select a value from the lookup table to specify whether the business object is created/updated/viewed/re-opened/closed.
+    
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionParticipant"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    A key piece of interaction information is the participants that represent both sides of the communication. An interaction may have zero or more participants associated with it. These participants represent the individuals involved in that particular communication. There may be one or more internal representatives of the organization (e.g. Resources, Agents, Sales representatives, etc.), or one or more external representatives (e.g. Contacts of a Customer).  Interactions support only one customer per Interaction but can have multiple contacts for the customer. 
+    
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionActivity"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Activity related to the Interaction.  An interaction may require activities to document the resolution, forward a follow-up activity to another worker, and/or create a personal reminder.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="CustomerInteractionOriginationBusinessUnit"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Indicates the source where the customer interaction is originated. For e.g. The bank's branch where the customer interaction takes place
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+    					 <!-- CCS19.6 | CR: IRIS#26310 – Mobile Switching | START -->
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionEBOType" minOccurs="0" maxOccurs="unbounded"/>
+    					 <!-- CCS19.6 | CR: IRIS#26310 – Mobile Switching | END --> 
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionActivity" type="CustomerInteractionActivityType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Activity related to the Interaction.  An interaction may require activities to document the resolution, forward a follow-up activity to another worker, and/or create a personal reminder.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionActivityType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Unique Identification of Activity for Customer Interaction.  
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element name="DueDate" type="corecom:DateType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Due date for the activity.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element name="Comment" type="corecom:TextType"  minOccurs="0" maxOccurs="unbounded" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Comments about the activity.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element ref="corecom:AuditHistory"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Includes information on the user who created the activity and the date and time they created it.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                    <xsd:choice>
+                        <xsd:sequence>
+                          <xsd:element ref="corecom:AssignedWorkerReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The user to whom the follow up activity is assigned to for follow-up action.  An activity may be assigned to a specific user or to a type of user (user role).
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         </xsd:sequence>
+                        <xsd:sequence>
+                          <xsd:element name="AssignedRoleCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    The Role to whom the activity is sent for follow-up action.  An activity may be assigned to a specific user or to a type of user (user role).
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                         </xsd:sequence>
+                    </xsd:choice>
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionActivityType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionAssociation" type="CustomerInteractionAssociationType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+     Business object association capability allows interactions to have linkage to other business objects that are involved in an interaction.  Multiple object associations are supported. For each association, the action taken against the business object can be captured. At the time of interaction creation or update, users can select a value from the lookup table to specify whether the business object is created/updated/viewed/re-opened/closed.
+    
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionAssociationType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The unique identifier for the customer interaction reference.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element name="ObjectActionCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Type of action taken on the associated object such as Created, Updated, Closed, Viewed, ReOpened.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                          <xsd:element ref="corecom:ObjectReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    A reference to an associated business object.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionAssociationType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionAttachment" type="CustomerInteractionAttachmentType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    A supporting document or other attachment related to the interaction.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionAttachmentType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The unique identifier of the attachement.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="corecom:Attachment"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The attachment.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionAttachmentType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionClassification" type="CustomerInteractionClassificationType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Interactions can be classified into groupings.  Up to two classifications are supported.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionClassificationType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    A unique identifier for the classification.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element name="ClassificationCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Classification Code categorizes the customer interaction into larger groupings for reporting or other purposes.  Examples may include GEN for general, BILLING, CC for credit and collections, and WEB for web self service.  Sub Classification examples within the CC classification may include: CutNotice for cutoff notice sent, Remind1 for reminder notice 1 sent, and Disconnect for disconnect notice sent.
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionClassificationType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionOriginationBusinessUnit" type="CustomerInteractionOriginationBusinessUnitType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Indicates the source where the customer interaction is originated. For e.g. The bank's branch where the customer interaction takes place
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionOriginationBusinessUnitType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:BusinessUnitReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Reference to the source where the customer interaction is getting Originated. For e.g. The bank's branch where the customerinteraction is created.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element ref="corecom:ParentBusinessUnitReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    Reference to the parent organization/location of the source where the customer interaction is getting Originated. For e.g. The Bank (to which the branch belongs to) where the customer interaction is created.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionOriginationBusinessUnitType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+                          <xsd:element name="CustomerInteractionParticipant" type="CustomerInteractionParticipantType" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    A key piece of interaction information is the participants that represent both sides of the communication. An interaction may have zero or more participants associated with it. These participants represent the individuals involved in that particular communication. There may be one or more internal representatives of the organization (e.g. Resources, Agents, Sales representatives, etc.), or one or more external representatives (e.g. Contacts of a Customer).  Interactions support only one customer per Interaction but can have multiple contacts for the customer. 
+    
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                <xsd:complexType name="CustomerInteractionParticipantType" >
+                     <xsd:sequence>
+                          <xsd:element ref="corecom:Identification"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The unique identifier for the customer interaction participants.
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                          <xsd:element name="TypeCode" type="corecom:CodeType"  minOccurs="0" >
+                               <xsd:annotation> 
+                                    <xsd:documentation> 
+    Type of the Participant (e.g. Resource and Contact).
+                                    </xsd:documentation> 
+                               </xsd:annotation> 
+                         </xsd:element> 
+                    <xsd:choice>
+                        <xsd:sequence>
+                          <xsd:element ref="corecom:WorkerReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    An identification number for the internal worker participant.  
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         </xsd:sequence>
+                        <xsd:sequence>
+                          <xsd:element ref="corecom:CustomerPartyContactReference"  minOccurs="0" >
+                               <xsd:annotation> 
+                                   <xsd:documentation> 
+    The ID of the participant if they are a contact (external to the organization).
+                                   </xsd:documentation> 
+                               </xsd:annotation> 
+                          </xsd:element> 
+                         </xsd:sequence>
+                    </xsd:choice>
+                         <xsd:element name="Custom" type="corecustomerinteractioncust:CustomCustomerInteractionParticipantType" minOccurs="0"/>
+                     </xsd:sequence>
+                     <xsd:attribute name="actionCode" type="corecom:ActionCodeType" use="optional"/>
+                </xsd:complexType>
+    </xsd:schema>

@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: bw5-apps
+  title: "BW5 Applications"
+spec:
+  targets:
+    - ./balancemanagement-surepay-26-1-4/catalog-info.yaml
+    - ./customerbillproduction-gemini-24-5-2/catalog-info.yaml
+    - ./customeridentitymanagement-idam-25-10-6/catalog-info.yaml
+    - ./greeting/catalog-info.yaml
+    - ./hlradapter-23-8-9/catalog-info.yaml
+    - ./httpservice/catalog-info.yaml
+    - ./smsadapter-26-1-1/catalog-info.yaml
+    - ./til-hss-diameteradapter-25-11-1/catalog-info.yaml
+    - ./til-osm-adapter-1-22-2-1/catalog-info.yaml
+    - ./til-osm-adapter-22-6-a-1/catalog-info.yaml
+    - ./vftest/catalog-info.yaml

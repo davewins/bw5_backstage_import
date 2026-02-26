@@ -1,0 +1,126 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: updateidentity
+  title: "UpdateIdentity"
+  description: "Shared interface: UpdateIdentity.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- edited with XMLSpy v2017 rel. 3 (x64) (http://www.altova.com) by E McSweeney (Hewlett Packard Enterprise Com) -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerIdentityManagement/UpdateIdentity"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/CustomerManagement/CustomerProfileManagement/CustomerIdentityManagement/UpdateIdentity"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.2.xsd"/>
+    	<complexType name="UpdateIdentityResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    		</sequence>
+    	</complexType>
+    	<element name="UpdateIdentityResponse" type="til:UpdateIdentityResponse"/>
+    	<complexType name="BiometricType">
+    		<sequence>
+    			<element name="VoicePrint" minOccurs="0">
+    				<complexType>
+    					<sequence>
+    						<element name="LockStatus" type="xsd:string" minOccurs="0">
+    							<annotation>
+    								<documentation>If locked, a voiceprint cannot be used for voiceprint verification</documentation>
+    							</annotation>
+    						</element>
+    						<element name="LockReason" type="xsd:string" minOccurs="0">
+    							<annotation>
+    								<documentation>Text reason recorded at the time that VoicePrint lock status was set to locked.</documentation>
+    							</annotation>
+    						</element>
+    					</sequence>
+    				</complexType>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="CustomerIdentificationType">
+    		<annotation>
+    			<documentation> 
+    				This is a complex type holding various identifiers that can be used identify a existing of prospective customer.
+    			</documentation>
+    		</annotation>
+    		<sequence>
+    			<element name="ContactID" type="xsd:string" minOccurs="0">
+    				<annotation>
+    					<documentation> 
+    						The Contact Identifier provided for a customer.
+    					</documentation>
+    				</annotation>
+    			</element>
+    		</sequence>
+    	</complexType>
+    	<complexType name="PersonType">
+    		<annotation>
+    			<documentation> 
+    
+    A person Type refers to an individual who has a past, present or future relationship (e.g. employment, pensioner, dependent, beneficiary etc.) with the enterprise that creates and manages the person information
+    
+    			</documentation>
+    		</annotation>
+    	</complexType>
+    	<complexType name="IdentityType">
+    		<complexContent>
+    			<extension base="til:PersonType">
+    				<sequence>
+    					<element name="Biometric" type="til:BiometricType" minOccurs="0"/>
+    					<element name="Username" type="til:UsernameType" minOccurs="0" maxOccurs="unbounded"/>
+    					<element name="Password" type="til:PasswordType" minOccurs="0" maxOccurs="unbounded"/>
+    					<element name="PIN" type="til:PINType" minOccurs="0" maxOccurs="unbounded"/>
+    					<element name="MemorablePair" type="til:MemorablePairType" minOccurs="0"/>
+    				</sequence>
+    			</extension>
+    		</complexContent>
+    	</complexType>
+    	<complexType name="PINType">
+    		<sequence>
+    			<element name="Type" type="xsd:string"/>
+    			<element name="Value" type="xsd:string"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="PasswordType">
+    		<sequence>
+    			<element name="Type" type="xsd:string"/>
+    			<element name="Value" type="xsd:string"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="UsernameType">
+    		<sequence>
+    			<element name="Type" type="xsd:string"/>
+    			<element name="Value" type="xsd:string"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="MemorablePairType">
+    		<sequence>
+    			<element name="MemorableWord" type="xsd:string" minOccurs="0"/>
+    			<element name="Hint" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="Identity" type="til:IdentityType"/>
+    	<complexType name="UpdateIdentityRequest">
+    		<sequence>
+    			<element name="CustomerIdentification" type="til:CustomerIdentificationType" minOccurs="0"/>
+    			<element name="Identity" type="til:IdentityType" minOccurs="0"/>
+    			<element name="ActionCode" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="UpdateIdentityRequest" type="til:UpdateIdentityRequest"/>
+    </schema>

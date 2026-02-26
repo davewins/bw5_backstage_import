@@ -1,0 +1,54 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: authenticateidentity-2-json
+  title: "AuthenticateIdentity.2-JSON"
+  description: "Shared interface: AuthenticateIdentity.2-JSON.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="AuthenticateIdentity" type="JSONType"/>
+    	<xs:complexType name="customerIdentificationType">
+    		<xs:sequence>
+    			<xs:element name="contactId" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="pinType">
+    		<xs:all>
+    			<xs:element name="type" type="xs:string" minOccurs="0"/>
+    			<xs:element name="value" type="xs:string" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="identityType">
+    		<xs:all>
+    			<xs:element name="username" type="xs:string" minOccurs="0"/>
+    			<xs:element name="pin" type="pinType" minOccurs="0"/>
+    			<xs:element name="password" type="passwordType" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="passwordType">
+    		<xs:all>
+    			<xs:element name="value" type="xs:string" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="JSONType">
+    		<xs:all>
+    			<xs:element name="customerIdentification" type="customerIdentificationType" minOccurs="0"/>
+    			<xs:element name="trackingId" type="xs:string" minOccurs="0"/>
+    			<xs:element name="identity" type="identityType" minOccurs="0"/>
+    			<xs:element name="pinAuthenticationType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="authenticationMode" type="xs:string" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    </xs:schema>

@@ -1,0 +1,33 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: jsonerror
+  title: "JSONError"
+  description: "Shared interface: JSONError.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- $Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/Common/json/JSONError.xsd,v 1.2 2019/05/14 10:03:55 ntambe Exp $ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:jerr="http://www.tibco.com/common/json/Error"
+    	 targetNamespace="http://www.tibco.com/common/json/Error"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<element name="Error" type="jerr:JSONErrorType"/>
+    	<complexType name="JSONErrorType">
+    		<all>
+    			<element name="status" type="string" minOccurs="0"/>
+    			<element name="code" type="string" minOccurs="0"/>
+    			<element name="detail" type="string" minOccurs="0"/>
+    			<element name="detailedCode" type="string" minOccurs="0"/>
+    		</all>
+    	</complexType>
+    </schema>

@@ -1,0 +1,694 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: installedproductebm
+  title: "InstalledProductEBM"
+  description: "Shared interface: InstalledProductEBM.xsd (provided by til-osm-adapter-1-22-2-1)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 2.03 **
+    ** Date: Sep 30, 2008 **
+     
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Industry\Communications\EBO\InstalledProduct\V2\InstalledProductEBM.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO InstalledProduct EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:coreinstalledproductcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/InstalledProduct/V2" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/InstalledProduct/V2" xmlns:ebocontext="http://xmlns.oracle.com/EBO/BusinessContext/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/InstalledProduct/V2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.03">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="InstalledProductEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/InstalledProduct/V2" schemaLocation="../../../Custom/EBO/InstalledProduct/V2/CustomInstalledProductEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    	<xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    	<!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>InstalledProduct EBM identifies all the service operations that are supported for the InstalledProduct EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry>Communications</svcdoc:Industry>
+    				<svcdoc:EBOName>InstalledProductEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="InstalledProductEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================QueryInstalledProduct Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryInstalledProductEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryInstalledProductDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductEBM" type="QueryInstalledProductEBMType"/>
+    	<xsd:complexType name="QueryInstalledProductDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QueryInstalledProduct"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryInstalledProductType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="coreinstalledproductcust:CustomInstalledProductEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProduct" type="QueryInstalledProductType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= QueryInstalledProduct Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryInstalledProductResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryInstalledProductResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductResponseEBM" type="QueryInstalledProductResponseEBMType"/>
+    	<xsd:complexType name="QueryInstalledProductResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryInstalledProductResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryInstalledProductResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductResponse" type="QueryInstalledProductResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ QueryInstalledProduct List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryInstalledProductListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryInstalledProductListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductListEBM" type="QueryInstalledProductListEBMType"/>
+    	<xsd:complexType name="InstalledProductComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="InstalledProductQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="InstalledProductResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryInstalledProductListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="InstalledProductComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="InstalledProductQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="InstalledProductResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =========== QueryInstalledProduct List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryInstalledProductListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryInstalledProductListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductListResponseEBM" type="QueryInstalledProductListResponseEBMType"/>
+    	<xsd:complexType name="QueryInstalledProductListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryInstalledProductListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryInstalledProductListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryInstalledProductListResponse" type="QueryInstalledProductListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CreateInstalledProduct Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateInstalledProductEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateInstalledProductDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductEBM" type="CreateInstalledProductEBMType"/>
+    	<xsd:complexType name="CreateInstalledProductDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateInstalledProduct"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateInstalledProductType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProduct" type="CreateInstalledProductType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CreateInstalledProduct Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateInstalledProductResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateInstalledProductResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductResponseEBM" type="CreateInstalledProductResponseEBMType"/>
+    	<xsd:complexType name="CreateInstalledProductResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateInstalledProductResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateInstalledProductResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductResponse" type="CreateInstalledProductResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ CreateInstalledProduct List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateInstalledProductListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateInstalledProductListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductListEBM" type="CreateInstalledProductListEBMType"/>
+    	<xsd:complexType name="CreateInstalledProductListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateInstalledProductList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateInstalledProductListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductList" type="CreateInstalledProductListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== CreateInstalledProduct List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateInstalledProductListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateInstalledProductListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductListResponseEBM" type="CreateInstalledProductListResponseEBMType"/>
+    	<xsd:complexType name="CreateInstalledProductListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateInstalledProductListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateInstalledProductListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateInstalledProductListResponse" type="CreateInstalledProductListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================DeleteInstalledProduct Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteInstalledProductEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteInstalledProductDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductEBM" type="DeleteInstalledProductEBMType"/>
+    	<xsd:complexType name="DeleteInstalledProductDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteInstalledProduct"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteInstalledProductType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    InstalledProduct unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreinstalledproductcust:CustomInstalledProductEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProduct" type="DeleteInstalledProductType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= DeleteInstalledProduct Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteInstalledProductResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteInstalledProductResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductResponseEBM" type="DeleteInstalledProductResponseEBMType"/>
+    	<xsd:complexType name="DeleteInstalledProductResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteInstalledProductResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteInstalledProductResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    InstalledProduct unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreinstalledproductcust:CustomInstalledProductEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductResponse" type="DeleteInstalledProductResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ DeleteInstalledProduct List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteInstalledProductListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteInstalledProductListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductListEBM" type="DeleteInstalledProductListEBMType"/>
+    	<xsd:complexType name="DeleteInstalledProductListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteInstalledProductList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteInstalledProductListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    InstalledProduct unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreinstalledproductcust:CustomInstalledProductEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductList" type="DeleteInstalledProductListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== DeleteInstalledProduct List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteInstalledProductListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteInstalledProductListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductListResponseEBM" type="DeleteInstalledProductListResponseEBMType"/>
+    	<xsd:complexType name="DeleteInstalledProductListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteInstalledProductListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteInstalledProductListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    InstalledProduct unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="coreinstalledproductcust:CustomInstalledProductEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteInstalledProductListResponse" type="DeleteInstalledProductListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ SyncInstalledProduct List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncInstalledProductListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncInstalledProductListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncInstalledProductListEBM" type="SyncInstalledProductListEBMType"/>
+    	<xsd:complexType name="SyncInstalledProductListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncInstalledProductList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncInstalledProductListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncInstalledProductList" type="SyncInstalledProductListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== SyncInstalledProduct List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncInstalledProductListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncInstalledProductListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncInstalledProductListResponseEBM" type="SyncInstalledProductListResponseEBMType"/>
+    	<xsd:complexType name="SyncInstalledProductListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncInstalledProductListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncInstalledProductListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncInstalledProductListResponse" type="SyncInstalledProductListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateInstalledProduct Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateInstalledProductEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateInstalledProductDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductEBM" type="UpdateInstalledProductEBMType"/>
+    	<xsd:complexType name="UpdateInstalledProductDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateInstalledProduct"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateInstalledProductType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProduct" type="UpdateInstalledProductType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateInstalledProduct Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateInstalledProductResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateInstalledProductResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductResponseEBM" type="UpdateInstalledProductResponseEBMType"/>
+    	<xsd:complexType name="UpdateInstalledProductResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateInstalledProductResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateInstalledProductResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductResponse" type="UpdateInstalledProductResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateInstalledProduct List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateInstalledProductListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateInstalledProductListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductListEBM" type="UpdateInstalledProductListEBMType"/>
+    	<xsd:complexType name="UpdateInstalledProductListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateInstalledProductList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateInstalledProductListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductList" type="UpdateInstalledProductListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateInstalledProduct List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateInstalledProductListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateInstalledProductListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductListResponseEBM" type="UpdateInstalledProductListResponseEBMType"/>
+    	<xsd:complexType name="UpdateInstalledProductListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateInstalledProductListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateInstalledProductListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="InstalledProductEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateInstalledProductListResponse" type="UpdateInstalledProductListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ ProcessInstalledProductSpecialRatingSet Type Definition ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:InstalledProductIdentification" minOccurs="0"/>
+    			<xsd:element ref="corecom:ParentInstalledProductReference" minOccurs="0"/>
+    			<xsd:element ref="corecom:OwnerPartyReference" minOccurs="0"/>
+    			<xsd:element ref="InstalledProductSpecificationGroup" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ================ ProcessInstalledProductSpecialRatingSet List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessInstalledProductSpecialRatingSetListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessInstalledProductSpecialRatingSetListEBM" type="ProcessInstalledProductSpecialRatingSetListEBMType">
+    		<xsd:annotation>
+    			<xsd:documentation>This operation is used to process a set of values for which the customer gets discounted rates (special rating) in one or more service instances (InstalledProducts) to support Friends and Family type of promotion. For example, a CRM request to billing to enable special or discounted rating where a wireless customer can specify a set of frequent called phone numbers.  Calls to those numbers will be charged at a discounted rate. The list of phone numbers is transformed into a specification group within the installed product.</xsd:documentation>
+    		</xsd:annotation>
+    	</xsd:element>
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessInstalledProductSpecialRatingSetList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProcessInstalledProductSpecialRatingSetType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessInstalledProductSpecialRatingSetList" type="ProcessInstalledProductSpecialRatingSetListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== ProcessInstalledProductSpecialRatingSet List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessInstalledProductSpecialRatingSetListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessInstalledProductSpecialRatingSetListResponseEBM" type="ProcessInstalledProductSpecialRatingSetListResponseEBMType"/>
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessInstalledProductSpecialRatingSetListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessInstalledProductSpecialRatingSetListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ProcessInstalledProductSpecialRatingSetType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessInstalledProductSpecialRatingSetListResponse" type="ProcessInstalledProductSpecialRatingSetListResponseType"/>
+    </xsd:schema>

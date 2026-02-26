@@ -1,0 +1,1093 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customerpartyebm
+  title: "CustomerPartyEBM"
+  description: "Shared interface: CustomerPartyEBM.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 2.02 **
+    ** Date: Aug 23, 2008 **
+     
+    Copyright (c) 2007, Oracle. All rights reserved 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Core\EBO\CustomerParty\V2\CustomerPartyEBM.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO CustomerParty EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:corecustomerpartycust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerParty/V2" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerParty/V2" xmlns:ebocontext="http://xmlns.oracle.com/EBO/BusinessContext/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/CustomerParty/V2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.02">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="CustomerPartyEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/CustomerParty/V2" schemaLocation="../../../Custom/EBO/CustomerParty/V2/CustomCustomerPartyEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    	<xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    	<!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>CustomerParty EBM identifies all the service operations that are supported for the CustomerParty EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry>Communications</svcdoc:Industry>
+    				<svcdoc:EBOName>CustomerPartyEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomerPartyEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================QueryCustomerParty Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerPartyEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerPartyDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyEBM" type="QueryCustomerPartyEBMType"/>
+    	<xsd:complexType name="QueryCustomerPartyDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QueryCustomerParty"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryCustomerPartyType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerParty" type="QueryCustomerPartyType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= QueryCustomerParty Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerPartyResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerPartyResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyResponseEBM" type="QueryCustomerPartyResponseEBMType"/>
+    	<xsd:complexType name="QueryCustomerPartyResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryCustomerPartyResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryCustomerPartyResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyResponse" type="QueryCustomerPartyResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ QueryCustomerParty List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerPartyListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyListEBM" type="QueryCustomerPartyListEBMType"/>
+    	<xsd:complexType name="CustomerPartyComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="CustomerPartyQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="CustomerPartyResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="CustomerPartyComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomerPartyQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="CustomerPartyResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =========== QueryCustomerParty List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryCustomerPartyListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyListResponseEBM" type="QueryCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="QueryCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryCustomerPartyListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryCustomerPartyListResponse" type="QueryCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CreateCustomerParty Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerPartyEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerPartyDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyEBM" type="CreateCustomerPartyEBMType"/>
+    	<xsd:complexType name="CreateCustomerPartyDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateCustomerParty"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateCustomerPartyType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerParty" type="CreateCustomerPartyType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CreateCustomerParty Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerPartyResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerPartyResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyResponseEBM" type="CreateCustomerPartyResponseEBMType"/>
+    	<xsd:complexType name="CreateCustomerPartyResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateCustomerPartyResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateCustomerPartyResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyResponse" type="CreateCustomerPartyResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ CreateCustomerParty List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerPartyListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyListEBM" type="CreateCustomerPartyListEBMType"/>
+    	<xsd:complexType name="CreateCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateCustomerPartyList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateCustomerPartyListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyList" type="CreateCustomerPartyListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== CreateCustomerParty List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateCustomerPartyListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyListResponseEBM" type="CreateCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="CreateCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateCustomerPartyListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateCustomerPartyListResponse" type="CreateCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================DeleteCustomerParty Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerPartyEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerPartyDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyEBM" type="DeleteCustomerPartyEBMType"/>
+    	<xsd:complexType name="DeleteCustomerPartyDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteCustomerParty"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteCustomerPartyType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerParty unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerParty" type="DeleteCustomerPartyType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= DeleteCustomerParty Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerPartyResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerPartyResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyResponseEBM" type="DeleteCustomerPartyResponseEBMType"/>
+    	<xsd:complexType name="DeleteCustomerPartyResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteCustomerPartyResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteCustomerPartyResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerParty unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyResponse" type="DeleteCustomerPartyResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ DeleteCustomerParty List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerPartyListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyListEBM" type="DeleteCustomerPartyListEBMType"/>
+    	<xsd:complexType name="DeleteCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteCustomerPartyList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteCustomerPartyListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerParty unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyList" type="DeleteCustomerPartyListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== DeleteCustomerParty List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteCustomerPartyListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyListResponseEBM" type="DeleteCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="DeleteCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteCustomerPartyListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    CustomerParty unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteCustomerPartyListResponse" type="DeleteCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ SyncCustomerParty List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncCustomerPartyListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyListEBM" type="SyncCustomerPartyListEBMType"/>
+    	<xsd:complexType name="SyncCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncCustomerPartyList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyList" type="SyncCustomerPartyListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== SyncCustomerParty List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncCustomerPartyListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyListResponseEBM" type="SyncCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="SyncCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyListResponse" type="SyncCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateCustomerParty Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyEBM" type="UpdateCustomerPartyEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateCustomerParty"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerParty" type="UpdateCustomerPartyType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateCustomerParty Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyResponseEBM" type="UpdateCustomerPartyResponseEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateCustomerPartyResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyResponse" type="UpdateCustomerPartyResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateCustomerParty List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyListEBM" type="UpdateCustomerPartyListEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateCustomerPartyList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyList" type="UpdateCustomerPartyListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateCustomerParty List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyListResponseEBM" type="UpdateCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyListResponse" type="UpdateCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Process Customer Party Service                                                                                               ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="ProcessCustomerPartyListEBM" type="ProcessCustomerPartyListEBMType"/>
+    	<xsd:complexType name="ProcessCustomerPartyListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCustomerPartyListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCustomerPartyListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessCustomerPartyList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCustomerPartyListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCustomerPartyList" type="ProcessCustomerPartyListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Process Customer Party Response Service                                                                                               ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="ProcessCustomerPartyListResponseEBM" type="ProcessCustomerPartyListResponseEBMType"/>
+    	<xsd:complexType name="ProcessCustomerPartyListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCustomerPartyListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCustomerPartyListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessCustomerPartyListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCustomerPartyListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCustomerPartyListResponse" type="ProcessCustomerPartyListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CustomerPartyAccountEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:PartyType">
+    				<xsd:sequence>
+    					<xsd:element ref="CustomerPartyAccount" minOccurs="0">
+    						<xsd:annotation>
+    							<xsd:documentation> 
+    
+    
+    
+    Financial arrangement that a person or organization has with deploying company to buy products and services e.g. John's buying account at Amazon, Dell's buying account at Oracle
+    
+    
+    
+                                </xsd:documentation>
+    						</xsd:annotation>
+    					</xsd:element>
+    					<xsd:element name="Custom" type="corecustomerpartycust:CustomCustomerPartyEBOType" minOccurs="0"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ====================================================================== -->
+    	<!-- =====      Sync Customer PartyAccount List Service                                             ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="SyncCustomerPartyAccountListEBM" type="SyncCustomerPartyAccountListEBMType"/>
+    	<xsd:complexType name="SyncCustomerPartyAccountListEBMType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:EBMHeader"/>
+    			<xsd:element name="DataArea" type="SyncCustomerPartyAccountListDataAreaType" maxOccurs="unbounded"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="languageCode" type="corecom:LanguageCodeType"/>
+    		<xsd:attribute name="versionID" type="corecom:StringType"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyAccountListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncCustomerPartyAccountList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyAccountListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyAccountEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyAccountList" type="SyncCustomerPartyAccountListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      Sync Customer Party Account List Response Service                           ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="SyncCustomerPartyAccountListResponseEBM" type="SyncCustomerPartyAccountListResponseEBMType"/>
+    	<xsd:complexType name="SyncCustomerPartyAccountListResponseEBMType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:EBMHeader"/>
+    			<xsd:element name="DataArea" type="SyncCustomerPartyAccountListResponseDataAreaType" maxOccurs="unbounded"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="languageCode" type="corecom:LanguageCodeType"/>
+    		<xsd:attribute name="versionID" type="corecom:StringType"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyAccountListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncCustomerPartyAccountListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncCustomerPartyAccountListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyAccountEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncCustomerPartyAccountListResponse" type="SyncCustomerPartyAccountListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateCustomerPartyAccount Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyAccountEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyAccountDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyAccountEBM" type="UpdateCustomerPartyAccountEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyAccountDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateCustomerPartyAccount"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyAccountType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyAccountEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyAccount" type="UpdateCustomerPartyAccountType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateCustomerPartyAccount Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateCustomerPartyAccountResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateCustomerPartyAccountResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyAccountResponseEBM" type="UpdateCustomerPartyAccountResponseEBMType"/>
+    	<xsd:complexType name="UpdateCustomerPartyAccountResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateCustomerPartyAccountResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateCustomerPartyAccountResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyAccountEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateCustomerPartyAccountResponse" type="UpdateCustomerPartyAccountResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessCreditEligibilityVerification Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCreditEligibilityVerificationDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditEligibilityVerificationEBM" type="ProcessCreditEligibilityVerificationEBMType"/>
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessCreditEligibilityVerification"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    Identification of the credit eligibility verification request.
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="CreditRequestAmount" type="corecom:AmountType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Amount of credit requested       </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="RequestDateTime" type="corecom:DateTimeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Time at which the credit eligibility request was made       </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:SalesOrderReference" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    a reference to a SalesOrder.
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:SalesOpportunityReference" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    a reference to a Sales Opportunity.
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:CustomerPartyReference" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    A reference to a Customer for whom the credit eligibility is being verified
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditEligibilityVerification" type="ProcessCreditEligibilityVerificationType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessCreditEligibilityVerification Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCreditEligibilityVerificationResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditEligibilityVerificationResponseEBM" type="ProcessCreditEligibilityVerificationResponseEBMType"/>
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessCreditEligibilityVerificationResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCreditEligibilityVerificationResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    Identification of the credit eligibility verification response.
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="EligibilityCode" type="corecom:CodeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Code indicating the credit eligibility of that customer </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="EligibleAmount" type="corecom:AmountType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> Amount of credit that the customer is eligible for. This may be different from the CreditRequest amount</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="ResponseDateTime" type="corecom:DateTimeType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> The time at which the Credit Availability Response was provided        </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="OpenOrderAmount" type="corecom:AmountType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> This field will be used to add on  Total AmountDue for a customer as Total exposure. Generally applicable for Sales Opportunity check scenarios.       </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="DueAmount" type="corecom:AmountType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>add all AmountDue for the customer in this table plus OpenOrderAmount as Total Exposure. Generally applicable for Sales Opportunity check scenarios.        </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="CreditLimitAmount" type="corecom:AmountType" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> This field will be used to compare with Total Exposure to check customer credit. If credit limit is greater than Total exposure, The order will go through, otherwise it will be put on hold. Generally applicable for Sales Opportunity check scenarios.       </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:Note" minOccurs="0" maxOccurs="unbounded">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    Notes that can be indicated on the response
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element ref="corecom:CustomerPartyReference" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation> 
+    
+    A reference to a Customer for whom the credit eligibility is being verified
+    
+                                </xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditEligibilityVerificationResponse" type="ProcessCreditEligibilityVerificationResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      ProcessBillingAccount Service                                                                                               ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="ProcessBillingAccountEBM" type="ProcessBillingAccountEBMType"/>
+    	<xsd:complexType name="ProcessBillingAccountEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessBillingAccountDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessBillingAccount"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccount" type="ProcessBillingAccountType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =====      ProcessBillingAccount Response Service                                                                                               ===== -->
+    	<!-- ====================================================================== -->
+    	<xsd:element name="ProcessBillingAccountResponseEBM" type="ProcessBillingAccountResponseEBMType"/>
+    	<xsd:complexType name="ProcessBillingAccountResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessBillingAccountResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessBillingAccountResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccountResponse" type="ProcessBillingAccountResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessBillingAccountList Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessBillingAccountListEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessBillingAccountListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccountListEBM" type="ProcessBillingAccountListEBMType"/>
+    	<xsd:complexType name="ProcessBillingAccountListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessBillingAccountList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccountList" type="ProcessBillingAccountListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessBillingAccountList Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessBillingAccountListResponseEBMType">
+    		<xsd:annotation>
+    			<xsd:appinfo>
+    				<ebocontext:EBOContext>Communications</ebocontext:EBOContext>
+    			</xsd:appinfo>
+    		</xsd:annotation>
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessBillingAccountListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccountListResponseEBM" type="ProcessBillingAccountListResponseEBMType"/>
+    	<xsd:complexType name="ProcessBillingAccountListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessBillingAccountListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessBillingAccountListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="CustomerPartyEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessBillingAccountListResponse" type="ProcessBillingAccountListResponseType"/>
+    </xsd:schema>
