@@ -15,7 +15,7 @@
 | Env/Adapter/SMS/MIG_Threads | `2` | ✅ OK |
 | Env/Adapter/SMS/MIG_UseQueue | `true` | ✅ OK |
 | Env/Adapter/SMS/SMSC/MIG_Host | `PC4003176` | ✅ OK |
-| Env/Adapter/SMS/SMSC/MIG_Password | `#!8LAs2QwLqDqfhY9dJtdyBhb&#x200B;Zk3WAQlze45bBFV3b9Wc=` | ✅ OK |
+| Env/Adapter/SMS/SMSC/MIG_Password | `#!NvZcjyjaz/6ZCSaqXaq8qys&#x200B;9+n6C3phxwiP/nOl1SQY=` | ✅ OK |
 | Env/Adapter/SMS/SMSC/MIG_Port | `2601` | ✅ OK |
 | Env/Adapter/SMS/SMSC/MIG_Timeout | `20` | ✅ OK |
 | Env/Adapter/SMS/SMSC/MIG_UserName | `1919` | ✅ OK |
@@ -23,7 +23,7 @@
 | Env/JMS/Connections/SMSAdapter/GLB_QueueConnectionFactory | `QueueConnectionFactory` | ✅ OK |
 | Env/JMS/Connections/SMSAdapter/GLB_TopicConnectionFactory | `TopicConnectionFactory` | ✅ OK |
 | Env/JMS/Connections/SMSAdapter/MIG_JMSURL | `tcp://hscot07:8222` | ✅ OK |
-| Env/JMS/Connections/SMSAdapter/MIG_Password | `#!hPpT94Tg8K5WgeFUsIzzla9&#x200B;tw5BUa2tT` | ✅ OK |
+| Env/JMS/Connections/SMSAdapter/MIG_Password | `#!suM6ABBfcKfIgVD68obSc6x&#x200B;ypoA1VeQf` | ✅ OK |
 | Env/JMS/Connections/SMSAdapter/MIG_Username | `tilsms` | ✅ OK |
 | Env/JMS/MIG_Jms_Dest_Prefix | `VOD.UK.DEV` | ✅ OK |
 | Env/JMS/MIG_Jms_Dest_Prefix_IF | `VOD.UK.DEV.TILIF` | ✅ OK |
