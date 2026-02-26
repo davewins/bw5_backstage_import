@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: savecreditcheckresult
+  title: "SaveCreditCheckResult"
+  description: "External or unresolved API — referenced by til-osm-adapter-1-22-2-1 as 'SaveCreditCheckResult.xsd'"
+  tags:
+    - tibco
+    - bw5
+    - external
+    - unresolved
+spec:
+  type: openapi
+  lifecycle: unknown
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    # Not found in scanned EAR files.
+    # Original reference: SaveCreditCheckResult.xsd
+    # First referenced by: til-osm-adapter-1-22-2-1

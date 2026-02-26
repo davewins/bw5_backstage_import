@@ -1,0 +1,610 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: receivedpaymentebm
+  title: "ReceivedPaymentEBM"
+  description: "Shared interface: ReceivedPaymentEBM.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    ** Oracle Corporation  **
+    ** AIA Enterprise Object Library **
+    ** Version: 1.01 **
+    ** Date: Aug 23, 2008 **
+     
+     Copyright (c) 2007, 2010, Oracle and/or its affiliates. All rights reserved. 
+    License information for this file is provided in the file 
+    "Oracle AIA EBO License.txt" that is provided with this package.
+     
+        XML Schema 
+        Name: \EnterpriseObjectsLibrary\Core\EBO\ReceivedPayment\V1\ReceivedPaymentEBM.xsd 
+     
+    -->
+    <!-- ====================================================================== -->
+    <!-- =====      Oracle EBO ReceivedPayment EBM Schema Module     ===== -->
+    <!-- ====================================================================== -->
+    <xsd:schema xmlns:corecom="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" xmlns:corereceivedpaymentcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/ReceivedPayment/V1" xmlns:corecomcust="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" xmlns:corecomEBO="http://xmlns.oracle.com/EnterpriseObjects/Core/CommonEBO/V1" xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing" xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:svcdoc="http://xmlns.oracle.com/Services/Documentation/V1" xmlns="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/ReceivedPayment/V1" targetNamespace="http://xmlns.oracle.com/EnterpriseObjects/Core/EBO/ReceivedPayment/V1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.01">
+    	<!-- ====================================================================== -->
+    	<!-- ==============  Imports and Includes   =============================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:include schemaLocation="ReceivedPaymentEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/Meta.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CommonComponents.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/CodeLists.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Common/V2" schemaLocation="../../../Common/V2/DataTypes.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/EBO/ReceivedPayment/V1" schemaLocation="../../../Custom/EBO/ReceivedPayment/V1/CustomReceivedPaymentEBO.xsd"/>
+    	<xsd:import namespace="http://xmlns.oracle.com/EnterpriseObjects/Core/Custom/Common/V2" schemaLocation="../../../Custom/Common/V2/CustomCommonComponents.xsd"/>
+    	<xsd:import namespace="http://schemas.xmlsoap.org/ws/2003/03/addressing" schemaLocation="../../../Common/V2/WS-Addressing.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:context:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-context-schema-cd-04.xsd"/>
+    	<xsd:import namespace="urn:oasis:names:tc:xacml:2.0:policy:schema:cd:04" schemaLocation="../../../Common/V2/access_control-xacml-2.0-policy-schema-cd-04.xsd"/>
+    	<!-- ====================================================================== -->
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			<svcdoc:EBO>
+    				<svcdoc:Description>ReceivedPayment EBM identifies all the service operations that are supported for the ReceivedPayment EBO</svcdoc:Description>
+    				<svcdoc:Type>EBM</svcdoc:Type>
+    				<svcdoc:Industry/>
+    				<svcdoc:EBOName>ReceivedPaymentEBO</svcdoc:EBOName>
+    			</svcdoc:EBO>
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ReceivedPaymentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBOType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- ==================QueryReceivedPayment Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryReceivedPaymentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryReceivedPaymentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentEBM" type="QueryReceivedPaymentEBMType"/>
+    	<xsd:complexType name="QueryReceivedPaymentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="corecom:SimpleQueryType" minOccurs="0"/>
+    			<xsd:element ref="QueryReceivedPayment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryReceivedPaymentType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0"/>
+    			<xsd:element name="Custom" type="corereceivedpaymentcust:CustomReceivedPaymentEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPayment" type="QueryReceivedPaymentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= QueryReceivedPayment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryReceivedPaymentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryReceivedPaymentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentResponseEBM" type="QueryReceivedPaymentResponseEBMType"/>
+    	<xsd:complexType name="QueryReceivedPaymentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryReceivedPaymentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryReceivedPaymentResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentResponse" type="QueryReceivedPaymentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ QueryReceivedPayment List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryReceivedPaymentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryReceivedPaymentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentListEBM" type="QueryReceivedPaymentListEBMType"/>
+    	<xsd:complexType name="ReceivedPaymentComplexQueryType">
+    		<xsd:sequence>
+    			<xsd:element name="QueryCode" type="ReceivedPaymentQueryCodeType" minOccurs="0"/>
+    			<xsd:element name="ResponseCode" type="ReceivedPaymentResponseCodeType" minOccurs="0"/>
+    			<xsd:element ref="corecom:QueryCriteria" minOccurs="0" maxOccurs="unbounded"/>
+    			<xsd:element ref="corecom:ResponseFilter" minOccurs="0"/>
+    		</xsd:sequence>
+    		<xsd:attribute name="getAllTranslationsIndicator" type="corecom:IndicatorType" use="optional"/>
+    		<xsd:attribute name="recordSetStart" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="recordSetCount" type="corecom:PositiveIntegerType" use="optional"/>
+    		<xsd:attribute name="maxItems" type="corecom:PositiveIntegerType" use="optional"/>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryReceivedPaymentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element name="Query" type="ReceivedPaymentComplexQueryType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ReceivedPaymentQueryCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<xsd:complexType name="ReceivedPaymentResponseCodeType">
+    		<xsd:simpleContent>
+    			<xsd:extension base="corecom:CodeType"/>
+    		</xsd:simpleContent>
+    	</xsd:complexType>
+    	<!-- ====================================================================== -->
+    	<!-- =========== QueryReceivedPayment List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="QueryReceivedPaymentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="QueryReceivedPaymentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentListResponseEBM" type="QueryReceivedPaymentListResponseEBMType"/>
+    	<xsd:complexType name="QueryReceivedPaymentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:QueryResponse"/>
+    			<xsd:element ref="QueryReceivedPaymentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="QueryReceivedPaymentListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="QueryReceivedPaymentListResponse" type="QueryReceivedPaymentListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================CreateReceivedPayment Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateReceivedPaymentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateReceivedPaymentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentEBM" type="CreateReceivedPaymentEBMType"/>
+    	<xsd:complexType name="CreateReceivedPaymentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateReceivedPayment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateReceivedPaymentType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPayment" type="CreateReceivedPaymentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= CreateReceivedPayment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateReceivedPaymentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateReceivedPaymentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentResponseEBM" type="CreateReceivedPaymentResponseEBMType"/>
+    	<xsd:complexType name="CreateReceivedPaymentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateReceivedPaymentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateReceivedPaymentResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentResponse" type="CreateReceivedPaymentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ CreateReceivedPayment List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateReceivedPaymentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateReceivedPaymentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentListEBM" type="CreateReceivedPaymentListEBMType"/>
+    	<xsd:complexType name="CreateReceivedPaymentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Create"/>
+    			<xsd:element ref="CreateReceivedPaymentList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateReceivedPaymentListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentList" type="CreateReceivedPaymentListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== CreateReceivedPayment List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="CreateReceivedPaymentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="CreateReceivedPaymentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentListResponseEBM" type="CreateReceivedPaymentListResponseEBMType"/>
+    	<xsd:complexType name="CreateReceivedPaymentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreateResponse"/>
+    			<xsd:element ref="CreateReceivedPaymentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="CreateReceivedPaymentListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="CreateReceivedPaymentListResponse" type="CreateReceivedPaymentListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================DeleteReceivedPayment Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteReceivedPaymentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteReceivedPaymentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentEBM" type="DeleteReceivedPaymentEBMType"/>
+    	<xsd:complexType name="DeleteReceivedPaymentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteReceivedPayment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteReceivedPaymentType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ReceivedPayment unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corereceivedpaymentcust:CustomReceivedPaymentEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPayment" type="DeleteReceivedPaymentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= DeleteReceivedPayment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteReceivedPaymentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteReceivedPaymentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentResponseEBM" type="DeleteReceivedPaymentResponseEBMType"/>
+    	<xsd:complexType name="DeleteReceivedPaymentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteReceivedPaymentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteReceivedPaymentResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ReceivedPayment unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corereceivedpaymentcust:CustomReceivedPaymentEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentResponse" type="DeleteReceivedPaymentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ DeleteReceivedPayment List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteReceivedPaymentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteReceivedPaymentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentListEBM" type="DeleteReceivedPaymentListEBMType"/>
+    	<xsd:complexType name="DeleteReceivedPaymentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Delete"/>
+    			<xsd:element ref="DeleteReceivedPaymentList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteReceivedPaymentListType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ReceivedPayment unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corereceivedpaymentcust:CustomReceivedPaymentEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentList" type="DeleteReceivedPaymentListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== DeleteReceivedPayment List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="DeleteReceivedPaymentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="DeleteReceivedPaymentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentListResponseEBM" type="DeleteReceivedPaymentListResponseEBMType"/>
+    	<xsd:complexType name="DeleteReceivedPaymentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:DeleteResponse"/>
+    			<xsd:element ref="DeleteReceivedPaymentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="DeleteReceivedPaymentListResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Identification" minOccurs="0">
+    				<xsd:annotation>
+    					<xsd:documentation>
+    ReceivedPayment unique identifier 
+    					</xsd:documentation>
+    				</xsd:annotation>
+    			</xsd:element>
+    			<xsd:element name="Custom" type="corereceivedpaymentcust:CustomReceivedPaymentEBOType" minOccurs="0"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="DeleteReceivedPaymentListResponse" type="DeleteReceivedPaymentListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================ProcessCreditChargeAuthorization Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCreditChargeAuthorizationDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditChargeAuthorizationEBM" type="ProcessCreditChargeAuthorizationEBMType"/>
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Process"/>
+    			<xsd:element ref="ProcessCreditChargeAuthorization"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreditChargeAuthorization" minOccurs="0" maxOccurs="unbounded"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditChargeAuthorization" type="ProcessCreditChargeAuthorizationType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= ProcessCreditChargeAuthorization Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="ProcessCreditChargeAuthorizationResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditChargeAuthorizationResponseEBM" type="ProcessCreditChargeAuthorizationResponseEBMType"/>
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:ProcessResponse"/>
+    			<xsd:element ref="ProcessCreditChargeAuthorizationResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="ProcessCreditChargeAuthorizationResponseType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:CreditChargeAuthorizationResponse" minOccurs="0" maxOccurs="unbounded"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:element name="ProcessCreditChargeAuthorizationResponse" type="ProcessCreditChargeAuthorizationResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ SyncReceivedPayment List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncReceivedPaymentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncReceivedPaymentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncReceivedPaymentListEBM" type="SyncReceivedPaymentListEBMType"/>
+    	<xsd:complexType name="SyncReceivedPaymentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Sync"/>
+    			<xsd:element ref="SyncReceivedPaymentList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncReceivedPaymentListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncReceivedPaymentList" type="SyncReceivedPaymentListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== SyncReceivedPayment List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="SyncReceivedPaymentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="SyncReceivedPaymentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncReceivedPaymentListResponseEBM" type="SyncReceivedPaymentListResponseEBMType"/>
+    	<xsd:complexType name="SyncReceivedPaymentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:SyncResponse"/>
+    			<xsd:element ref="SyncReceivedPaymentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="SyncReceivedPaymentListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="SyncReceivedPaymentListResponse" type="SyncReceivedPaymentListResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ==================UpdateReceivedPayment Service=================== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateReceivedPaymentEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateReceivedPaymentDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentEBM" type="UpdateReceivedPaymentEBMType"/>
+    	<xsd:complexType name="UpdateReceivedPaymentDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateReceivedPayment"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateReceivedPaymentType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPayment" type="UpdateReceivedPaymentType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ============= UpdateReceivedPayment Response Service ============= -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateReceivedPaymentResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateReceivedPaymentResponseDataAreaType"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentResponseEBM" type="UpdateReceivedPaymentResponseEBMType"/>
+    	<xsd:complexType name="UpdateReceivedPaymentResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateReceivedPaymentResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateReceivedPaymentResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentResponse" type="UpdateReceivedPaymentResponseType"/>
+    	<!-- ====================================================================== -->
+    	<!-- ================ UpdateReceivedPayment List Service ============== -->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateReceivedPaymentListEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateReceivedPaymentListDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentListEBM" type="UpdateReceivedPaymentListEBMType"/>
+    	<xsd:complexType name="UpdateReceivedPaymentListDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:Update"/>
+    			<xsd:element ref="UpdateReceivedPaymentList"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateReceivedPaymentListType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentList" type="UpdateReceivedPaymentListType"/>
+    	<!-- ====================================================================== -->
+    	<!-- =========== UpdateReceivedPayment List Response Service ==========-->
+    	<!-- ====================================================================== -->
+    	<xsd:complexType name="UpdateReceivedPaymentListResponseEBMType">
+    		<xsd:complexContent>
+    			<xsd:extension base="corecom:EBMType">
+    				<xsd:sequence>
+    					<xsd:element name="DataArea" type="UpdateReceivedPaymentListResponseDataAreaType" maxOccurs="unbounded"/>
+    				</xsd:sequence>
+    			</xsd:extension>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentListResponseEBM" type="UpdateReceivedPaymentListResponseEBMType"/>
+    	<xsd:complexType name="UpdateReceivedPaymentListResponseDataAreaType">
+    		<xsd:sequence>
+    			<xsd:element ref="corecom:UpdateResponse"/>
+    			<xsd:element ref="UpdateReceivedPaymentListResponse"/>
+    		</xsd:sequence>
+    	</xsd:complexType>
+    	<xsd:complexType name="UpdateReceivedPaymentListResponseType">
+    		<xsd:complexContent>
+    			<xsd:extension base="ReceivedPaymentEBMType"/>
+    		</xsd:complexContent>
+    	</xsd:complexType>
+    	<xsd:element name="UpdateReceivedPaymentListResponse" type="UpdateReceivedPaymentListResponseType"/>
+    </xsd:schema>
+    

@@ -1,0 +1,137 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: simpletypes-2
+  title: "SimpleTypes.2"
+  description: "Shared interface: SimpleTypes.2.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!--	Updated on 29/01/2018 by Nataraj.
+    	Added LOGICALOPERATOR and COMPARISONOPERATOR Simple Types.
+    
+    	[07/08/2018] : Anitha Govindasamy : Added "EID".
+    -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<simpleType name="CTN">
+    		<restriction base="xsd:string">
+    			<pattern value="(07|[+]?447)[0-9]{9}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="BAN">
+    		<restriction base="xsd:integer">
+    			<pattern value="[0-9]+"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="POSITIVEINT">
+    		<restriction base="xsd:integer">
+    			<pattern value="[0-9]+"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="PHONENUMBER">
+    		<restriction base="xsd:string">
+    			<pattern value="[+]?[0-9]{5,15}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="EMAILADDRESS">
+    		<restriction base="xsd:string">
+    			<pattern value="([\.a-zA-Z0-9_\-])+@([\.a-zA-Z0-9_\-])+(([\.a-zA-Z0-9_\-])*\.([\.a-zA-Z0-9_\-])+)+"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="BANKSORTCODE">
+    		<restriction base="xsd:string">
+    			<pattern value="[0-9]{6}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="BANKACCOUNTNUMBER">
+    		<restriction base="xsd:string">
+    			<pattern value="[0-9]{8}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="POSTCODE">
+    		<restriction base="xsd:string">
+    			<pattern value="[a-zA-Z0-9 ]{2,20}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="IMEI">
+    		<restriction base="xsd:string">
+    			<pattern value="[0-9]{15,16}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="UUID">
+    		<restriction base="xsd:string">
+    			<pattern value="([a-fA-F0-9]{8})-([a-fA-F0-9]{4})-([a-fA-F0-9]{4})-([a-fA-F0-9]{4})-([a-fA-F0-9]{12})"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="IMSI">
+    		<restriction base="xsd:string">
+    			<pattern value="[0-9]{15}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="SIM">
+    		<restriction base="xsd:string">
+    			<pattern value="[0-9]{19,20}"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="LOGICALOPERATOR">
+    		<restriction base="xsd:string">
+    			<enumeration value="AND"/>
+    			<enumeration value="OR"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="COMPARISONOPERATOR">
+    		<restriction base="xsd:string">
+    			<enumeration value="EQUALS"/>
+    			<enumeration value="NOT_EQUALS"/>
+    			<enumeration value="GREATER_THAN"/>
+    			<enumeration value="GREATER_THAN_EQUALS"/>
+    			<enumeration value="LESS_THAN"/>
+    			<enumeration value="LESS_THAN_EQUALS"/>
+    			<enumeration value="CONTAINS"/>
+    			<enumeration value="DOES_NOT_CONTAIN"/>
+    			<enumeration value="LIKE"/>
+    			<enumeration value="NOT_LIKE"/>
+    			<enumeration value="LIKE_IGNORE_CASE"/>
+    			<enumeration value="NOT_LIKE_IGNORE_CASE"/>
+    			<enumeration value="IS_BLANK"/>
+    			<enumeration value="IS_NOT_BLANK"/>
+    			<enumeration value="BETWEEN"/>
+    			<enumeration value="NOT_BETWEEN"/>
+    			<enumeration value="IN"/>
+    			<enumeration value="NOT_IN"/>
+    		</restriction>
+    	</simpleType>
+    	<simpleType name="EID">
+    		<restriction base="xsd:integer">
+    			<pattern value="[0-9]{32}"/>
+    		</restriction>
+    	</simpleType>
+    	<element name="CTN" type="vod:CTN"/>
+    	<element name="BAN" type="vod:BAN"/>
+    	<element name="PHONENUMBER" type="vod:PHONENUMBER"/>
+    	<element name="EMAILADDRESS" type="vod:EMAILADDRESS"/>
+    	<element name="POSITIVEINT" type="vod:POSITIVEINT"/>
+    	<element name="BANKSORTCODE" type="vod:BANKSORTCODE"/>
+    	<element name="BANKACCOUNTNUMBER" type="vod:BANKACCOUNTNUMBER"/>
+    	<element name="POSTCODE" type="vod:POSTCODE"/>
+    	<element name="UUID" type="vod:UUID"/>
+    	<element name="IMEI" type="vod:IMEI"/>
+    	<element name="IMSI" type="vod:IMSI"/>
+    	<element name="SIM" type="vod:SIM"/>
+    	<element name="LOGICALOPERATOR" type="vod:LOGICALOPERATOR"/>
+    	<element name="COMPARISONOPERATOR" type="vod:COMPARISONOPERATOR"/>
+    	<element name="EID" type="vod:EID"/>
+    </schema>

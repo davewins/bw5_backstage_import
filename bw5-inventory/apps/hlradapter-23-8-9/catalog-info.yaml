@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hlradapter-23-8-9
+  title: "HLRAdapter-23_8_9"
+  description: "TIBCO BW5 Application: HLRAdapter-23_8_9"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tibco
+    - bw5
+    - integration
+  links:
+    - url: https://example.com/admin/hlradapter-23-8-9
+      title: Admin Console
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate

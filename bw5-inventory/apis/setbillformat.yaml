@@ -1,0 +1,52 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: setbillformat
+  title: "SetBillFormat"
+  description: "Shared interface: SetBillFormat.xsd (provided by customerbillproduction-gemini-24-5-2)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:til="http://xmlns.vodafone.co.uk/map/til/Billing/CustomerBillProduction/BillFormatting/SetBillFormat"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:rs="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:cs="http://xmlns.vodafone.co.uk/map/til/Common/CustomerSegment"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Billing/CustomerBillProduction/BillFormatting/SetBillFormat"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/ResultStatus" schemaLocation="../../../Common/ResultStatus.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../../../Common/SimpleTypes.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CustomerSegment" schemaLocation="../../../Common/CustomerSegment.xsd"/>
+    
+    	<!-- Initial Version for VOP ISD  11/06/2008 -->
+    	<!-- 0.4 Normalized element name itemisedBillingSOC 14/07/2008-->
+    	<!-- 0.5 CTN element type is changed to Phonenumber 21/07/2009-->
+    	<complexType name="SetBillFormatRequest">
+    		<sequence>
+    			<element name="BAN" type="vod:BAN"/>
+    			<element name="BEN" type="vod:BEN"/>
+    			<element name="CTN" type="vod:PHONENUMBER"/>
+    			<element name="paperBillReqd" type="xsd:boolean"/>
+    			<element name="itemisedBillingSOC" type="xsd:string" minOccurs="0"/>
+    		<!-- CustomerSegment optional element added as part of UC4 changes -->
+    			<element name="CustomerSegment" type="cs:CustomerSegment" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="SetBillFormatResponse">
+    		<sequence>
+    			<element ref="rs:ResultStatus"/>
+    		</sequence>
+    	</complexType>
+    	<element name="SetBillFormatRequest" type="til:SetBillFormatRequest"/>
+    	<element name="SetBillFormatResponse" type="til:SetBillFormatResponse"/>
+    </schema>

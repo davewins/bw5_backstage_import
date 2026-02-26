@@ -1,0 +1,50 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: insertshipmentresponse
+  title: "InsertShipmentResponse"
+  description: "Shared interface: InsertShipmentResponse.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="JSON" type="JSONType"/>
+    	<xs:complexType name="JSONType">
+    		<xs:sequence>
+    			<xs:element name="error" type="errorType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xs:element name="data" type="dataType" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="errorType">
+    		<xs:all>
+    			<xs:element name="errorCode" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorMessage" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorAction" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorObj" type="xs:string" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="dataType">
+    		<xs:sequence>
+    			<xs:element name="shipmentId" type="xs:integer" minOccurs="0"/>
+    			<xs:element name="consolidated" type="xs:boolean" minOccurs="0"/>
+    			<xs:element name="consignmentDetail" type="consignmentDetailType" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="consignmentDetailType">
+    		<xs:sequence>
+    			<xs:element name="consignmentNumber" type="xs:string" minOccurs="0"/>
+    			<xs:element name="parcelNumbers" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:schema>

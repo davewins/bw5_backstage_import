@@ -1,0 +1,79 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: customerbillproduction-gemini-24-5-2
+  title: "CustomerBillProduction-Gemini-24_5_2"
+  description: "TIBCO BW5 Application: CustomerBillProduction-Gemini-24_5_2"
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - tibco
+    - bw5
+    - integration
+    - jdbc
+    - soap-http
+    - xml-jms
+  links:
+    - url: https://example.com/admin/customerbillproduction-gemini-24-5-2
+      title: Admin Console
+      icon: dashboard
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  providesApis:
+    - api:default/address
+    - api:default/auditevent
+    - api:default/changebillingpattern
+    - api:default/creditcard
+    - api:default/customersegment
+    - api:default/exception
+    - api:default/exceptionjmsmessage
+    - api:default/getbalanceforban
+    - api:default/getbilldates
+    - api:default/getbillformat
+    - api:default/getdiscounts
+    - api:default/getpaymentinformation
+    - api:default/getpaymentinformation-2
+    - api:default/invocationdetails
+    - api:default/isgeminiavailable
+    - api:default/jmsproperties
+    - api:default/logon
+    - api:default/msisdn
+    - api:default/payment-api-v1-0
+    - api:default/person
+    - api:default/requestheader
+    - api:default/resultstatus
+    - api:default/sendadhoccardpayment
+    - api:default/setallocationcodes
+    - api:default/setbillformat
+    - api:default/setdiscount
+    - api:default/setprintcategory
+    - api:default/simpletypes
+    - api:default/unreservectn
+    - api:default/writetolog
+  consumesApis:
+    - api:default/changecontactdetails
+    - api:default/changepriceplan
+    - api:default/chargeaccountvalidate
+    - api:default/findban
+    - api:default/findbusinessban
+    - api:default/findconsumerban
+    - api:default/getaccount
+    - api:default/getbalance
+    - api:default/getbillinformation
+    - api:default/getbilllist
+    - api:default/getctnlistforbill
+    - api:default/getitemisation
+    - api:default/setbillformat-2
+    - api:default/svapsimpletypes
+  dependsOn:
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-balmgt-deb
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-custdistpr
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-custprd-bi
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-bill-pmtmethmgt
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-itin-dataint-da
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-if-request-prov-submgt-sub
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-auditeven
+    - resource:default/jms-dest-env-jms-mig-jms-dest-prefix-internal-env-jms-errorhand

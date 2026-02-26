@@ -1,0 +1,24 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: updateidentityresponse
+  title: "updateIdentityResponse"
+  description: "Shared interface: updateIdentityResponse.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="JSON" type="JSONType"/>
+    <xs:complexType name="JSONType">
+    <xs:all>
+    <xs:element type="xs:string" name="status" minOccurs="0"/>
+    <xs:element type="xs:string" name="code" minOccurs="0"/>
+    <xs:element type="xs:string" name="detail" minOccurs="0"/>
+    </xs:all></xs:complexType></xs:schema>

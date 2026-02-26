@@ -1,0 +1,40 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: tokenintrospectresponse
+  title: "TokenIntrospectResponse"
+  description: "Shared interface: TokenIntrospectResponse.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="JSON" type="JSONType"/>
+    	<xs:complexType name="TokenIntrospectResponseType">
+    		<xs:all>
+    			<xs:element name="Status" type="xs:string" minOccurs="0"/>
+    			<xs:element name="ContactId" type="xs:string" minOccurs="0"/>
+    			<xs:element name="Message" type="xs:string" minOccurs="0"/>
+    		</xs:all>
+    	</xs:complexType>
+    	<xs:complexType name="JSONType">
+    		<xs:sequence>
+    			<xs:element name="VFUserService" minOccurs="0">
+    				<xs:complexType>
+    					<xs:sequence>
+    						<xs:element name="TokenIntrospectResponse" type="TokenIntrospectResponseType" minOccurs="0"/>
+    					</xs:sequence>
+    				</xs:complexType>
+    			</xs:element>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:schema>

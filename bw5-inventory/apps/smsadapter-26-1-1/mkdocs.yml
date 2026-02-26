@@ -1,0 +1,14 @@
+site_name: SMSAdapter-26_1_1
+site_description: Documentation for SMSAdapter-26_1_1
+nav:
+  - Process Inventory: index.md
+  - Visual Flow Diagrams: diagrams.md
+  - Global Variables: variables.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+extra_css:
+  - stylesheets/extra.css

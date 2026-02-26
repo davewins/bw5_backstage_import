@@ -1,0 +1,14 @@
+site_name: HTTPService
+site_description: Documentation for HTTPService
+nav:
+  - Process Inventory: index.md
+  - Visual Flow Diagrams: diagrams.md
+  - Global Variables: variables.md
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+extra_css:
+  - stylesheets/extra.css

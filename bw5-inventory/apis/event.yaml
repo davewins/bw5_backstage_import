@@ -1,0 +1,114 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: event
+  title: "Event"
+  description: "Shared interface: Event.xsd (provided by customeridentitymanagement-idam-25-10-6)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!--
+    	07/03/2018 Balaji Rajan
+    	Initial version
+    
+    	08/03/2018 Anitha Govindasamy
+    	Modified the Event.xsd to align with Common Data Model.
+    -->
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 xmlns:comp="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents"
+    	 xmlns:evt="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Event"
+    	 targetNamespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonObjects/Event"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../SimpleTypes.2.xsd"/>
+    	<xs:import namespace="http://xmlns.vodafone.co.uk/map/til/Common/CommonComponents" schemaLocation="../CommonComponents.xsd"/>
+    	<xs:complexType name="EventType">
+    		<xs:sequence>
+    			<xs:element name="ID" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Unique Identifier of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="Name" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Name of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="Type" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Type of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="SubType" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Sub Type of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="Category" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Category of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="SubCategory" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Sub Category of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="Status" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Status of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="BusinessKey" type="comp:BusinessKeyType" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Main Business Key relating to the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="CreationDateTime" type="xsd:dateTime" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>DateTime when the Event was created.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="LastModifiedDateTime" type="xsd:dateTime" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>DateTime when the Event was last modified.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="RelatedEvents" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>List of Related Events.</xs:documentation>
+    				</xs:annotation>
+    				<xs:complexType>
+    					<xs:sequence>
+    						<xs:element name="RelatedEvent" type="evt:EventType" minOccurs="0" maxOccurs="unbounded">
+    							<xs:annotation>
+    								<xs:documentation>Related Event details.</xs:documentation>
+    							</xs:annotation>
+    						</xs:element>
+    					</xs:sequence>
+    				</xs:complexType>
+    			</xs:element>
+    			<xs:element name="Notes" type="xsd:string" minOccurs="0">
+    				<xs:annotation>
+    					<xs:documentation>Notes relating to the event if any.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    			<xs:element name="Specification" type="comp:SpecificationType" minOccurs="0" maxOccurs="unbounded">
+    				<xs:annotation>
+    					<xs:documentation>Additional/Specification information of the Event.</xs:documentation>
+    				</xs:annotation>
+    			</xs:element>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:element name="Event" type="evt:EventType"/>
+    </xs:schema>

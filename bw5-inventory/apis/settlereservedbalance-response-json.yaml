@@ -1,0 +1,32 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: settlereservedbalance-response-json
+  title: "SettleReservedBalance-Response-JSON"
+  description: "Shared interface: SettleReservedBalance-Response-JSON.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 xmlns="http://www.tibco.com/schemas/TIL_BalanceManagement-SurePay/SharedResources/SchemaDefinitions/Vodafone/Billing/BalanceManagement/DebitCreditManagement/SettleReservedBalance-Response-JSON.xsd"
+    	 targetNamespace="http://www.tibco.com/schemas/TIL_BalanceManagement-SurePay/SharedResources/SchemaDefinitions/Vodafone/Billing/BalanceManagement/DebitCreditManagement/SettleReservedBalance-Response-JSON.xsd"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="settleReservedBalanceResponse" type="settleReservedBalanceResponseType"/>
+    	<xs:complexType name="settleReservedBalanceResponseType">
+    		<xs:sequence>
+    			<xs:element name="status" type="xs:string" minOccurs="0"/>
+    			<xs:element name="code" type="xs:string" minOccurs="0"/>
+    			<xs:element name="detail" type="xs:string" minOccurs="0"/>
+    			<xs:element name="detailedCode" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:schema>

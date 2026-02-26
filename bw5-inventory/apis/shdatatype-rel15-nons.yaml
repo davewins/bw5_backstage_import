@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: shdatatype-rel15-nons
+  title: "ShDataType_Rel15_NONS"
+  description: "External or unresolved API — referenced by til-hss-diameteradapter-25-11-1 as 'ShDataType_Rel15_NONS.xsd'"
+  tags:
+    - tibco
+    - bw5
+    - external
+    - unresolved
+spec:
+  type: openapi
+  lifecycle: unknown
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    # Not found in scanned EAR files.
+    # Original reference: ShDataType_Rel15_NONS.xsd
+    # First referenced by: til-hss-diameteradapter-25-11-1

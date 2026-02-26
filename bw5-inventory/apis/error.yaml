@@ -1,0 +1,70 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: error
+  title: "Error"
+  description: "Shared interface: Error.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="JSON" type="JSONType"/>
+    	<xs:complexType name="JSONType">
+    		<xs:sequence>
+    			<xs:element name="code" type="xs:string" minOccurs="0"/>
+    			<xs:element name="reason" type="xs:string" minOccurs="0"/>
+    			<xs:element name="message" type="xs:string" minOccurs="0"/>
+    			<xs:element name="status" type="xs:string" minOccurs="0"/>
+    			<xs:element name="referenceError" type="xs:string" minOccurs="0"/>
+    			<xs:element name="description" type="xs:string" minOccurs="0"/>
+    			<xs:element name="timestamp" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorItem" type="errorItemType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xs:element name="baseType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="schemaLocation" type="xs:string" minOccurs="0"/>
+    			<xs:element name="type" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="errorItemType">
+    		<xs:sequence>
+    			<xs:element name="code" type="xs:string" minOccurs="0"/>
+    			<xs:element name="text" type="xs:string" minOccurs="0"/>
+    			<xs:element name="severity" type="xs:string" minOccurs="0"/>
+    			<xs:element name="errorItemCharacteristic" type="errorItemCharacteristicType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xs:element name="baseType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="schemaLocation" type="xs:string" minOccurs="0"/>
+    			<xs:element name="type" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="errorItemCharacteristicType">
+    		<xs:sequence>
+    			<xs:element name="id" type="xs:string" minOccurs="0"/>
+    			<xs:element name="name" type="xs:string" minOccurs="0"/>
+    			<xs:element name="valueType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="characteristicRelationship" type="characteristicRelationshipType" minOccurs="0" maxOccurs="unbounded"/>
+    			<xs:element name="value" type="xs:string" minOccurs="0"/>
+    			<xs:element name="baseType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="schemaLocation" type="xs:string" minOccurs="0"/>
+    			<xs:element name="type" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="characteristicRelationshipType">
+    		<xs:sequence>
+    			<xs:element name="id" type="xs:string" minOccurs="0"/>
+    			<xs:element name="href" type="xs:string" minOccurs="0"/>
+    			<xs:element name="relationshipType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="baseType" type="xs:string" minOccurs="0"/>
+    			<xs:element name="schemaLocation" type="xs:string" minOccurs="0"/>
+    			<xs:element name="type" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:schema>

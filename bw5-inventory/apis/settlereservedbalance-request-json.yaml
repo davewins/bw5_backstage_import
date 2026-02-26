@@ -1,0 +1,55 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: settlereservedbalance-request-json
+  title: "SettleReservedBalance-Request-JSON"
+  description: "Shared interface: SettleReservedBalance-Request-JSON.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    	 xmlns="http://www.tibco.com/schemas/TIL_BalanceManagement-SurePay/SharedResources/SchemaDefinitions/Vodafone/Billing/BalanceManagement/DebitCreditManagement/SettleReservedBalance-Request-JSON.xsd"
+    	 targetNamespace="http://www.tibco.com/schemas/TIL_BalanceManagement-SurePay/SharedResources/SchemaDefinitions/Vodafone/Billing/BalanceManagement/DebitCreditManagement/SettleReservedBalance-Request-JSON.xsd"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<xs:element name="settleReservedBalanceRequest" type="settleReservedBalanceRequestType"/>
+    	<xs:complexType name="settleReservedBalanceRequestType">
+    		<xs:sequence>
+    			<xs:element name="receivedPayment" type="receivedPaymentType" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="receivedPaymentType">
+    		<xs:sequence>
+    			<xs:element name="identification" type="identificationType" minOccurs="0"/>
+    			<xs:element name="confirmationNumber" type="xs:string" minOccurs="0"/>
+    			<xs:element name="authorizationAmount" type="xs:string" minOccurs="0"/>
+    			<xs:element name="description" type="xs:string" minOccurs="0"/>
+    			<xs:element name="paymentMethodCode" type="xs:string" minOccurs="0"/>
+    			<xs:element name="custom" type="customType" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="identificationType">
+    		<xs:sequence>
+    			<xs:element name="alternateObjectKey" type="alternateObjectKeyType" minOccurs="0" maxOccurs="unbounded"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="alternateObjectKeyType">
+    		<xs:sequence>
+    			<xs:element name="id" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    	<xs:complexType name="customType">
+    		<xs:sequence>
+    			<xs:element name="includePsd2Capping" type="xs:string" minOccurs="0"/>
+    			<xs:element name="chargeDescription" type="xs:string" minOccurs="0"/>
+    		</xs:sequence>
+    	</xs:complexType>
+    </xs:schema>

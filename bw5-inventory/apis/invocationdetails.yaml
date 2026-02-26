@@ -1,0 +1,396 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: invocationdetails
+  title: "InvocationDetails"
+  description: "Shared interface: InvocationDetails.xsd (provided by balancemanagement-surepay-26-1-4)"
+  tags:
+    - tibco
+    - bw5
+spec:
+  type: grpc
+  lifecycle: production
+  owner: group:default/tibco-imported
+  system: system:default/tibco-bw5-estate
+  definition: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <!-- ICC: LIB_FRAMEWORK_1_3_4 - 25/05/2006 -->
+    <!-- ICC: Added TIMER and JMSAERPC types of request -->
+    <!-- ICC: LIB_FRAMEWORK_1_3_6 - 04/07/2006 -->
+    <!-- ICC: Added TIMER and JMSAERPC types of request -->
+    <!-- ICC: LIB_FRAMEWORK_1_4_9 - 25/04/2007 -->
+    <!-- ICC: Added "Requirements" element -->
+    <!-- ICC: LIB_FRAMEWORK_1_5_0_P01 - 14/05/2007 -->
+    <!-- ICC: Added "HTTPRequest/correlationID" element -->
+    <!-- ICC: LIB_FRAMEWORK_1_5_1_P01 - 01/08/2008 -->
+    <!-- ICC: Added "HTTPRequest/SOAPDetails" element -->
+    <!-- ICC: LIB_FRAMEWORK_1_X_Y - 27/04/2009 -->
+    <!-- ICC: Added "JMSRequest/SOAPDetails" element -->
+    <!-- ICC: Changed "JMSRequest/JMSMessageProperties" to optional -->
+    <!-- ICC: 06/04/2011 - LIB_FRAMEWORK_3_0_0 -->
+    <!-- ICC: Added correlationID element -->
+    <!-- ICC: 04/01/2012 - LIB_FRAMEWORK_3_0_8 -->
+    <!-- ICC: Added Header SOAP Header in HTTPRequest -->
+    <!-- ICC: 30/05/2012 - LIB_FRAMEWORK_4_0_0 -->
+    <!-- ICC: Added WSSecurity SOAP Header -->
+    <!-- ICC: Added BusinessResources -->
+    <!-- TILV2: Header: /cvs/TIL_V2/SharedResources/SchemaDefinitions/Common/InvocationDetails.xsd,v 1.10 2010/05/05 09:10:29 ayelr Exp  -->
+    <!-- PXX: $Header: /cvs/TIL_CORE/TIL_FW_01/SharedResources/SchemaDefinitions/Common/InvocationDetails.xsd,v 1.17 2015/04/19 17:13:07 sseernam Exp $ -->
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:exe="http://xmlns.tibco.com/common/InvocationDetails"
+    	 xmlns:rqh="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/RequestHeader"
+    	 xmlns:pjms="http://xmlns.tibco.com/common/JMSProperties"
+    	 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    	 xmlns:head="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/Header"
+    	 xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+    	 xmlns:vod="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes"
+    	 targetNamespace="http://xmlns.tibco.com/common/InvocationDetails"
+    	 elementFormDefault="qualified"
+    	 attributeFormDefault="unqualified">
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/RequestHeader" schemaLocation="../Vodafone/wsdl/Common/RequestHeader.xsd"/>
+    	<import namespace="http://xmlns.tibco.com/common/JMSProperties" schemaLocation="JMSProperties.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/wsdl/Common/Header" schemaLocation="../Vodafone/wsdl/Common/Header.xsd"/>
+    	<import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="../Others/docs.oasis-open.org/wss/2004/01/wss-wssecurity-secext.xsd"/>
+    	<import namespace="http://xmlns.vodafone.co.uk/map/til/Common/SimpleTypes" schemaLocation="../Vodafone/Common/SimpleTypes.xsd"/>
+    	<element name="InvocationDetails" type="exe:InvocationDetails"/>
+    	<complexType name="InvocationDetails">
+    		<sequence>
+    			<element name="processName" type="xsd:string"/>
+    			<element name="operationName" type="xsd:string"/>
+    			<element name="operationVersion" type="xsd:string" minOccurs="0"/>
+    			<element name="businessKey" type="xsd:string"/>
+    			<element ref="exe:BusinessResources" minOccurs="0" maxOccurs="unbounded"/>
+    			<element name="timestamp" type="xsd:long" minOccurs="0"/>
+    			<element name="Request" minOccurs="0">
+    				<complexType>
+    					<choice>
+    						<element name="JMSRequest">
+    							<complexType>
+    								<sequence>
+    									<element ref="pjms:JMSMessageProperties"/>
+    									<element name="xmlJMSReceiverOutput" type="xsd:string" minOccurs="0"/>
+    									<element name="body" type="xsd:string" minOccurs="0"/>
+    									<element name="SOAPProperties" minOccurs="0">
+    										<complexType>
+    											<sequence>
+    												<element name="requiresResponseHeader" type="xsd:boolean"/>
+    												<element name="RequestHeader" type="rqh:RequestHeader" minOccurs="0"/>
+    												<element ref="head:Header" minOccurs="0"/>
+    												<element ref="wsse:Security" minOccurs="0"/>
+    											</sequence>
+    										</complexType>
+    									</element>
+    								</sequence>
+    							</complexType>
+    						</element>
+    						<element name="HTTPRequest">
+    							<complexType>
+    								<sequence>
+    									<element name="format" type="exe:HTTPRequestFormat"/>
+    									<element name="HTTPProperties" minOccurs="0">
+    										<complexType>
+    											<sequence>
+    												<element name="method" type="xsd:string" minOccurs="0"/>
+    												<element name="requestURI" type="xsd:string" minOccurs="0"/>
+    												<element name="HTTPVersion" type="xsd:string" minOccurs="0"/>
+    												<element name="postData" type="xsd:string" minOccurs="0"/>
+    												<element name="command" type="xsd:string" minOccurs="0"/>
+    												<element name="queryString" type="xsd:string" minOccurs="0"/>
+    												<element name="Header" minOccurs="0">
+    													<complexType>
+    														<sequence>
+    															<element name="allContent" type="xsd:string"/>
+    															<element name="Source" type="xsd:string" minOccurs="0"/>
+    															<element name="Originator" type="xsd:string" minOccurs="0"/>
+    															<element name="EventType" type="xsd:string" minOccurs="0"/>
+    															<element name="TransactionID" type="xsd:string" minOccurs="0"/>
+    															<element name="Date" type="xsd:string" minOccurs="0"/>
+    															<element name="Destination" type="xsd:string" minOccurs="0"/>
+    															<element name="ContractVersion" type="xsd:string" minOccurs="0"/>
+    															<element name="OperationAction" type="xsd:string" minOccurs="0"/>
+    															<element name="ProcessId" type="xsd:string" minOccurs="0"/>
+    															<element name="Authorization" type="xsd:string" minOccurs="0"/>
+    															<element name="TraceId" type="xsd:string" minOccurs="0"/>
+    															<element name="MigrationStatus" type="xsd:string" minOccurs="0"/>
+    															<element name="SoapAction" type="xsd:string" minOccurs="0"/>
+    															<element name="Property" type="exe:Property" minOccurs="0" maxOccurs="unbounded"/>
+    															<element name="TMF" minOccurs="0">
+    																<complexType>
+    																	<sequence>
+    																		<element name="apiProcess" type="xsd:string" minOccurs="0"/>
+    																		<element name="customerSegment" type="xsd:string" minOccurs="0"/>
+    																		<element name="cacheControl" type="xsd:string" minOccurs="0"/>
+    																		<element name="countryCode" type="xsd:string" minOccurs="0"/>
+    																		<element name="property" minOccurs="0" maxOccurs="unbounded">
+    																			<complexType>
+    																				<sequence>
+    																					<element name="name" type="xsd:string" minOccurs="0"/>
+    																					<element name="value" type="xsd:string" minOccurs="0"/>
+    																				</sequence>
+    																			</complexType>
+    																		</element>
+    																	</sequence>
+    																</complexType>
+    															</element>
+    															<element name="OriginatorForLogging" type="xsd:string" minOccurs="0"/>
+    															<element name="Line" minOccurs="0" maxOccurs="unbounded">
+    																<complexType>
+    																	<sequence>
+    																		<element name="name" type="xsd:string"/>
+    																		<element name="value" type="xsd:string"/>
+    																	</sequence>
+    																</complexType>
+    															</element>
+    														</sequence>
+    													</complexType>
+    												</element>
+    												<element name="protocol" type="xsd:string" minOccurs="0"/>
+    												<element name="port" type="xsd:string" minOccurs="0"/>
+    												<element name="Context" minOccurs="0">
+    													<complexType>
+    														<sequence>
+    															<element name="SecurityContext" minOccurs="0">
+    																<complexType>
+    																	<sequence>
+    																		<element name="UsernamePasswordToken" minOccurs="0">
+    																			<complexType>
+    																				<sequence>
+    																					<element name="username" type="xsd:string"/>
+    																					<element name="password" minOccurs="0">
+    																						<complexType>
+    																							<simpleContent>
+    																								<extension base="xsd:string">
+    																									<attribute name="type" type="xsd:string"/>
+    																								</extension>
+    																							</simpleContent>
+    																						</complexType>
+    																					</element>
+    																				</sequence>
+    																			</complexType>
+    																		</element>
+    																		<element name="CertificateToken" minOccurs="0">
+    																			<complexType>
+    																				<sequence>
+    																					<element name="cipherSuite" type="xsd:string" minOccurs="0"/>
+    																					<element name="CertificateChain" minOccurs="0">
+    																						<complexType>
+    																							<sequence>
+    																								<element name="Certificate" minOccurs="0" maxOccurs="unbounded">
+    																									<complexType>
+    																										<sequence>
+    																											<element name="subjectDN" type="xsd:string" minOccurs="0"/>
+    																											<element name="issuerDN" type="xsd:string" minOccurs="0"/>
+    																											<element name="fingerPrint" type="xsd:base64Binary" minOccurs="0"/>
+    																											<element name="X509Certificate">
+    																												<complexType>
+    																													<sequence>
+    																														<element name="encoded" type="xsd:base64Binary"/>
+    																													</sequence>
+    																												</complexType>
+    																											</element>
+    																										</sequence>
+    																									</complexType>
+    																								</element>
+    																							</sequence>
+    																						</complexType>
+    																					</element>
+    																				</sequence>
+    																			</complexType>
+    																		</element>
+    																	</sequence>
+    																</complexType>
+    															</element>
+    															<element name="remoteAddress" type="xsd:string" minOccurs="0"/>
+    														</sequence>
+    													</complexType>
+    												</element>
+    											</sequence>
+    										</complexType>
+    									</element>
+    									<element name="xmlReceiverOutput" type="xsd:string" minOccurs="0"/>
+    									<element ref="exe:correlationID" minOccurs="0"/>
+    									<element name="SOAPProperties" minOccurs="0">
+    										<complexType>
+    											<sequence>
+    												<element name="requiresResponseHeader" type="xsd:boolean"/>
+    												<element name="RequestHeader" type="rqh:RequestHeader" minOccurs="0"/>
+    												<element ref="head:Header" minOccurs="0"/>
+    												<element ref="wsse:Security" minOccurs="0"/>
+    											</sequence>
+    										</complexType>
+    									</element>
+    								</sequence>
+    							</complexType>
+    						</element>
+    						<element name="JMSAERPC">
+    							<complexType>
+    								<sequence>
+    									<element name="subject" type="xsd:string" minOccurs="0"/>
+    									<element name="messageId" type="xsd:string" minOccurs="0"/>
+    									<element name="TrackingInfo" minOccurs="0">
+    										<complexType>
+    											<sequence>
+    												<element name="id" type="xsd:string" minOccurs="0"/>
+    												<element name="AppInfo" minOccurs="0">
+    													<complexType>
+    														<sequence>
+    															<element name="Info" minOccurs="0" maxOccurs="unbounded">
+    																<complexType>
+    																	<sequence>
+    																		<element name="item" type="xsd:string" minOccurs="0"/>
+    																	</sequence>
+    																</complexType>
+    															</element>
+    														</sequence>
+    													</complexType>
+    												</element>
+    											</sequence>
+    										</complexType>
+    									</element>
+    									<element name="body" type="xsd:string" minOccurs="0"/>
+    								</sequence>
+    							</complexType>
+    						</element>
+    						<element name="TIMER">
+    							<complexType>
+    								<sequence>
+    									<element name="now" type="xsd:long"/>
+    									<element name="hour" type="xsd:int"/>
+    									<element name="minute" type="xsd:int"/>
+    									<element name="second" type="xsd:int"/>
+    									<element name="week" type="xsd:int"/>
+    									<element name="month" type="xsd:int"/>
+    									<element name="year" type="xsd:int"/>
+    									<element name="date" type="xsd:date"/>
+    									<element name="time" type="xsd:string"/>
+    									<element name="day_of_month" type="xsd:int"/>
+    								</sequence>
+    							</complexType>
+    						</element>
+    						<element name="File">
+    							<complexType>
+    								<sequence>
+    									<element name="FileInfo">
+    										<complexType>
+    											<sequence>
+    												<element name="fullname" type="xsd:string"/>
+    											</sequence>
+    										</complexType>
+    									</element>
+    									<element name="payload" type="xsd:string"/>
+    								</sequence>
+    							</complexType>
+    						</element>
+    					</choice>
+    				</complexType>
+    			</element>
+    			<element ref="exe:Requirements" minOccurs="0"/>
+    			<element name="customID" type="xsd:string" minOccurs="0"/>
+    			<element name="context" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<complexType name="Requirements">
+    		<sequence>
+    			<element name="bodyWasEncrypted" type="xsd:boolean" minOccurs="0"/>
+    			<element name="decryption" type="xsd:boolean" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    	<element name="Requirements" type="exe:Requirements"/>
+    	<simpleType name="HTTPRequestFormat">
+    		<restriction base="xsd:string">
+    			<enumeration value="SOAPDOC"/>
+    			<enumeration value="SOAPRPC"/>
+    			<enumeration value="XML"/>
+    			<enumeration value="JSON"/>
+    		</restriction>
+    	</simpleType>
+    	<element name="correlationID" type="xsd:string"/>
+    	<element name="BusinessResources">
+    		<complexType>
+    			<sequence>
+    				<element name="CTN" minOccurs="0">
+    					<complexType>
+    						<sequence>
+    							<element ref="vod:CTN"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="IMSI" minOccurs="0">
+    					<complexType>
+    						<sequence>
+    							<element ref="vod:IMSI"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="SIM" minOccurs="0">
+    					<complexType>
+    						<sequence>
+    							<element ref="vod:SIM"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="ContactId" minOccurs="0">
+    					<complexType>
+    						<sequence>
+    							<element name="contactId" type="xsd:string"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="CustomerPartyId" minOccurs="0">
+    					<complexType>
+    						<sequence>
+    							<element name="customerPartyId" type="xsd:string"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="Resource" minOccurs="0" maxOccurs="unbounded">
+    					<complexType>
+    						<sequence>
+    							<element name="name" type="xsd:string"/>
+    							<element name="value" type="xsd:string"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    				<element name="CustomValidation" minOccurs="0" maxOccurs="unbounded">
+    					<complexType>
+    						<sequence>
+    							<element name="processName" type="xsd:string"/>
+    							<element ref="exe:ValidationScope"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    
+    				<!-- As Part of P11 Project, added a generic ID array to be able to support FixedLine and TV Business Resources and futuristic items -->
+    				<element name="ID" minOccurs="0" maxOccurs="unbounded">
+    					<complexType>
+    						<sequence>
+    							<element name="ID" type="xsd:string"/>
+    							<element name="contextId" type="xsd:string"/>
+    						</sequence>
+    					</complexType>
+    				</element>
+    			</sequence>
+    		</complexType>
+    	</element>
+    	<element name="ValidationScope">
+    		<complexType>
+    			<sequence>
+    				<element name="tokens" type="xsd:boolean" minOccurs="0"/>
+    				<element name="backend" type="xsd:boolean" minOccurs="0"/>
+    			</sequence>
+    		</complexType>
+    	</element>
+    	<complexType name="Property">
+    		<sequence>
+    			<element name="name" type="xsd:string" minOccurs="0"/>
+    			<element name="value" type="xsd:string" minOccurs="0"/>
+    		</sequence>
+    	</complexType>
+    </schema>
