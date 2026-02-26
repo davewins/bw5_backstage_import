@@ -1,9 +1,0 @@
-site_name: BalanceManagement-SurePay-26_1_4
-site_description: Documentation for BalanceManagement-SurePay-26_1_4
-nav:
-  - Home: index.md
-theme:
-  name: material
-  features:
-    - navigation.sections
-    - navigation.expand

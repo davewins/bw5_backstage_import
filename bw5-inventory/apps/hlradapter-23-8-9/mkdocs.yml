@@ -1,9 +1,0 @@
-site_name: HLRAdapter-23_8_9
-site_description: Documentation for HLRAdapter-23_8_9
-nav:
-  - Home: index.md
-theme:
-  name: material
-  features:
-    - navigation.sections
-    - navigation.expand

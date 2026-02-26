@@ -1,9 +1,0 @@
-site_name: greeting
-site_description: Documentation for greeting
-nav:
-  - Home: index.md
-theme:
-  name: material
-  features:
-    - navigation.sections
-    - navigation.expand
